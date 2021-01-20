@@ -29,7 +29,8 @@ Plug 'leafgarland/typescript-vim'
 Plug 'nikvdp/ejs-syntax'
 Plug 'cespare/vim-toml'
 Plug 'tomlion/vim-solidity'
-
+Plug 'udalov/kotlin-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 " Visual settings
@@ -122,6 +123,7 @@ augroup indentation
     autocmd FileType css setlocal softtabstop=2 shiftwidth=2
     autocmd FileType markdown setlocal softtabstop=4 shiftwidth=4 textwidth=90 formatoptions-=t
 augroup END
+
 
 " Status line
 set laststatus=2
@@ -297,3 +299,6 @@ augroup VimCSS3Syntax
   autocmd!
   autocmd FileType css setlocal iskeyword+=-
 augroup END
+
+" CoC
+let b:coc_suggest_disable = 1

@@ -40,9 +40,6 @@ if [ -f "$HOME/.colors.sh" ]; then
 fi
 CLEAR_EOL="\033[K"
 
-# Set cursor type to solid vertical bar.
-printf '\033[6 q'
-
 # Set the prompt.
 function prompt_command() {
     # If working on a python virtualenv, show it in the prompt.

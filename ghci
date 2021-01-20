@@ -1,4 +1,8 @@
 :set prompt "\ESC[34mλ>\ESC[m "
 :set prompt-cont "\ESC[34mλ...\ESC[m "
-:set -fno-warn-unused-imports
+
 :def hoogle \s -> return $ ":! hoogle --count=15 \"" ++ s ++ "\""
+
+:set -fno-warn-unused-imports
+:set -fno-warn-incomplete-uni-patterns
+:set -ferror-spans -freverse-errors -fprint-expanded-synonyms
