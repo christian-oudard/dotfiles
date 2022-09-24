@@ -1,0 +1,161 @@
+input type:keyboard {
+    xkb_layout "dvorak"
+    xkb_options "ctrl:swapcaps"
+}
+
+input type:touchpad {
+    pointer_accel +0.2
+    tap disabled
+    natural_scroll enabled
+}
+
+input "2:10:TPPS/2_Elan_TrackPoint" {
+    pointer_accel -0.3
+}
+
+input "6127:24717:PixArt_Lenovo_USB_Optical_Mouse" {
+    pointer_accel -0.7
+}
+
+
+bar {
+    position top
+    status_command i3status
+    colors {
+        statusline #E0E0E0
+        background #2C3E50
+        inactive_workspace #323232 #323232 #5c5c5c
+    }
+}
+
+font Inconsolata 11
+
+output * {
+    background #2C3E50 solid_color
+    # background /home/christian/pictures/wallpaper.jpg fit #444444
+}
+
+set $mod Mod4
+set $left d
+set $down h
+set $up t
+set $right n
+set $term foot --title="terminal"
+
+# Run programs with bemenu.
+set $menu bemenu-run \
+--ignorecase \
+--fn Inconsolata 11 \
+--line-height 21 \
+--width-factor=0.5 \
+--prompt="Run:" \
+--list 10 \
+--prefix '*' \
+--tb '#7F8C8D' \
+--tf '#F5F5F5' \
+--fb '#34495E' \
+--ff '#F5F5F5' \
+--nb '#34495E' \
+--nf '#7F8C8D' \
+--hb '#34495E' \
+--hf '#E67E22' \
+--ab '#34495E' \
+--af '#7F8C8D' \
+| xargs swaymsg exec --
+
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+k kill
+bindsym $mod+r exec $menu
+floating_modifier $mod normal
+bindsym $mod+Shift+c reload
+# bindsym $mod+Shift+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Shift+q exec swaymsg exit
+
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# Window splitting, floating windows, and layout.
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+# Default to tabbed layout.
+workspace_layout tabbed
+
+# Enable resizing of windows.
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+r mode "resize"
+
+# Handle idle and lock.
+#exec swayidle -w \
+#    timeout 300 'swaylock -f -c 000000' \
+#    timeout 6000 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#    before-sleep 'swaylock -f -c 000000'
+bindsym $mod+l exec 'swaylock --color=000000 --daemonize'
+
+# Turn display on and off, as a workaround for display bugs.
+bindsym XF86PickupPhone exec 'swaymsg "output * power on"'
+bindsym XF86HangupPhone exec 'swaymsg "output * power off"'
+
+# Include system sway config.
+include /etc/sway/config.d/*
+
+# Start terminal at startup.
+exec $term
