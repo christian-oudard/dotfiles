@@ -1,0 +1,143 @@
+#command
+j	repeat-search
+J	reverse-search
+h	forw-line
+H	forw-line-force
+t	back-line
+T	back-line-force
+f	forw-scroll
+b	back-scroll
+
+# Default commands:
+\r	forw-line
+\n	forw-line
+e	forw-line
+\kd	forw-line
+^E	forw-line
+^N	forw-line
+y	back-line
+^Y	back-line
+^K	back-line
+^P	back-line
+J	forw-line-force
+Y	back-line-force
+^D	forw-scroll
+^U	back-scroll
+\40	forw-screen
+^F	forw-screen
+^V	forw-screen
+\kD	forw-screen
+^B	back-screen
+\v	back-screen
+\kU	back-screen
+z	forw-window
+w	back-window
+\e\40	forw-screen-force
+F	forw-forever
+\eF	forw-until-hilite
+R	repaint-flush
+r	repaint
+^R	repaint
+^L	repaint
+\eu	undo-hilite
+\eU	clear-search
+g	goto-line
+\kh	goto-line
+<	goto-line
+\e<	goto-line
+p	percent
+%	percent
+\e[	left-scroll
+\e]	right-scroll
+\e(	left-scroll
+\e)	right-scroll
+\kl	left-scroll
+\kr	right-scroll
+\e{	no-scroll
+\e}	end-scroll
+{	forw-bracket {}
+}	back-bracket {}
+(	forw-bracket ()
+)	back-bracket ()
+[	forw-bracket []
+]	back-bracket []
+\e^F	forw-bracket
+\e^B	back-bracket
+G	goto-end
+\e>	goto-end
+>	goto-end
+\ke	goto-end
+\eG	goto-end-buffered
+\&=	status
+^G	status
+:f	status
+/	forw-search
+?	back-search
+\e/	forw-search *
+\e?	back-search *
+&	filter
+m	set-mark
+M	set-mark-bottom
+\em	clear-mark
+'	goto-mark
+^X^X	goto-mark
+E	examine
+:e	examine
+^X^V	examine
+:n	next-file
+:p	prev-file
+:x	index-file
+:d	remove-file
+-	toggle-option
+:t	toggle-option t
+s	toggle-option o
+\&_	display-option
+|	pipe
+v	visual
+!	shell
++	firstcmd
+H	help
+V	version
+0	digit
+1	digit
+2	digit
+3	digit
+4	digit
+5	digit
+6	digit
+7	digit
+8	digit
+9	digit
+q	quit
+Q	quit
+:q	quit
+:Q	quit
+ZZ	quit
+
+#env
+LESS = --RAW-CONTROL-CHARS 
+LESS += --ignore-case 
+# Set colors.
+LESS += --use-color 
+# Bold.
+LESS += --color=d+10.-$ 
+# Underline.
+LESS += --color=u+4.-$ 
+# Prompt.
+LESS += --color=P3.18$ 
+# Search results.
+LESS += --color=S18.17$ 
+# Error messages.
+LESS += --color=E1.18$ 
+
+# Unused?
+LESS += --color=B5.11$ 
+LESS += --color=C5.11$ 
+LESS += --color=H5.11$ 
+LESS += --color=M5.11$ 
+LESS += --color=N5.11$ 
+LESS += --color=R5.11$ 
+LESS += --color=W5.11$ 
+
+
+

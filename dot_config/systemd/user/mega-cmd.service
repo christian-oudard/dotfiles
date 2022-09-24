@@ -1,0 +1,11 @@
+[Unit]
+Description=MEGA cmd server
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/mega-cmd-server
+Restart=always
+
+[Install]
+WantedBy=default.target
