@@ -1,0 +1,89 @@
+# Executable search path.
+typeset -U path PATH
+path=(~/bin $path)
+export PATH
+
+# Run Sway WM automatically.
+if [[ -z $DISPLAY ]] && [[ "$(tty)" == "/dev/tty1" ]]; then
+    exec sway
+fi
+
+# Set terminal colors before running tmux.
+if [[ -n $DISPLAY ]] && [[ -z $TMUX ]]; then
+    BASE16_SHELL="$HOME/.config/base16-shell/"
+    if [[ -n "$PS1" ]] && [[ -s "$BASE16_SHELL/profile_helper.sh" ]]; then
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
+    fi
+    exec env TERM=screen-256color /usr/bin/tmux new-session -A -s 0
+fi
+
+# Zsh options.
+setopt \
+  append_history \
+  share_history \
+  extended_history \
+  histignorespace \
+  hist_find_no_dups \
+  hist_ignore_all_dups \
+  hist_reduce_blanks \
+  no_case_glob \
+  extended_glob \
+  noglobdots \
+  correct \
+  completeinword \
+  longlistjobs \
+  notify \
+  hash_list_all \
+  nohup \
+  auto_pushd \
+  pushd_ignore_dups \
+  prompt_subst \
+  nobeep \
+  noshwordsplit \
+  unset \
+
+# Environment variables.
+HISTFILE=$HOME/.zhistory
+HISTSIZE=10000
+SAVEHIST=$HISTSIZE
+export EDITOR=nvim
+export GPG_TTY=$(tty)
+
+# Prompt
+function last_exit_code() {
+  local EXIT_CODE=$?
+  if [[ $EXIT_CODE -ne 0 ]]; then
+    echo "[$EXIT_CODE] "
+  fi
+}
+PROMPT=$'\n''%K{18}%F{06}$%f%k '
+RPROMPT='%F{13}$(last_exit_code)%~%f'
+PROMPT2='%_%K{18}%F{06}>%f%k '
+
+# Plugins.
+autoload -Uz \
+  compinit \
+  up-line-or-beginning-search down-line-or-beginning-search
+compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+# Key bindings.
+bindkey -e
+bindkey '^P' up-line-or-beginning-search
+bindkey '^N' down-line-or-beginning-search
+
+# Aliases.
+alias sudo='sudo -v; sudo '
+alias ls='ls --color=auto -v'
+alias i='ls'
+alias ll='ls -lh'
+alias la='ls -A'
+alias lla='ls -lhA'
+alias grep='grep --color=auto'
+alias diff='diff --color=auto'
+alias ip='ip -color=auto'
+alias vim='nvim'
+alias veracrypt='veracrypt --text'

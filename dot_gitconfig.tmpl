@@ -1,0 +1,18 @@
+[user]
+    email = ChristianOudard@pm.me
+    name = Christian Oudard
+    signingkey = {{ (onepasswordItemFields "GitHub").signingkey.value }}
+[commit]
+    gpgSign = true
+[init]
+    defaultBranch = main
+[alias]
+    s = status
+    st = status
+    d = diff -w
+    dc = diff -w --cached
+    ci = commit --verbose
+    cia = commit --verbose --all
+    co = checkout
+    su = submodule update --init --recursive
+    logg = log --graph
