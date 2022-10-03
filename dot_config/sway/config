@@ -30,47 +30,52 @@ bar {
 
 font Inconsolata 11
 
-output * {
+output eDP-1 {
     background #2C3E50 solid_color
+    scale 2
     # background /home/christian/pictures/wallpaper.jpg fit #444444
 }
 
 set $mod Mod4
-set $left d
-set $down h
-set $up t
-set $right n
-set $term foot --title="terminal"
 
-# Run programs with bemenu.
-set $menu bemenu-run \
+# Launch programs with bemenu and j4-dmenu-desktop.
+set $bemenu bemenu \
 --ignorecase \
 --fn Inconsolata 11 \
 --line-height 21 \
 --width-factor=0.5 \
 --prompt="Run:" \
 --list 10 \
---prefix '*' \
---tb '#7F8C8D' \
---tf '#F5F5F5' \
---fb '#34495E' \
---ff '#F5F5F5' \
---nb '#34495E' \
---nf '#7F8C8D' \
---hb '#34495E' \
---hf '#E67E22' \
---ab '#34495E' \
---af '#7F8C8D' \
-| xargs swaymsg exec --
+--prefix '→' \
+--tb "#7F8C8D" \
+--tf "#F5F5F5" \
+--fb "#34495E" \
+--ff "#F5F5F5" \
+--cb "#F5F5F5" \
+--cf "#34495E" \
+--nb "#34495E" \
+--nf "#7F8C8D" \
+--hb "#34495E" \
+--hf "#E67E22" \
+--ab "#34495E" \
+--af "#7F8C8D"
+set $menu j4-dmenu-desktop --dmenu '$bemenu' | xargs swaymsg exec --
 
+bindsym $mod+r exec $menu
+
+set $term foot --title="terminal"
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+k kill
-bindsym $mod+r exec $menu
 floating_modifier $mod normal
 bindsym $mod+Shift+c reload
+
 # bindsym $mod+Shift+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 bindsym $mod+Shift+q exec swaymsg exit
 
+set $left d
+set $down h
+set $up t
+set $right n
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
