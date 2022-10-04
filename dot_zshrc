@@ -90,3 +90,9 @@ alias diff='diff --color=auto'
 alias ip='ip -color=auto'
 alias vim='nvim'
 alias veracrypt='veracrypt --text'
+
+# Miniconda.
+CONDA_SH=/opt/miniconda3/etc/profile.d/conda.sh
+if [[ -f $CONDA_SH ]]; then
+    source $CONDA_SH
+fi
