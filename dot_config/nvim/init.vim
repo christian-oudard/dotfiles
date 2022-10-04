@@ -190,8 +190,8 @@ vnoremap <C-X> "+x
 vnoremap <C-C> "+y
 map <C-V> "+gP
 cmap <C-V> <C-R>+
-" Use CTRL-Q to do what CTRL-V used to do
-noremap <C-Q> <C-V>
+" Use gv to do what CTRL-V used to do (blockwise-visual)
+noremap gv <C-V>
 
 " Toggle search highlighting.
 nnoremap <Leader>hs :set hlsearch!<CR>
