@@ -51,8 +51,8 @@ set $bemenu bemenu \
 --tf "#F5F5F5" \
 --fb "#34495E" \
 --ff "#F5F5F5" \
---cb "#F5F5F5" \
---cf "#34495E" \
+--cb "#34495E" \
+--cf "#F5F5F5" \
 --nb "#34495E" \
 --nf "#7F8C8D" \
 --hb "#34495E" \
