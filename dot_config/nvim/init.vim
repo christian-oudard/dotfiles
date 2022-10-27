@@ -70,7 +70,7 @@ set showbreak=↪
 set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 set list
 set wrap
-set textwidth=110
+set textwidth=79
 
 augroup indentation
     autocmd!
