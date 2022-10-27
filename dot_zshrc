@@ -1,6 +1,7 @@
 # Executable search path.
 typeset -U path PATH
-path=(~/bin $path)
+path+=(~/bin)
+path+=(~/.local/bin)
 export PATH
 
 # Run Sway WM automatically.
