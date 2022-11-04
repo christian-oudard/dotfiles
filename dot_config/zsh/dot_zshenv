@@ -1,0 +1,12 @@
+# Zsh environment variables.
+
+# Executable search path.
+typeset -U path PATH
+path+=(~/bin)
+path+=(~/.local/bin)
+export PATH
+
+export EDITOR=nvim
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+export GPG_TTY=$(tty)
+export VIRTUALENV_DISABLE_PROMPT=1
