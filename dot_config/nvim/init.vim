@@ -1,17 +1,5 @@
-call plug#begin('~/.config/nvim/plugged')
-    Plug 'chriskempson/base16-vim'
-    Plug 'tpope/vim-commentary'
-    Plug 'tpope/vim-surround'
-    Plug 'SirVer/ultisnips'
-    Plug 'ap/vim-buftabline'
-    Plug '907th/vim-auto-save'
-call plug#end()
-
-" Visual settings
-set lazyredraw
-set cursorline
-syntax on
-filetype plugin indent on
+lua require('plugins')
+lua require('lsp')
 
 " Base16 color scheme
 let base16colorspace=256
