@@ -120,24 +120,12 @@ LESS += --ignore-case
 # Set colors.
 LESS += --use-color 
 # Bold.
-LESS += --color=d+10.-$ 
+LESS += --color=d+223.-$ 
 # Underline.
-LESS += --color=u+4.-$ 
+LESS += --color=u+250.-$ 
 # Prompt.
-LESS += --color=P3.18$ 
+LESS += --color=P3.239$ 
 # Search results.
-LESS += --color=S18.17$ 
+LESS += --color=S0.166$ 
 # Error messages.
-LESS += --color=E1.18$ 
-
-# Unused?
-LESS += --color=B5.11$ 
-LESS += --color=C5.11$ 
-LESS += --color=H5.11$ 
-LESS += --color=M5.11$ 
-LESS += --color=N5.11$ 
-LESS += --color=R5.11$ 
-LESS += --color=W5.11$ 
-
-
-
+LESS += --color=E1.239$ 
