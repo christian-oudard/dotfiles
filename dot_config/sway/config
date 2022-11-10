@@ -1,37 +1,60 @@
+# Input.
 input type:keyboard {
     xkb_layout "dvorak"
     xkb_options "ctrl:swapcaps"
 }
-
 input type:touchpad {
     pointer_accel +0.2
     tap disabled
     natural_scroll enabled
 }
-
 input "2:10:TPPS/2_Elan_TrackPoint" {
     pointer_accel -0.3
 }
-
 input "6127:24717:PixArt_Lenovo_USB_Optical_Mouse" {
     pointer_accel -0.7
 }
 
+# Colors.
+set $gray0 #2C3E50
+set $gray1 #34495E
+set $gray2 #7F8C8D
+set $gray3 #95A5A6
+set $gray4 #BDC3C7
+set $gray5 #E0E0E0
+set $gray6 #F5F5F5
+set $gray7 #ECF0F1
+set $red #E74C3C
+set $orange #E67E22
+set $yellow #F1C40F
+set $green #2ECC71
+set $cyan #1ABC9C
+set $blue #3498DB
+set $magenta #9B59B6
+set $brown #BE643C
+
+client.focused $gray1 $gray1 $gray4
+client.focused_inactive $gray1 $gray1 $gray2
+client.unfocused $gray1 $gray0 $gray2
 
 bar {
     position top
     status_command i3status
     colors {
-        statusline #E0E0E0
-        background #2C3E50
-        inactive_workspace #323232 #323232 #5c5c5c
+        statusline $magenta
+        background $gray0
+        focused_workspace $gray1 $gray1 $gray4
+        active_workspace $gray1 $gray1 $gray2
+        inactive_workspace $gray1 $gray0 $gray2
     }
 }
 
-font Inconsolata 11
+# Typeface.
+set $font Inconsolata
+font $font 11
 
 output eDP-1 {
-    background #2C3E50 solid_color
+    background $gray0 solid_color
     scale 2
     # background /home/christian/pictures/wallpaper.jpg fit #444444
 }
@@ -47,18 +70,18 @@ set $bemenu bemenu \
 --prompt="Run:" \
 --list 10 \
 --prefix '→' \
---tb "#7F8C8D" \
---tf "#F5F5F5" \
---fb "#34495E" \
---ff "#F5F5F5" \
---cb "#34495E" \
---cf "#F5F5F5" \
---nb "#34495E" \
---nf "#7F8C8D" \
---hb "#34495E" \
---hf "#E67E22" \
---ab "#34495E" \
---af "#7F8C8D"
+--tb "$gray2" \
+--tf "$gray6" \
+--fb "$gray1" \
+--ff "$gray6" \
+--cb "$gray1" \
+--cf "$gray5" \
+--nb "$gray1" \
+--nf "$gray2" \
+--hb "$gray1" \
+--hf "$orange" \
+--ab "$gray1" \
+--af "$gray2"
 set $menu j4-dmenu-desktop --dmenu '$bemenu' | xargs swaymsg exec --
 
 bindsym $mod+r exec $menu
@@ -68,8 +91,6 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+k kill
 floating_modifier $mod normal
 bindsym $mod+Shift+c reload
-
-# bindsym $mod+Shift+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 bindsym $mod+Shift+q exec swaymsg exit
 
 set $left d
@@ -149,15 +170,40 @@ mode "resize" {
 bindsym $mod+Shift+r mode "resize"
 
 # Handle idle and lock.
-#exec swayidle -w \
-#    timeout 300 'swaylock -f -c 000000' \
-#    timeout 6000 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#    before-sleep 'swaylock -f -c 000000'
-bindsym $mod+l exec 'swaylock --color=000000 --daemonize'
+bindsym $mod+l exec "swaylock \
+    --daemonize \
+    --indicator-radius 100 \
+    --indicator-thickness 20 \
+    --hide-keyboard-layout \
+    --disable-caps-lock-text \
+    --font $font \
+    --font-size 55 \
+    --color=$gray0 \
+    --bs-hl-color=$red \
+    --key-hl-color=$green \
+    --separator-color=$gray0 \
+    --inside-color=$gray0 \
+    --inside-clear-color=$gray0 \
+    --inside-ver-color=$gray0 \
+    --inside-wrong-color=$gray0 \
+    --line-color=$gray0 \
+    --line-clear-color=$gray0 \
+    --line-ver-color=$gray0 \
+    --line-wrong-color=$gray0 \
+    --ring-color=$gray5 \
+    --ring-clear-color=$orange \
+    --ring-ver=$blue \
+    --ring-wrong=$red \
+    --text-color=$gray5 \
+    --text-clear-color=$gray5 \
+    --text-ver-color=$gray5 \
+    --text-wrong-color=$gray5 \
+    "
 
 # Turn display on and off, as a workaround for display bugs.
 bindsym XF86PickupPhone exec 'swaymsg "output * power on"'
 bindsym XF86HangupPhone exec 'swaymsg "output * power off"'
+
 
 # Include system sway config.
 include /etc/sway/config.d/*
