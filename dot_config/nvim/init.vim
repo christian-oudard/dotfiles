@@ -1,12 +1,8 @@
 lua require('plugins')
 lua require('lsp')
 
-" Base16 color scheme
-let base16colorspace=256
-if exists('$BASE16_THEME')
-      \ && (!exists('g:colors_name') || g:colors_name != 'base16-$BASE16_THEME')
-    colorscheme base16-$BASE16_THEME
-endif
+" Color scheme.
+autocmd vimenter * ++nested colorscheme gruvbox
 
 " Syntax highlighting adjustments
 highlight Search ctermfg=18 ctermbg=17
