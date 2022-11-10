@@ -16,36 +16,45 @@ input "6127:24717:PixArt_Lenovo_USB_Optical_Mouse" {
 }
 
 # Colors.
-set $gray0 #2C3E50
-set $gray1 #34495E
-set $gray2 #7F8C8D
-set $gray3 #95A5A6
-set $gray4 #BDC3C7
-set $gray5 #E0E0E0
-set $gray6 #F5F5F5
-set $gray7 #ECF0F1
-set $red #E74C3C
-set $orange #E67E22
-set $yellow #F1C40F
-set $green #2ECC71
-set $cyan #1ABC9C
-set $blue #3498DB
-set $magenta #9B59B6
-set $brown #BE643C
+set $dark0 #282828
+set $dark1 #3c3836
+set $dark2 #504945
+set $dark3 #665c54
+set $dark4 #7c6f64
+set $gray_245 #928374
+set $light0 #fbf1c7
+set $light1 #ebdbb2
+set $light2 #d5c4a1
+set $light3 #bdae93
+set $light4 #a89984
+set $bright_red #fb4934
+set $bright_green #b8bb26
+set $bright_yellow #fabd2f
+set $bright_blue #83a598
+set $bright_purple #d3869b
+set $bright_aqua #8ec07c
+set $bright_orange #fe8019
+set $neutral_red #cc241d
+set $neutral_green #98971a
+set $neutral_yellow #d79921
+set $neutral_blue #458588
+set $neutral_purple #b16286
+set $neutral_aqua #689d6a
+set $neutral_orange #d65d0e
 
-client.focused $gray1 $gray1 $gray4
-client.focused_inactive $gray1 $gray1 $gray2
-client.unfocused $gray1 $gray0 $gray2
+client.focused $dark1 $dark1 $light4
+client.focused_inactive $dark1 $dark1 $dark2
+client.unfocused $dark1 $dark0 $dark2
 
 bar {
     position top
     status_command i3status
     colors {
-        statusline $magenta
-        background $gray0
-        focused_workspace $gray1 $gray1 $gray4
-        active_workspace $gray1 $gray1 $gray2
-        inactive_workspace $gray1 $gray0 $gray2
+        statusline $light4
+        background $dark0
+        focused_workspace $dark1 $dark1 $light4
+        active_workspace $dark1 $dark1 $dark2
+        inactive_workspace $dark1 $dark0 $dark2
     }
 }
 
@@ -54,9 +63,8 @@ set $font Inconsolata
 font $font 11
 
 output eDP-1 {
-    background $gray0 solid_color
+    background $dark0 solid_color
     scale 2
-    # background /home/christian/pictures/wallpaper.jpg fit #444444
 }
 
 set $mod Mod4
@@ -70,18 +78,18 @@ set $bemenu bemenu \
 --prompt="Run:" \
 --list 10 \
 --prefix '→' \
---tb "$gray2" \
---tf "$gray6" \
---fb "$gray1" \
---ff "$gray6" \
---cb "$gray1" \
---cf "$gray5" \
---nb "$gray1" \
---nf "$gray2" \
---hb "$gray1" \
---hf "$orange" \
---ab "$gray1" \
---af "$gray2"
+--tb "$dark2" \
+--tf "$light2" \
+--fb "$dark1" \
+--ff "$light2" \
+--cb "$dark1" \
+--cf "$light3" \
+--nb "$dark1" \
+--nf "$dark3" \
+--hb "$dark1" \
+--hf "$neutral_orange" \
+--ab "$dark1" \
+--af "$dark3"
 set $menu j4-dmenu-desktop --dmenu '$bemenu' | xargs swaymsg exec --
 
 bindsym $mod+r exec $menu
@@ -178,26 +186,26 @@ bindsym $mod+l exec "swaylock \
     --disable-caps-lock-text \
     --font $font \
     --font-size 55 \
-    --color=$gray0 \
-    --bs-hl-color=$red \
-    --key-hl-color=$green \
-    --separator-color=$gray0 \
-    --inside-color=$gray0 \
-    --inside-clear-color=$gray0 \
-    --inside-ver-color=$gray0 \
-    --inside-wrong-color=$gray0 \
-    --line-color=$gray0 \
-    --line-clear-color=$gray0 \
-    --line-ver-color=$gray0 \
-    --line-wrong-color=$gray0 \
-    --ring-color=$gray5 \
-    --ring-clear-color=$orange \
-    --ring-ver=$blue \
-    --ring-wrong=$red \
-    --text-color=$gray5 \
-    --text-clear-color=$gray5 \
-    --text-ver-color=$gray5 \
-    --text-wrong-color=$gray5 \
+    --color=$dark0 \
+    --bs-hl-color=$neutral_red \
+    --key-hl-color=$neutral_green \
+    --separator-color=$dark0 \
+    --inside-color=$dark0 \
+    --inside-clear-color=$dark0 \
+    --inside-ver-color=$dark0 \
+    --inside-wrong-color=$dark0 \
+    --line-color=$dark0 \
+    --line-clear-color=$dark0 \
+    --line-ver-color=$dark0 \
+    --line-wrong-color=$dark0 \
+    --ring-color=$gray_245 \
+    --ring-clear-color=$neutral_orange \
+    --ring-ver=$neutral_blue \
+    --ring-wrong=$neutral_red \
+    --text-color=$gray_245 \
+    --text-clear-color=$gray_245 \
+    --text-ver-color=$gray_245 \
+    --text-wrong-color=$gray_245 \
     "
 
 # Turn display on and off, as a workaround for display bugs.
