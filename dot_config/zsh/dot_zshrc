@@ -6,7 +6,7 @@ if [[ -n $DISPLAY ]] && [[ -z $TMUX ]]; then
     if [[ -n "$PS1" ]] && [[ -s "$BASE16_SHELL/profile_helper.sh" ]]; then
         eval "$("$BASE16_SHELL/profile_helper.sh")"
     fi
-    exec env TERM=screen-256color /usr/bin/tmux new-session -A -s 0
+    exec env /usr/bin/tmux new-session -A -s 0
 fi
 
 # Zsh options.
