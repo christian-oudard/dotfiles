@@ -2,9 +2,8 @@
 
 # Set terminal colors before running tmux.
 if [[ -n $DISPLAY ]] && [[ -z $TMUX ]]; then
-    BASE16_SHELL="$HOME/.config/base16-shell/"
-    if [[ -n "$PS1" ]] && [[ -s "$BASE16_SHELL/profile_helper.sh" ]]; then
-        eval "$("$BASE16_SHELL/profile_helper.sh")"
+    if [[ -n "$PS1" ]]; then
+        source $HOME/.config/gruvbox.sh
     fi
     exec env /usr/bin/tmux new-session -A -s 0
 fi
@@ -40,20 +39,15 @@ HISTSIZE=10000
 SAVEHIST=$HISTSIZE
 
 # Prompt
-function venv() {
-  if [[ -n $VIRTUAL_ENV ]]; then
-      echo "($(basename $VIRTUAL_ENV)) "
-  fi
-}
 function last_exit_code() {
   local EXIT_CODE=$?
   if [[ $EXIT_CODE -ne 0 ]]; then
     echo "[$EXIT_CODE] "
   fi
 }
-PROMPT=$'\n''%K{18}%F{06}$%f%k '
-RPROMPT='%F{13}$(venv)$(last_exit_code)%~%f'
-PROMPT2='%_%K{18}%F{06}>%f%k '
+PROMPT=$'\n''%K{237}%F{4}$%f%k '
+RPROMPT='%F{5}$(last_exit_code)%~%f'
+PROMPT2='%_%K{237}%F{4}>%f%k '
 
 # Plugins.
 autoload -Uz \
