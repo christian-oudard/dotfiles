@@ -63,7 +63,7 @@ set $font Inconsolata
 font $font 11
 
 output eDP-1 {
-    background $dark0 solid_color
+    background ~/pictures/background.svg center $dark0
     scale 2
 }
 
