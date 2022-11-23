@@ -180,38 +180,21 @@ bindsym $mod+Shift+r mode "resize"
 # Handle idle and lock.
 bindsym $mod+l exec "swaylock \
     --daemonize \
-    --indicator-radius 100 \
-    --indicator-thickness 20 \
-    --hide-keyboard-layout \
-    --disable-caps-lock-text \
-    --font $font \
-    --font-size 55 \
+    --ignore-empty-password \
+    --no-unlock-indicator \
     --color=$dark0 \
-    --bs-hl-color=$neutral_red \
-    --key-hl-color=$neutral_green \
-    --separator-color=$dark0 \
-    --inside-color=$dark0 \
-    --inside-clear-color=$dark0 \
-    --inside-ver-color=$dark0 \
-    --inside-wrong-color=$dark0 \
-    --line-color=$dark0 \
-    --line-clear-color=$dark0 \
-    --line-ver-color=$dark0 \
-    --line-wrong-color=$dark0 \
-    --ring-color=$gray_245 \
-    --ring-clear-color=$neutral_orange \
-    --ring-ver=$neutral_blue \
-    --ring-wrong=$neutral_red \
-    --text-color=$gray_245 \
-    --text-clear-color=$gray_245 \
-    --text-ver-color=$gray_245 \
-    --text-wrong-color=$gray_245 \
+    --image ~/pictures/background.svg \
+    --scaling center \
     "
-
-# Turn display on and off, as a workaround for display bugs.
-bindsym XF86PickupPhone exec 'swaymsg "output * power on"'
-bindsym XF86HangupPhone exec 'swaymsg "output * power off"'
-
+# Turn off monitor when the lid is closed.
+# Also turn display on and off via phone buttons, as a workaround for display bugs.
+# bindswitch --locked lid:on output * power off
+# bindswitch --locked lid:off output * power on
+bindswitch --locked lid:on output * disable
+bindswitch --locked lid:off output * enable
+# bindswitch --locked lid:toggle output * toggle
+bindsym --locked XF86PickupPhone exec 'swaymsg "output * power on; output * enable"'
+bindsym --locked XF86HangupPhone exec 'swaymsg "output * disable; output * power off"'
 
 # Include system sway config.
 include /etc/sway/config.d/*
