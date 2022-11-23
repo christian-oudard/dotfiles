@@ -227,7 +227,6 @@ nmap <Leader>0 <Plug>BufTabLine.Go(10)
 
 " File finding with fzf.
 nmap <C-P> :FZF<CR>
-set rtp+=~/.fzf
 
 " vim-css3-syntax
 augroup VimCSS3Syntax
