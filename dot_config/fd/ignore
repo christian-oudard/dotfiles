@@ -1,0 +1,7 @@
+.git
+.yarn
+.pnp.*
+**/.vitepress/dist
+node_modules
+Cargo.lock
+*.rustfmt
