@@ -31,6 +31,7 @@ setopt \
   prompt_subst \
   nobeep \
   noshwordsplit \
+  noclobber \
   unset \
 
 # Zsh history variables.
@@ -71,6 +72,8 @@ alias i='ls'
 alias ll='ls -lh'
 alias la='ls -A'
 alias lla='ls -lhA'
+alias cp='cp -i'
+alias mv='mv -i'
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 alias ip='ip -color=auto'
