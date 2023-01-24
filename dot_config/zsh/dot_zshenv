@@ -4,6 +4,7 @@
 typeset -U path PATH
 path+=(~/bin)
 path+=(~/.local/bin)
+path+=(~/.cargo/bin)
 export PATH
 
 export EDITOR=nvim

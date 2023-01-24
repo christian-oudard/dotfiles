@@ -50,6 +50,9 @@ PROMPT=$'\n''%K{237}%F{4}$%f%k '
 RPROMPT='%F{5}$(last_exit_code)%~%f'
 PROMPT2='%_%K{237}%F{4}>%f%k '
 
+# Completion function definitions.
+fpath+=~/.config/zsh/zfunc
+
 # Plugins.
 autoload -Uz \
   compinit \
