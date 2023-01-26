@@ -8,4 +8,6 @@ return require('packer').startup(function(use)
     use 'ap/vim-buftabline'
     use '907th/vim-auto-save'
     use 'neovim/nvim-lspconfig'
+    use 'Vimjas/vim-python-pep8-indent'
+    use 'mileszs/ack.vim'
 end)
