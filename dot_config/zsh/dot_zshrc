@@ -59,6 +59,7 @@ autoload -Uz \
   up-line-or-beginning-search down-line-or-beginning-search
 compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' completer _expand_alias _complete _ignored
 
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
