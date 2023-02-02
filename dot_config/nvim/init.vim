@@ -236,3 +236,11 @@ augroup END
 
 " rust.vim
 let g:rustfmt_autosave = 0
+
+" GitHub Copilot
+let g:copilot_filetypes = {
+            \ '*': v:false,
+            \ 'python': v:true,
+            \ 'rust': v:true,
+            \ }
+
