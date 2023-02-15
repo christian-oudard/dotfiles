@@ -10,4 +10,5 @@ return require('packer').startup(function(use)
     use 'neovim/nvim-lspconfig'
     use 'Vimjas/vim-python-pep8-indent'
     use 'mileszs/ack.vim'
+    use 'github/copilot.vim'
 end)
