@@ -81,6 +81,7 @@ alias mv='mv -i'
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 alias ip='ip -color=auto'
+alias tar='tar --keep-old-files --no-overwrite-dir'
 alias vim='nvim'
 alias veracrypt='veracrypt --text'
 
