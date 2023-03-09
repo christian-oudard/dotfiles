@@ -5,7 +5,7 @@ if [[ -n $DISPLAY ]] && [[ -z $TMUX ]]; then
     if [[ -n "$PS1" ]]; then
         source $HOME/.config/gruvbox.sh
     fi
-    exec env /usr/bin/tmux new-session -A -s 0
+    # exec env /usr/bin/tmux new-session -A -s 0
 fi
 
 # Zsh options.
@@ -81,12 +81,12 @@ alias mv='mv -i'
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 alias ip='ip -color=auto'
-alias tar='tar --keep-old-files --no-overwrite-dir'
+alias tar='tar --keep-old-files'
 alias vim='nvim'
 alias veracrypt='veracrypt --text'
 
-# Miniconda.
-CONDA_SH=/opt/miniconda3/etc/profile.d/conda.sh
-if [[ -f $CONDA_SH ]]; then
-    source $CONDA_SH
+# Execute private zshrc.
+ZSH_PRIVATE=~/.config/zsh/.zshrc_private
+if [[ -f $ZSH_PRIVATE ]]; then
+    source $ZSH_PRIVATE
 fi
