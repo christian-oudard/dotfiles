@@ -196,6 +196,9 @@ bindswitch --locked lid:off output * enable
 bindsym --locked XF86PickupPhone exec 'swaymsg "output * power on; output * enable"'
 bindsym --locked XF86HangupPhone exec 'swaymsg "output * disable; output * power off"'
 
+# Use PrtSc button to take a screenshot with `grim`.
+bindsym Print grim
+
 # Include system sway config.
 include /etc/sway/config.d/*
 
