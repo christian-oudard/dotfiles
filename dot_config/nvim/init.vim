@@ -242,5 +242,6 @@ let g:copilot_filetypes = {
             \ '*': v:false,
             \ 'python': v:true,
             \ 'rust': v:true,
+            \ 'sh': v:true,
             \ }
 
