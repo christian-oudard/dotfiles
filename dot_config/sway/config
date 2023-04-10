@@ -60,7 +60,7 @@ bar {
 
 # Typeface.
 set $font Inconsolata
-font $font 11
+font $font 9
 
 output eDP-1 {
     background ~/pictures/background.svg center $dark0
