@@ -239,9 +239,9 @@ let g:rustfmt_autosave = 0
 
 " GitHub Copilot
 let g:copilot_filetypes = {
-            \ '*': v:false,
-            \ 'python': v:true,
-            \ 'rust': v:true,
-            \ 'sh': v:true,
-            \ }
-
+    \ '*': v:false,
+    \ 'python': v:true,
+    \ 'rust': v:true,
+    \ 'javascript': v:true,
+    \ 'sh': v:true,
+    \ }
