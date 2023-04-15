@@ -72,8 +72,7 @@ set $mod Mod4
 # Launch programs with bemenu and j4-dmenu-desktop.
 set $bemenu bemenu \
 --ignorecase \
---fn Inconsolata 11 \
---line-height 21 \
+--fn "Inconsolata 9" \
 --width-factor=0.5 \
 --prompt="Run:" \
 --list 10 \
