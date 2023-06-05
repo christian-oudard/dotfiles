@@ -11,4 +11,5 @@ return require('packer').startup(function(use)
     use 'Vimjas/vim-python-pep8-indent'
     use 'mileszs/ack.vim'
     use 'github/copilot.vim'
+    use 'junegunn/fzf.vim'
 end)
