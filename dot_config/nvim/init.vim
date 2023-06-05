@@ -128,6 +128,7 @@ inoremap qj <esc>
 inoremap vw <esc>
 inoremap <del> <esc>
 nnoremap <del> <esc>
+
 " use d, h, t, n to move left, up, down, and right
 noremap d h
 noremap D H
@@ -139,6 +140,7 @@ noremap T K
 noremap gt gk
 noremap n l
 noremap N L
+
 " Reassign the keys we overwrote.
 noremap k d
 noremap K D
@@ -146,11 +148,13 @@ noremap l t
 noremap L T
 noremap j n
 noremap J N
-" Use dvorak directions for Netrw (:Explore) buffers too.
+
+" Use dvorak directions for Netrw (:Explore) and Quickfix buffers too.
 augroup netrw_map
     autocmd!
-    autocmd filetype netrw call NetrwMap()
+    autocmd FileType netrw call NetrwMap()
 augroup END
+
 function! NetrwMap()
     noremap <buffer> d h
     noremap <buffer> D H
@@ -167,6 +171,16 @@ function! NetrwMap()
     noremap <buffer> j n
     noremap <buffer> J N
 endfunction
+
+augroup quickfix_map
+  autocmd!
+  " autocmd FileType qf nunmap <buffer> h
+  autocmd FileType qf nnoremap <buffer> h j
+  " autocmd FileType qf nunmap <buffer> t
+  autocmd FileType qf nnoremap <buffer> t k
+augroup END
+
+
 " intuitive Y
 noremap Y y$
 " Press semicolon for command prompt.

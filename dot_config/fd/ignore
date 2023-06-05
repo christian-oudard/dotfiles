@@ -1,6 +1,7 @@
 .git
 .yarn
 .pnp.*
+.cache*
 **/.vitepress/dist
 node_modules
 Cargo.lock
