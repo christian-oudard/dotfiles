@@ -262,3 +262,4 @@ let g:copilot_filetypes = {
 
 " trouble.nvim
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>

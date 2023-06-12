@@ -11,5 +11,6 @@ export EDITOR=nvim
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 export GPG_TTY=$(tty)
 export VIRTUAL_ENV_DISABLE_PROMPT=1
+export AUTOENV_ENABLE_LEAVE=1
 export FZF_DEFAULT_COMMAND='fd --type f --hidden'
 export NPM_CONFIG_USERCONFIG=$HOME/.config/npm/config
