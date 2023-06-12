@@ -46,8 +46,13 @@ function last_exit_code() {
     echo "[$EXIT_CODE] "
   fi
 }
+function venv_status {
+  if [[ -n "$VIRTUAL_ENV" ]]; then
+    echo "(venv) "
+  fi
+}
 PROMPT=$'\n''%K{237}%F{4}$%f%k '
-RPROMPT='%F{5}$(last_exit_code)%~%f'
+RPROMPT='%F{5}$(last_exit_code)$(venv_status)%~%f'
 PROMPT2='%_%K{237}%F{4}>%f%k '
 
 # Completion function definitions.
@@ -90,3 +95,6 @@ ZSH_PRIVATE=~/.config/zsh/.zshrc_private
 if [[ -f $ZSH_PRIVATE ]]; then
     source $ZSH_PRIVATE
 fi
+
+# Autoenv, for per-directory configuration during cd. https://github.com/hyperupcall/autoenv
+source /usr/share/autoenv-git/activate.sh
