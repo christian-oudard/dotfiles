@@ -259,3 +259,6 @@ let g:copilot_filetypes = {
     \ 'javascript': v:true,
     \ 'sh': v:true,
     \ }
+
+" trouble.nvim
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
