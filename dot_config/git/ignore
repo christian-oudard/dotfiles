@@ -1,0 +1,3 @@
+# Autoenv https://github.com/hyperupcall/autoenv
+.env
+.env.leave
