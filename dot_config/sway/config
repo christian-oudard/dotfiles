@@ -1,6 +1,7 @@
 # Input.
 input type:keyboard {
-    xkb_layout "dvorak"
+    xkb_layout "us"
+    xkb_variant "dvorak"
     xkb_options "ctrl:swapcaps"
 }
 input type:touchpad {
@@ -14,8 +15,9 @@ input "2:10:TPPS/2_Elan_TrackPoint" {
 input "6127:24717:PixArt_Lenovo_USB_Optical_Mouse" {
     pointer_accel -0.7
 }
+mouse_warping none
 
-# Colors.
+# Colors (gruvbox)
 set $dark0 #282828
 set $dark1 #3c3836
 set $dark2 #504945
@@ -62,11 +64,20 @@ bar {
 set $font Inconsolata
 font $font 9
 
+# Monitors.
+set $bg ~/pictures/background.svg
+output HDMI-A-1 {
+    position 0 0
+    background $bg center $dark0
+    scale 2
+}
 output eDP-1 {
-    background ~/pictures/background.svg center $dark0
+    position 240 1080
+    background $bg center $dark0
     scale 2
 }
 
+# Modifier key.
 set $mod Mod4
 
 # Launch programs with bemenu and j4-dmenu-desktop.
@@ -89,7 +100,7 @@ set $bemenu bemenu \
 --hf "$neutral_orange" \
 --ab "$dark1" \
 --af "$dark3"
-set $menu j4-dmenu-desktop --dmenu '$bemenu' | xargs swaymsg exec --
+set $menu j4-dmenu-desktop --dmenu '$bemenu' --term=foot | xargs swaymsg exec --
 
 bindsym $mod+r exec $menu
 
