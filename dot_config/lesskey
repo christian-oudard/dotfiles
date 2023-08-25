@@ -71,8 +71,8 @@ G	goto-end
 \&=	status
 ^G	status
 :f	status
-/	forw-search
-?	back-search
+/	forw-search ^W
+?	back-search ^W
 \e/	forw-search *
 \e?	back-search *
 &	filter
@@ -129,3 +129,5 @@ LESS += --color=P3.239$
 LESS += --color=S0.166$ 
 # Error messages.
 LESS += --color=E1.239$ 
+
+LESS += --prompt=%lt/%L$
