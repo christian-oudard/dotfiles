@@ -2,7 +2,7 @@
 input type:keyboard {
     xkb_layout "us"
     xkb_variant "dvorak"
-    xkb_options "ctrl:swapcaps"
+    xkb_options "ctrl:swapcaps,compose:ralt"
 }
 input type:touchpad {
     pointer_accel +0.2
