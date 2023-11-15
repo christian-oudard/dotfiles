@@ -1,5 +1,7 @@
 #! /bin/sh
 
+# Gruvbox color scheme, shell variables.
+
 dark0_hard='1d/20/21'
 dark0='28/28/28'
 dark0_soft='32/30/2f'

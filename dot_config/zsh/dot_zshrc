@@ -36,7 +36,7 @@ setopt \
 
 # Zsh history variables.
 HISTFILE=$ZDOTDIR/.zhistory
-HISTSIZE=10000
+HISTSIZE=100000
 SAVEHIST=$HISTSIZE
 
 # Prompt
@@ -81,6 +81,7 @@ alias i='ls'
 alias ll='ls -lh'
 alias la='ls -A'
 alias lla='ls -lhA'
+alias less='less -w'
 alias cp='cp -i'
 alias mv='mv -i'
 alias grep='grep --color=auto'
@@ -89,6 +90,7 @@ alias ip='ip -color=auto'
 alias tar='tar --keep-old-files'
 alias vim='nvim'
 alias veracrypt='veracrypt --text'
+alias gpt='chatgpt-cli --restore last'
 
 # Execute private zshrc.
 ZSH_PRIVATE=~/.config/zsh/.zshrc_private
