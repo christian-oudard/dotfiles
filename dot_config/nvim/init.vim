@@ -251,15 +251,19 @@ augroup END
 " rust.vim
 let g:rustfmt_autosave = 0
 
-" GitHub Copilot
-let g:copilot_filetypes = {
-    \ '*': v:false,
-    \ 'python': v:true,
-    \ 'rust': v:true,
-    \ 'javascript': v:true,
-    \ 'sh': v:true,
-    \ }
-
 " trouble.nvim
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
 nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
+
+" Tabnine
+lua <<EOF
+require('tabnine').setup({
+    disable_auto_comment=true,
+    accept_keymap="<S-Tab>",
+    dismiss_keymap = "<C-]>",
+    debounce_ms = 800,
+    suggestion_color = {gui = "#808080", cterm = 244},
+    exclude_filetypes = {"TelescopePrompt", "NvimTree"},
+    log_file_path = nil, -- absolute path to Tabnine log file
+})
+EOF

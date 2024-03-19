@@ -10,7 +10,7 @@ return require('packer').startup(function(use)
     use 'neovim/nvim-lspconfig'
     use 'Vimjas/vim-python-pep8-indent'
     use 'mileszs/ack.vim'
-    use 'github/copilot.vim'
+    use { 'codota/tabnine-nvim', run = "./dl_binaries.sh" }
     use 'junegunn/fzf.vim'
     use {
            "folke/trouble.nvim",
