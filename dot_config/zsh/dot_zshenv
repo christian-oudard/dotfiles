@@ -4,6 +4,7 @@
 typeset -U path PATH
 path+=(~/bin)
 path+=(~/.local/bin)
+path+=(~/.local/share/gem/ruby/3.0.0/bin)
 path+=(~/.cargo/bin)
 export PATH
 
