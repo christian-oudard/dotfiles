@@ -56,7 +56,7 @@ set showbreak=↪
 set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 set list
 set wrap
-set textwidth=79
+set textwidth=120
 
 augroup indentation
     autocmd!
@@ -258,6 +258,7 @@ let g:copilot_filetypes = {
     \ 'rust': v:true,
     \ 'javascript': v:true,
     \ 'sh': v:true,
+    \ 'sql': v:true,
     \ }
 
 " trouble.nvim
