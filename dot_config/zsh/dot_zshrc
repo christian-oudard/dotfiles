@@ -5,7 +5,7 @@ if [[ -n $DISPLAY ]] && [[ -z $TMUX ]]; then
     if [[ -n "$PS1" ]]; then
         source $HOME/.config/gruvbox.sh
     fi
-    # exec env /usr/bin/tmux new-session -A -s 0
+    exec env /usr/bin/tmux new-session -A -s 0
 fi
 
 # Zsh options.
