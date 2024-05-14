@@ -187,7 +187,7 @@ mode "resize" {
 }
 bindsym $mod+Shift+r mode "resize"
 
-# Handle idle and lock.
+# Handle lock screen.
 bindsym $mod+l exec "swaylock \
     --daemonize \
     --ignore-empty-password \
@@ -196,6 +196,7 @@ bindsym $mod+l exec "swaylock \
     --image ~/pictures/background.svg \
     --scaling center \
     "
+
 # Turn off monitor when the lid is closed.
 # Also turn display on and off via phone buttons, as a workaround for display bugs.
 # bindswitch --locked lid:on output * power off
@@ -211,6 +212,9 @@ bindsym Print grim
 
 # Include system sway config.
 include /etc/sway/config.d/*
+
+# Warn about low battery.
+exec --no-startup-id i3-battery-popup
 
 # Start terminal at startup.
 exec $term
