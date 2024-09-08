@@ -40,6 +40,9 @@ HISTSIZE=100000
 SAVEHIST=$HISTSIZE
 
 # Prompt
+function hline {
+  print ${(pl:$COLUMNS::\u2500:)}
+}
 function last_exit_code() {
   local EXIT_CODE=$?
   if [[ $EXIT_CODE -ne 0 ]]; then
@@ -51,7 +54,7 @@ function venv_status {
     echo "(venv) "
   fi
 }
-PROMPT=$'\n''%K{237}%F{4}$%f%k '
+PROMPT='%F{237}$(hline)'$'\n''%K{237}%F{4}$%f%k '
 RPROMPT='%F{5}$(last_exit_code)$(venv_status)%~%f'
 PROMPT2='%_%K{237}%F{4}>%f%k '
 
