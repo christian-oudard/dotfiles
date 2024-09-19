@@ -72,6 +72,7 @@ augroup indentation
     autocmd FileType typescript setlocal softtabstop=2 shiftwidth=2
     autocmd FileType css setlocal softtabstop=2 shiftwidth=2
     autocmd FileType markdown setlocal softtabstop=4 shiftwidth=4 textwidth=90 formatoptions-=t
+    autocmd FileType javascriptreact setlocal softtabstop=2 shiftwidth=2
 augroup END
 
 " Status line
