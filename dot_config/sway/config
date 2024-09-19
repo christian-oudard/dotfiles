@@ -66,14 +66,14 @@ font $font 9
 
 # Monitors.
 set $bg ~/pictures/background.svg
-output HDMI-A-1 {
+
+output * {
     position 0 0
     background $bg center $dark0
-    scale 2
+    scale 1
 }
 output eDP-1 {
     position 240 1080
-    background $bg center $dark0
     scale 2
 }
 
