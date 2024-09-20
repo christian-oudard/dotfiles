@@ -72,6 +72,7 @@ output * {
     background $bg center $dark0
     scale 1
 }
+output HDMI-A-1 scale 2
 output eDP-1 {
     position 240 1080
     scale 2
