@@ -61,7 +61,7 @@ bar {
 }
 
 # Typeface.
-set $font NotoSansMono
+set $font "Noto Sans Mono"
 font $font 7
 
 # Monitors.
