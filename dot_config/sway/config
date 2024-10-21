@@ -61,8 +61,8 @@ bar {
 }
 
 # Typeface.
-set $font Inconsolata
-font $font 9
+set $font NotoSansMono
+font $font 7
 
 # Monitors.
 set $bg ~/pictures/background.svg
@@ -105,7 +105,7 @@ set $menu j4-dmenu-desktop --dmenu '$bemenu' --term=foot | xargs swaymsg exec --
 
 bindsym $mod+r exec $menu
 
-set $term foot --title="terminal"
+set $term foot --title="Terminal"
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+k kill
 floating_modifier $mod normal
