@@ -168,8 +168,8 @@ bindsym $mod+minus scratchpad show
 
 # Floating windows
 floating_modifier $mod normal
-bindsym $mod+Shift+space floating toggle
-floating_minimum_size 550 x 400
+bindsym $mod+Shift+space floating toggle, resize set 800 600
+floating_minimum_size 500 x 350
 
 # Default to tabbed layout.
 workspace_layout tabbed
@@ -212,7 +212,7 @@ bindsym --locked XF86PickupPhone exec 'swaymsg "output * power on; output * enab
 bindsym --locked XF86HangupPhone exec 'swaymsg "output * disable; output * power off"'
 
 # Use PrtSc button to take a screenshot with `grim`.
-bindsym Print grim
+bindsym Print exec env GRIM_DEFAULT_DIR=$HOME/screenshots grim -g "$(slurp)"
 
 # Include system sway config.
 include /etc/sway/config.d/*
