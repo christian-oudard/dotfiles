@@ -102,4 +102,7 @@ if [[ -f $ZSH_PRIVATE ]]; then
 fi
 
 # Autoenv, for per-directory configuration during cd. https://github.com/hyperupcall/autoenv
-source /usr/share/autoenv-git/activate.sh
+AUTOENV_ACTIVATE=/usr/share/autoenv-git/activate.sh
+if [[ -f $AUTOENV_ACTIVATE ]]; then
+    source $AUTOENV_ACTIVATE
+fi
