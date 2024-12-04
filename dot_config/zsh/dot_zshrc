@@ -1,9 +1,12 @@
 # Zsh settings for interactive shells.
 
 # Set terminal colors before running tmux.
-if [[ -n $DISPLAY ]] && [[ -z $TMUX ]]; then
+if [[ -n $WAYLAND_DISPLAY ]] && [[ -z $TMUX ]]; then
     if [[ -n "$PS1" ]]; then
-        source $HOME/.config/gruvbox.sh
+        GRUVBOX=$HOME/.config/gruvbox.sh
+        if [[ -f $GRUVBOX ]]; then
+            source $GRUVBOX
+        fi
     fi
     exec env /usr/bin/tmux new-session -A -s 0
 fi
