@@ -199,7 +199,9 @@ bindsym $mod+l exec "swaylock \
     --color=$dark0 \
     --image ~/pictures/background.svg \
     --scaling center \
-    "
+    ; \
+    systemctl suspend \
+"
 
 # Turn off monitor when the lid is closed.
 # Also turn display on and off via phone buttons, as a workaround for display bugs.
