@@ -24,6 +24,7 @@ set scrolloff=2 " Set a margin of lines when scrolling.
 set backspace=indent,eol,start
 set backupdir=./.backup,.,/tmp
 set signcolumn=yes " Always-on sign column for error indicators
+set mouse= " Disable mouse
 
 " vim-auto-save
 let g:auto_save = 1
