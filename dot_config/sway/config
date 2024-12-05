@@ -66,16 +66,15 @@ font $font 7
 
 # Monitors.
 set $bg ~/pictures/background.svg
-
 output * {
-    position 0 0
     background $bg center $dark0
-    scale 1
-}
-output HDMI-A-1 scale 2
-output eDP-1 {
-    position 240 1080
     scale 2
+}
+output DP-1 {
+    position 0 0
+}
+output eDP-1 {
+    position 320 1080
 }
 
 # Modifier key.
