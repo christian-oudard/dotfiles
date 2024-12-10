@@ -1,3 +1,2 @@
-# Autoenv https://github.com/hyperupcall/autoenv
-.env
-.env.leave
+# direnv (https://direnv.net/)
+.direnv
