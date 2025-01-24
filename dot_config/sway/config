@@ -1,10 +1,17 @@
+# Modifier key.
+set $mod Mod4
+
 # Input.
-input type:keyboard {
-    xkb_layout "us"
-    xkb_variant "dvorak"
+input "type:keyboard" {
+    xkb_layout "us,us"
+    xkb_variant ",dvorak"
     xkb_options "ctrl:swapcaps,compose:ralt"
 }
+bindsym $mod+Tab input "type:keyboard" xkb_switch_layout next
+exec_always swaymsg 'input "type:keyboard" xkb_switch_layout 1'
+
 input type:touchpad {
+    # events disabled
     pointer_accel +0.2
     tap disabled
     natural_scroll enabled
@@ -73,12 +80,13 @@ output * {
 output DP-1 {
     position 0 0
 }
+output DP-2 {
+    position 0 0
+    scale 1
+}
 output eDP-1 {
     position 320 1080
 }
-
-# Modifier key.
-set $mod Mod4
 
 # Launch programs with bemenu and j4-dmenu-desktop.
 set $bemenu bemenu \
@@ -101,7 +109,6 @@ set $bemenu bemenu \
 --ab "$dark1" \
 --af "$dark3"
 set $menu j4-dmenu-desktop --dmenu '$bemenu' --term=foot | xargs swaymsg exec --
-
 bindsym $mod+r exec $menu
 
 set $term foot --title="Terminal"
@@ -153,21 +160,18 @@ bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 
-# Window splitting and layout.
-bindsym $mod+b splith
-bindsym $mod+v splitv
+# Window layout.
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
 bindsym $mod+f fullscreen
-bindsym $mod+space focus mode_toggle
+bindsym $mod+Space focus mode_toggle
 bindsym $mod+a focus parent
-bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+Minus move scratchpad
+bindsym $mod+Minus scratchpad show
 
 # Floating windows
 floating_modifier $mod normal
-bindsym $mod+Shift+space floating toggle, resize set 800 600
+bindsym $mod+Shift+Space floating toggle, resize set 800 600
 floating_minimum_size 500 x 350
 
 # Default to tabbed layout.
@@ -203,14 +207,8 @@ bindsym $mod+l exec "swaylock \
 "
 
 # Turn off monitor when the lid is closed.
-# Also turn display on and off via phone buttons, as a workaround for display bugs.
-# bindswitch --locked lid:on output * power off
-# bindswitch --locked lid:off output * power on
 bindswitch --locked lid:on output * disable
 bindswitch --locked lid:off output * enable
-# bindswitch --locked lid:toggle output * toggle
-bindsym --locked XF86PickupPhone exec 'swaymsg "output * power on; output * enable"'
-bindsym --locked XF86HangupPhone exec 'swaymsg "output * disable; output * power off"'
 
 # Use PrtSc button to take a screenshot with `grim`.
 bindsym Print exec env GRIM_DEFAULT_DIR=$HOME/screenshots grim -g "$(slurp)"
