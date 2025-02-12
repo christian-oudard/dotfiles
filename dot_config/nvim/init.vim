@@ -219,12 +219,6 @@ function! TogglePaste()
 endfunction
 map <leader>v :call TogglePaste()<cr>
 
-" Full text search with ack.vim.
-noremap <Leader>f :Ack ''<Left>
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
-
 " Quick buffer switching with buftabline.
 noremap <Leader>n :bnext<CR>
 noremap <Leader>p :bprevious<CR>
@@ -240,9 +234,6 @@ nmap <Leader>7 <Plug>BufTabLine.Go(7)
 nmap <Leader>8 <Plug>BufTabLine.Go(8)
 nmap <Leader>9 <Plug>BufTabLine.Go(9)
 nmap <Leader>0 <Plug>BufTabLine.Go(10)
-
-" File finding with fzf.
-nmap <C-P> :FZF<CR>
 
 " vim-css3-syntax
 augroup VimCSS3Syntax
@@ -266,3 +257,7 @@ let g:copilot_filetypes = {
 " trouble.nvim
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
 nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
+
+" Telescope
+lua vim.api.nvim_set_keymap('n', '<leader>f', "<cmd>lua require('telescope.builtin').live_grep()<CR>", { noremap = true, silent = true })
+lua vim.api.nvim_set_keymap('n', '<C-p>',    "<cmd>lua require('telescope.builtin').find_files()<CR>", { noremap = true, silent = true })

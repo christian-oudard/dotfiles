@@ -17,9 +17,9 @@ end
 require'lspconfig'.rust_analyzer.setup{
     on_attach = on_attach,
 }
-require'lspconfig'.pyright.setup{
+require'lspconfig'.ruff.setup{
     on_attach = on_attach,
 }
-require'lspconfig'.rome.setup{
+require'lspconfig'.biome.setup{
     on_attach = on_attach,
 }
