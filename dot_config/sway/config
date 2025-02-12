@@ -4,11 +4,11 @@ set $mod Mod4
 # Input.
 input "type:keyboard" {
     xkb_layout "us,us"
-    xkb_variant ",dvorak"
+    xkb_variant "dvorak,"
     xkb_options "ctrl:swapcaps,compose:ralt"
 }
 bindsym $mod+Tab input "type:keyboard" xkb_switch_layout next
-exec_always swaymsg 'input "type:keyboard" xkb_switch_layout 1'
+exec_always swaymsg 'input "type:keyboard" xkb_switch_layout 0'
 
 input type:touchpad {
     # events disabled
