@@ -84,6 +84,10 @@ output DP-2 {
     position 0 0
     scale 1
 }
+output DP-3 {
+    position 0 0
+    scale 1
+}
 output eDP-1 {
     position 320 1080
 }
