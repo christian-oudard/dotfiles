@@ -1,7 +1,4 @@
-# Zsh commands to be executed after login.
-
 # Run Sway WM automatically.
 if [[ -z $DISPLAY ]] && [[ "$(tty)" == "/dev/tty1" ]] && command -v sway > /dev/null 2>&1; then
     exec sway
 fi
-

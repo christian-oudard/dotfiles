@@ -97,6 +97,7 @@ alias mv='mv -i'
 alias tar='tar --keep-old-files'
 alias veracrypt='veracrypt --text'
 alias vim='nvim'
+alias npm='pnpm'
 
 # Execute private zshrc.
 ZSH_PRIVATE=~/.config/zsh/.zshrc_private
