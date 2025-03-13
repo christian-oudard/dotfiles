@@ -81,7 +81,6 @@ bindkey '^P' up-line-or-beginning-search
 bindkey '^N' down-line-or-beginning-search
 
 # Aliases.
-alias sudo='sudo -v; sudo '
 alias ls='ls --color=auto -v'
 alias i='ls'
 alias ll='ls -lh'
@@ -98,6 +97,14 @@ alias tar='tar --keep-old-files'
 alias veracrypt='veracrypt --text'
 alias vim='nvim'
 alias npm='pnpm'
+
+# When not in a pipe, run sudo -v to refresh timeout.
+sudo() {
+    if [[ -t 0 ]]; then
+        command sudo -v
+    fi
+    command sudo "$@"
+}
 
 # Execute private zshrc.
 ZSH_PRIVATE=~/.config/zsh/.zshrc_private
