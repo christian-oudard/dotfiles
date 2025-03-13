@@ -27,6 +27,7 @@ fi
 # Set the monitor scale.
 swaymsg "output $TOP_MONITOR scale $TOP_SCALE"
 swaymsg "output $BOTTOM_MONITOR scale $BOTTOM_SCALE"
+OUTPUTS=$(swaymsg --raw -t get_outputs)
 
 # Get monitor sizes.
 TOP_INFO=$(jq -r ".[] | select(.name == \"$TOP_MONITOR\")" <<< $OUTPUTS)
