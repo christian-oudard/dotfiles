@@ -6,6 +6,8 @@ import sys
 import math
 import shutil
 
+SCALE_TWEAK = 1.2
+
 # Script arguments are:
 # * the scale for the bottom monitor
 # * the name of the bottom monitor
@@ -60,7 +62,7 @@ else:
     bottom_dpi = bottom_res / bottom_phys
 
     ratio = top_dpi / bottom_dpi
-    top_scale = bottom_scale * ratio
+    top_scale = bottom_scale * ratio * SCALE_TWEAK
 
 # Set the monitor scale
 subprocess.run(["swaymsg", f"output {top_monitor} scale {top_scale:.2f}"])
