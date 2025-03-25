@@ -35,6 +35,7 @@ for monitor in top_monitor_list:
         break
 
 if not top_monitor:
+    subprocess.run(["swaymsg", f"output {bottom_monitor} scale {bottom_scale:.2f}"])
     sys.exit(1)
 
 # Calculate the top monitor scale to match the bottom monitor
