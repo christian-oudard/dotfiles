@@ -62,6 +62,7 @@ set textwidth=120
 augroup indentation
     autocmd!
     autocmd FileType python setlocal softtabstop=4 shiftwidth=4
+    autocmd FileType lua setlocal softtabstop=2 shiftwidth=2
     autocmd FileType ruby setlocal softtabstop=2 shiftwidth=2
     autocmd FileType haskell setlocal softtabstop=2 shiftwidth=2
     autocmd FileType cabal setlocal softtabstop=2 shiftwidth=2
@@ -219,21 +220,21 @@ function! TogglePaste()
 endfunction
 map <leader>v :call TogglePaste()<cr>
 
-" Quick buffer switching with buftabline.
+" Quick buffer switching.
 noremap <Leader>n :bnext<CR>
 noremap <Leader>p :bprevious<CR>
 noremap <Leader>d :bdelete<CR>
 noremap <Leader>, <C-^>
-nmap <Leader>1 <Plug>BufTabLine.Go(1)
-nmap <Leader>2 <Plug>BufTabLine.Go(2)
-nmap <Leader>3 <Plug>BufTabLine.Go(3)
-nmap <Leader>4 <Plug>BufTabLine.Go(4)
-nmap <Leader>5 <Plug>BufTabLine.Go(5)
-nmap <Leader>6 <Plug>BufTabLine.Go(6)
-nmap <Leader>7 <Plug>BufTabLine.Go(7)
-nmap <Leader>8 <Plug>BufTabLine.Go(8)
-nmap <Leader>9 <Plug>BufTabLine.Go(9)
-nmap <Leader>0 <Plug>BufTabLine.Go(10)
+nnoremap <Leader>1 :BufferLineGoToBuffer 1<CR>
+nnoremap <Leader>2 :BufferLineGoToBuffer 2<CR>
+nnoremap <Leader>3 :BufferLineGoToBuffer 3<CR>
+nnoremap <Leader>4 :BufferLineGoToBuffer 4<CR>
+nnoremap <Leader>5 :BufferLineGoToBuffer 5<CR>
+nnoremap <Leader>6 :BufferLineGoToBuffer 6<CR>
+nnoremap <Leader>7 :BufferLineGoToBuffer 7<CR>
+nnoremap <Leader>8 :BufferLineGoToBuffer 8<CR>
+nnoremap <Leader>9 :BufferLineGoToBuffer 9<CR>
+nnoremap <Leader>0 :BufferLineGoToBuffer 10<CR>
 
 " vim-css3-syntax
 augroup VimCSS3Syntax
