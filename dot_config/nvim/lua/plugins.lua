@@ -22,6 +22,12 @@ return require('packer').startup(
     use {
       'akinsho/bufferline.nvim', tag = '*',
       requires = 'nvim-tree/nvim-web-devicons',
+      config = function() require('bufferline').setup {
+        options = {
+          show_buffer_close_icons = false,
+          modified_icon = '',
+        }
+      } end
     }
   end
 )
