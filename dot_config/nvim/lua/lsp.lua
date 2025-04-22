@@ -14,12 +14,17 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
-require'lspconfig'.rust_analyzer.setup{
+lspconfig = require'lspconfig'
+
+lspconfig.pylsp.setup{
     on_attach = on_attach,
 }
-require'lspconfig'.ruff.setup{
+lspconfig.rust_analyzer.setup{
     on_attach = on_attach,
 }
-require'lspconfig'.biome.setup{
+lspconfig.ruff.setup{
+    on_attach = on_attach,
+}
+lspconfig.biome.setup{
     on_attach = on_attach,
 }
