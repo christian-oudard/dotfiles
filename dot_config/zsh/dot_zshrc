@@ -98,6 +98,15 @@ alias veracrypt='veracrypt --text'
 alias vim='nvim'
 alias npm='pnpm'
 
+# Create aliases for all uutils commands. Don't try to alias the '[' command.
+for full_cmd in /usr/bin/uu-*(N); do
+  uu_cmd=${full_cmd##*/}
+  cmd=${uu_cmd#uu-}
+  if [[ $cmd != '[' ]]; then
+    alias "$cmd"="$uu_cmd"
+  fi
+done
+
 # When not in a pipe, run sudo -v to refresh timeout.
 sudo() {
     if [[ -t 0 ]]; then
