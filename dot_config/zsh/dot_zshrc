@@ -80,24 +80,6 @@ bindkey -e
 bindkey '^P' up-line-or-beginning-search
 bindkey '^N' down-line-or-beginning-search
 
-# Aliases.
-alias ls='ls --color=auto -v'
-alias i='ls'
-alias ll='ls -lh'
-alias la='ls -A'
-alias lla='ls -lhA'
-alias cp='cp -i'
-alias diff='diff --color=auto'
-alias du='dust'
-alias grep='grep --color=auto'
-alias ip='ip -color=auto'
-alias less='less -w'
-alias mv='mv -i'
-alias tar='tar --keep-old-files'
-alias veracrypt='veracrypt --text'
-alias vim='nvim'
-alias npm='pnpm'
-
 # Create aliases for all uutils commands. Don't try to alias the '[' command.
 for full_cmd in /usr/bin/uu-*(N); do
   uu_cmd=${full_cmd##*/}
@@ -106,6 +88,24 @@ for full_cmd in /usr/bin/uu-*(N); do
     alias "$cmd"="$uu_cmd"
   fi
 done
+
+# Aliases.
+alias ls='uu-ls --color=auto -v'
+alias i='uu-ls'
+alias ll='uu-ls -lh'
+alias la='uu-ls -A'
+alias lla='uu-ls -lhA'
+alias cp='uu-cp -i'
+alias diff='diff --color=auto'
+alias du='dust'
+alias grep='grep --color=auto'
+alias ip='ip -color=auto'
+alias less='less -w'
+alias mv='uu-mv -i'
+alias tar='tar --keep-old-files'
+alias veracrypt='veracrypt --text'
+alias vim='nvim'
+alias npm='pnpm'
 
 # When not in a pipe, run sudo -v to refresh timeout.
 sudo() {
