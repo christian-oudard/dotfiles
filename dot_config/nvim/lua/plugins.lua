@@ -26,7 +26,7 @@ return require('packer').startup(
         options = {
           show_buffer_close_icons = false,
           modified_icon = '',
-        }
+        },
       } end
     }
   end
