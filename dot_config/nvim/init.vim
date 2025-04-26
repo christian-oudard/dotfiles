@@ -2,9 +2,10 @@ lua require('plugins')
 lua require('lsp')
 
 " Color scheme, gruvbox with italics and transparent background.
+set termguicolors
 let g:gruvbox_italic = 1
 autocmd VimEnter * ++nested colorscheme gruvbox
-autocmd VimEnter * highlight Normal ctermbg=none guibg=NONE
+autocmd VimEnter * highlight Normal ctermbg=none guibg=none
 
 " Syntax highlighting adjustments
 highlight Search ctermfg=18 ctermbg=17

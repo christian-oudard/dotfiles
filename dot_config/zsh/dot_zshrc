@@ -61,9 +61,6 @@ PROMPT='%F{237}$(hline)'$'\n''%K{237}%F{4}$%f%k '
 RPROMPT='%F{5}$(last_exit_code)$(venv_status)%~%f'
 PROMPT2='%_%K{237}%F{4}>%f%k '
 
-# Completion function definitions.
-fpath+=~/.config/zsh/zfunc
-
 # Plugins.
 autoload -Uz \
   compinit \
@@ -88,6 +85,9 @@ for full_cmd in /usr/bin/uu-*(N); do
     alias "$cmd"="$uu_cmd"
   fi
 done
+
+# Complete uu-ls like ls.
+compdef _ls uu-ls
 
 # Aliases.
 alias ls='uu-ls --color=auto -v'
