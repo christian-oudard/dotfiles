@@ -86,15 +86,12 @@ for full_cmd in /usr/bin/uu-*(N); do
   fi
 done
 
-# Complete uu-ls like ls.
-compdef _ls uu-ls
-
 # Aliases.
-alias ls='uu-ls --color=auto -v'
-alias i='uu-ls'
-alias ll='uu-ls -lh'
-alias la='uu-ls -A'
-alias lla='uu-ls -lhA'
+alias ls='eza'
+alias i='eza'
+alias ll='eza -l'
+alias la='eza -a'
+alias lla='eza -la'
 alias cp='uu-cp -i'
 alias diff='diff --color=auto'
 alias du='dust'
