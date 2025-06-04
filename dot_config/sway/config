@@ -200,6 +200,7 @@ bindsym $mod+l exec "swaylock \
 "
 
 # Turn off monitor when the lid is closed.
+# bindswitch --locked lid:on output $bottom_monitor disable
 bindswitch --locked lid:on output * disable
 bindswitch --locked lid:off output * enable
 

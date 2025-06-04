@@ -1,2 +1,2 @@
-# direnv (https://direnv.net/)
 .direnv
+__pycache__
