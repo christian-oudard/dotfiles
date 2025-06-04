@@ -57,8 +57,11 @@ function venv_status {
     echo "(venv) "
   fi
 }
+function width {
+    echo $(( COLUMNS - 24 ))
+}
 PROMPT='%F{237}$(hline)'$'\n''%K{237}%F{4}$%f%k '
-RPROMPT='%F{5}$(last_exit_code)$(venv_status)%~%f'
+RPROMPT='%F{5}$(last_exit_code)$(venv_status)%$(width)<…<%~%<<%f'
 PROMPT2='%_%K{237}%F{4}>%f%k '
 
 # Plugins.
