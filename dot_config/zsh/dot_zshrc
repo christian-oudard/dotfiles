@@ -105,7 +105,6 @@ alias mv='uu-mv -i'
 alias tar='tar --keep-old-files'
 alias veracrypt='veracrypt --text'
 alias vim='nvim'
-alias npm='pnpm'
 alias cal='cal --monday --year --week'
 
 # When not in a pipe, run sudo -v to refresh timeout.
