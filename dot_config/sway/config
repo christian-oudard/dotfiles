@@ -14,6 +14,7 @@ input type:touchpad {
     # events disabled
     pointer_accel +0.2
     tap disabled
+    # tap enabled
     natural_scroll enabled
 }
 input "2:10:TPPS/2_Elan_TrackPoint" {
@@ -154,8 +155,6 @@ bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
 
 # Window layout.
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
 bindsym $mod+f fullscreen
 bindsym $mod+Space focus mode_toggle
 bindsym $mod+a focus parent
@@ -200,9 +199,9 @@ bindsym $mod+l exec "swaylock \
 "
 
 # Turn off monitor when the lid is closed.
-# bindswitch --locked lid:on output $bottom_monitor disable
-bindswitch --locked lid:on output * disable
 bindswitch --locked lid:off output * enable
+bindswitch --locked lid:on output * disable
+# bindswitch --locked lid:on output $bottom_monitor disable
 
 # Use PrtSc button to take a screenshot with `grim`.
 bindsym Print exec env GRIM_DEFAULT_DIR=$HOME/screenshots grim -g "$(slurp)"
