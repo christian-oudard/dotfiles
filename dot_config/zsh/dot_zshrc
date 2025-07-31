@@ -58,11 +58,16 @@ function venv_status {
   fi
 }
 function width {
-    echo $(( COLUMNS - 24 ))
+  echo $(( COLUMNS - 24 ))
+}
+function ssh_hostname {
+  if [[ -n "$SSH_TTY" ]]; then
+    echo "%n@%M:"
+  fi
 }
 PROMPT='%F{237}$(hline)'$'\n''%K{237}%F{4}$%f%k '
-RPROMPT='%F{5}$(last_exit_code)$(venv_status)%$(width)<…<%~%<<%f'
-PROMPT2='%_%K{237}%F{4}>%f%k '
+PROMPT2='%K{237}%F{4}%_>%f%k '
+RPROMPT='%F{5}$(last_exit_code)$(venv_status)%$(width)<…<$(ssh_hostname)%~%<<%f'
 
 # Plugins.
 autoload -Uz \
@@ -126,3 +131,4 @@ if command -v direnv &>/dev/null; then
     eval "$(direnv hook zsh)"
 fi
 
+# vim: set ts=2 sts=2 sw=2 expandtab:
