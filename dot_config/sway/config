@@ -107,6 +107,7 @@ bindsym $mod+r exec $menu
 
 set $term foot --title="Terminal"
 bindsym $mod+Return exec $term
+bindsym $mod+Shift+Return exec env NO_TMUX=1 $term
 bindsym $mod+Shift+k kill
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+q exec swaymsg exit
@@ -200,8 +201,8 @@ bindsym $mod+l exec "swaylock \
 
 # Turn off monitor when the lid is closed.
 bindswitch --locked lid:off output * enable
-bindswitch --locked lid:on output * disable
-# bindswitch --locked lid:on output $bottom_monitor disable
+# bindswitch --locked lid:on output * disable
+bindswitch --locked lid:on output $bottom_monitor disable
 
 # Use PrtSc button to take a screenshot with `grim`.
 bindsym Print exec env GRIM_DEFAULT_DIR=$HOME/screenshots grim -g "$(slurp)"
