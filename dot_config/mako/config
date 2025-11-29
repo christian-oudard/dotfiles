@@ -1,0 +1,36 @@
+# Mako configuration - Gruvbox theme
+
+# Style
+font=Noto Sans Mono 9
+background-color=#282828C0
+text-color=#ebdbb2
+border-color=#3c3836
+border-size=1
+border-radius=0
+width=300
+height=100
+margin=10
+padding=10
+icon-location=left
+max-icon-size=48
+
+# Behavior
+max-visible=5
+layer=top
+anchor=top-right
+
+# Urgency levels
+[urgency=low]
+text-color=#b8bb26
+border-color=#98971a
+default-timeout=1750
+
+[urgency=normal]
+text-color=#fabd2f
+border-color=#d79921
+default-timeout=5000
+
+[urgency=critical]
+text-color=#fb4934
+border-color=#cc241d
+default-timeout=10000
