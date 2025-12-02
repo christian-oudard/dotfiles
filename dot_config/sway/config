@@ -58,6 +58,7 @@ client.unfocused $dark1 $dark0 $dark2
 
 bar {
     position top
+    pango_markup enabled
     status_command i3status
     colors {
         statusline $light4
@@ -208,7 +209,7 @@ bindswitch --locked lid:on output $bottom_monitor disable
 bindsym Print exec env GRIM_DEFAULT_DIR=$HOME/screenshots grim -g "$(slurp)"
 
 # Use the "Favorites" key to toggle nerd-dictation.
-bindsym XF86Favorites exec ~/bin/toggle-nerd-dictation
+bindsym XF86Favorites exec ~/bin/toggle-nerd-dictation.bash
 
 # Include system sway config.
 include /etc/sway/config.d/*
