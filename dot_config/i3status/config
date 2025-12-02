@@ -7,6 +7,8 @@
 # If the above line is not correctly displayed, fix your editor first!
 
 general {
+    output_format = "i3bar"
+    markup = "pango"
     colors = true
     color_good = "#98971a"
     color_degraded = "#d79921"
@@ -15,11 +17,17 @@ general {
     separator = "|"
 }
 
+order += "read_file dictation"
 order += "wireless _first_"
 order += "ethernet proton"
 order += "battery all"
 order += "tztime local"
 
+read_file dictation {
+  path = "/tmp/nerd-dictation-status"
+  format = "%content"
+  format_bad = ""
+}
 
 wireless _first_ {
     format_up = "W: %ip"
