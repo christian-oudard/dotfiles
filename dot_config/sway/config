@@ -207,11 +207,17 @@ bindswitch --locked lid:on output $bottom_monitor disable
 # Use PrtSc button to take a screenshot with `grim`.
 bindsym Print exec env GRIM_DEFAULT_DIR=$HOME/screenshots grim -g "$(slurp)"
 
+# Use the "Favorites" key to toggle nerd-dictation.
+bindsym XF86Favorites exec ~/bin/toggle-nerd-dictation
+
 # Include system sway config.
 include /etc/sway/config.d/*
 
 # Warn about low battery.
 exec --no-startup-id i3-battery-popup
+
+# Start Mako notification daemon.
+exec mako
 
 # Start terminal at startup.
 exec $term

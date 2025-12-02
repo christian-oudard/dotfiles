@@ -16,12 +16,19 @@ general {
 }
 
 order += "wireless _first_"
+order += "ethernet proton"
 order += "battery all"
 order += "tztime local"
+
 
 wireless _first_ {
     format_up = "W: %ip"
     format_down = "W: down"
+}
+
+ethernet proton {
+  format_up = "VPN: on"
+  format_down = "VPN: off"
 }
 
 battery all {
