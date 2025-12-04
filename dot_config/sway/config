@@ -209,7 +209,7 @@ bindswitch --locked lid:on output $bottom_monitor disable
 bindsym Print exec env GRIM_DEFAULT_DIR=$HOME/screenshots grim -g "$(slurp)"
 
 # Use the "Favorites" key to toggle nerd-dictation.
-bindsym XF86Favorites exec ~/bin/toggle-nerd-dictation.bash
+bindsym XF86Favorites exec whisper-dictation-toggle
 
 # Include system sway config.
 include /etc/sway/config.d/*
