@@ -15,20 +15,26 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, bufopts)
 end
 
-lspconfig = require'lspconfig'
 
-lspconfig.pylsp.setup{
+vim.lsp.config('pylsp', {
     on_attach = on_attach,
-}
-lspconfig.rust_analyzer.setup{
+})
+vim.lsp.enable('pylsp')
+
+vim.lsp.config('rust_analyzer', {
     on_attach = on_attach,
-}
-lspconfig.ruff.setup{
+})
+vim.lsp.enable('rust_analyzer')
+
+vim.lsp.config('ruff', {
     on_attach = on_attach,
-}
-lspconfig.biome.setup{
+})
+vim.lsp.enable('ruff')
+
+vim.lsp.config('biome', {
     on_attach = on_attach,
-}
+})
+vim.lsp.enable('biome')
 
 vim.diagnostic.config({
   virtual_text = true,
