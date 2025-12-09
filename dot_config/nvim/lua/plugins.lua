@@ -9,7 +9,11 @@ return require('packer').startup(
     use '907th/vim-auto-save'
     use 'neovim/nvim-lspconfig'
     use 'Vimjas/vim-python-pep8-indent'
-    use 'github/copilot.vim'
+    use {
+        'milanglacier/minuet-ai.nvim',
+        requires = 'nvim-lua/plenary.nvim',
+        config = function() require('minuet_config') end
+    }
     use {
       'folke/trouble.nvim',
       requires = 'kyazdani42/nvim-web-devicons',

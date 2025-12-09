@@ -7,12 +7,16 @@ let g:gruvbox_italic = 1
 autocmd VimEnter * ++nested colorscheme gruvbox
 autocmd VimEnter * highlight Normal ctermbg=none guibg=none
 
+" Dim minuet virtual text
+autocmd ColorScheme * highlight! link MinuetVirtualText GruvboxBg3
+
 " Syntax highlighting adjustments
 highlight Search ctermfg=18 ctermbg=17
 highlight IncSearch ctermfg=18 ctermbg=16
 highlight TabLineSel ctermfg=3 ctermbg=18
 highlight clear Error
 highlight Error cterm=underline ctermfg=01 ctermbg=18
+
 
 " Enable Italics
 let &t_ZH="\e[3m"
@@ -246,16 +250,7 @@ augroup END
 " rust.vim
 let g:rustfmt_autosave = 0
 
-" GitHub Copilot. Require manual :Copilot enable
-autocmd VimEnter * Copilot disable
-let g:copilot_filetypes = {
-    \ '*': v:false,
-    \ 'python': v:true,
-    \ 'rust': v:true,
-    \ 'javascript': v:true,
-    \ 'sh': v:true,
-    \ 'sql': v:true,
-    \ }
+
 
 " trouble.nvim
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
