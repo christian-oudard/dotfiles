@@ -58,3 +58,8 @@ require('minuet').setup {
         },
     },
 }
+
+-- Keymap to toggle Minuet auto-trigger
+vim.keymap.set('n', '<leader>tm', function()
+    require('minuet.virtualtext').action.toggle_auto_trigger()
+end, { desc = 'Toggle Minuet Auto-Trigger' })
