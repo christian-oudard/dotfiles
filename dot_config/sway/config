@@ -5,7 +5,7 @@ set $mod Mod4
 input "type:keyboard" {
     xkb_layout "us,us"
     xkb_variant "dvorak,"
-    xkb_options "ctrl:swapcaps,compose:ralt"
+    xkb_options "ctrl:swapcaps,compose:rctrl"
 }
 bindsym $mod+Tab input "type:keyboard" xkb_switch_layout next
 exec_always swaymsg 'input "type:keyboard" xkb_switch_layout 0'
@@ -208,8 +208,8 @@ bindswitch --locked lid:on output $bottom_monitor disable
 # Use PrtSc button to take a screenshot with `grim`.
 bindsym Print exec env GRIM_DEFAULT_DIR=$HOME/screenshots grim -g "$(slurp)"
 
-# Use the "Favorites" key to toggle nerd-dictation.
-bindsym XF86Favorites exec whisper-dictation-toggle
+# Use the Assistant key to toggle nerd-dictation.
+bindsym XF86Assistant exec whisper-dictation-toggle
 
 # Include system sway config.
 include /etc/sway/config.d/*

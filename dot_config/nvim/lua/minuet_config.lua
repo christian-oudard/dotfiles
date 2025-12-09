@@ -2,7 +2,7 @@
 
 require('minuet').setup {
     virtualtext = {
-        auto_trigger_ft = { 'python', 'lua', 'rust', 'javascript', 'typescript', 'sh', 'go', 'c', 'cpp' },
+        auto_trigger_ft = {},
         keymap = {
             accept = '<A-A>',
             accept_line = '<A-a>',
