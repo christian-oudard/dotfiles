@@ -1,0 +1,17 @@
+# Desktop applications to show in menu
+# One app name per line (without .desktop extension)
+# Run `desktop-allowlist-sync` after editing
+
+brave-browser
+calibre-gui
+foot
+htop
+ib-gw
+ledger-live-desktop
+libreoffice-calc
+libreoffice-writer
+monero-gui
+sabaki
+signal-desktop
+steam
+Zoom

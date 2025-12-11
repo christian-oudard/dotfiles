@@ -103,7 +103,7 @@ set $bemenu bemenu \
 --hf "$neutral_orange" \
 --ab "$dark1" \
 --af "$dark3"
-set $menu j4-dmenu-desktop --dmenu '$bemenu' --term=foot | xargs swaymsg exec --
+set $menu j4-dmenu-desktop --no-generic --dmenu '$bemenu' --term=foot | xargs swaymsg exec --
 bindsym $mod+r exec $menu
 
 set $term foot --title="Terminal"
