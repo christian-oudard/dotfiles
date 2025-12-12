@@ -7,6 +7,7 @@ return require('packer').startup(
     use 'tpope/vim-fugitive'
     use 'SirVer/ultisnips'
     use '907th/vim-auto-save'
+    use 'github/copilot.vim'
     use 'neovim/nvim-lspconfig'
     use 'Vimjas/vim-python-pep8-indent'
     use {

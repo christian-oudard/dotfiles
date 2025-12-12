@@ -250,7 +250,16 @@ augroup END
 " rust.vim
 let g:rustfmt_autosave = 0
 
-
+" GitHub Copilot. Require manual :Copilot enable
+autocmd VimEnter * Copilot disable
+let g:copilot_filetypes = {
+    \ '*': v:false,
+    \ 'python': v:true,
+    \ 'rust': v:true,
+    \ 'javascript': v:true,
+    \ 'sh': v:true,
+    \ 'sql': v:true,
+    \ }
 
 " trouble.nvim
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
