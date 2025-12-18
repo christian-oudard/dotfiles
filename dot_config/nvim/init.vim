@@ -30,6 +30,7 @@ set backspace=indent,eol,start
 set backupdir=./.backup,.,/tmp
 set signcolumn=yes " Always-on sign column for error indicators
 set mouse= " Disable mouse
+set comments=://,b:#,:%,n:>,fb:-,fb:•
 
 " vim-auto-save
 let g:auto_save = 1
