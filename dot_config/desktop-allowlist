@@ -7,6 +7,7 @@ calibre-gui
 foot
 htop
 ib-gw
+ib-tws
 ledger-live-desktop
 libreoffice-calc
 libreoffice-writer
@@ -14,4 +15,5 @@ monero-gui
 sabaki
 signal-desktop
 steam
+virt-manager
 Zoom
