@@ -30,11 +30,24 @@ if window_is_active:
 if cwd is not None:
     message += f' ({cwd})'
 
-# Desktop notification with project name
-subprocess.run(['notify-send', 'Claude Code', message])
+# Terminal bell (highlights tmux pane)
+# Write bell directly to the pane's tty since hook stdout isn't connected to terminal
+if tmux_pane:
+    result = subprocess.run(
+        ['tmux', 'display-message', '-p', '-t', tmux_pane, '#{pane_tty}'],
+        capture_output=True,
+        text=True
+    )
+    pane_tty = result.stdout.strip()
+    if pane_tty:
+        try:
+            with open(pane_tty, 'w') as tty:
+                tty.write('\a')
+        except (PermissionError, OSError):
+            pass
 
 # Play sound
 subprocess.run(['paplay', '--volume=32768', '/usr/share/sounds/freedesktop/stereo/complete.oga'])
 
-# Terminal bell (highlights tmux pane)
-print('\a', end='', flush=True)
+# Desktop notification with project name
+subprocess.run(['notify-send', '-t', '15000', 'Claude Code', message])
