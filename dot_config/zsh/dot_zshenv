@@ -3,9 +3,8 @@ typeset -U path PATH
 path+=(
     ~/bin
     ~/.local/bin
-    ~/.local/share/gem/ruby/3.0.0/bin
     ~/.cargo/bin
-    /opt/android-sdk/build-tools/34.0.0
+    ~/.npm-global/bin
 )
 export PATH
 
