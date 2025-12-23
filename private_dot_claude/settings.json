@@ -10,7 +10,8 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "claude_notify_hook"
+                        "command": "claude_notify_hook",
+                        "idleDelayMs": 10000
                     }
                 ]
             }
