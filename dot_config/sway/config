@@ -208,7 +208,7 @@ bindswitch --locked lid:on output $bottom_monitor disable
 # Use PrtSc button to take a screenshot with `grim`.
 bindsym Print exec env GRIM_DEFAULT_DIR=$HOME/screenshots grim -g "$(slurp)"
 
-# Use the Assistant key to toggle nerd-dictation.
+# Use the Assistant key to toggle dictation.
 bindsym XF86Assistant exec whisper-dictation-toggle
 
 # Include system sway config.
