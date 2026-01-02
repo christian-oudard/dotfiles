@@ -8,6 +8,10 @@ import sys
 notification = json.loads(sys.stdin.read())
 
 message = notification.get('message')
+
+# Skip idle notifications
+if notification.get('notification_type') == 'idle_prompt':
+    sys.exit(0)
 cwd = notification.get('cwd')
 
 # Check if we're in tmux and if this window is currently active

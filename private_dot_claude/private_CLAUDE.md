@@ -1,4 +1,4 @@
-- instead of writing code on the command line, use a scratchpad script called `scratch_claude.py`. don't do things like `python3 << 'EOF'...` or `uv run python -c "...`, but instead write a script and execute it.
+- Instead of writing code on the command line, use a scratch-pad script called `scratch_claude.py`. Don't do things like `python3 << 'EOF'...` or `uv run python -c "...`, but instead write a script and execute it.
 - Never make network calls in unittests. They should be possible to run without any internet access.
 - Unittests should run quickly, suggest improving things if they take longer than 30 seconds.
 - Don't credit "Claude Code" as a co-author in commit messages, just credit the main author.

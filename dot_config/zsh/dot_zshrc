@@ -8,7 +8,7 @@ if [[ -n $WAYLAND_DISPLAY ]] && [[ -z $TMUX ]] && [[ -z $NO_TMUX ]]; then
             source $GRUVBOX
         fi
     fi
-    exec env /usr/bin/tmux new-session -A -s 0
+    exec env tmux new-session -A -s 0
 fi
 
 # Zsh options.
