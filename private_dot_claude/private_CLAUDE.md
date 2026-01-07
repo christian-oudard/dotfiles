@@ -2,3 +2,4 @@
 - Never make network calls in unittests. They should be possible to run without any internet access.
 - Unittests should run quickly, suggest improving things if they take longer than 30 seconds.
 - Don't credit "Claude Code" as a co-author in commit messages, just credit the main author.
+- Never try to run sudo commands, instead ask me, and I will run commands that need root access for you.
