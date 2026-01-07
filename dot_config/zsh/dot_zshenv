@@ -20,3 +20,4 @@ export \
     GRIM_DEFAULT_DIR=$HOME/screenshots \
     LIBVIRT_DEFAULT_URI=qemu:///system v \
     MODAL_CONFIG_PATH="$HOME/.config/modal/modal.toml" \
+    ENABLE_LSP_TOOL=1 \
