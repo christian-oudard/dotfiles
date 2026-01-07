@@ -16,10 +16,10 @@ local on_attach = function(client, bufnr)
 end
 
 
-vim.lsp.config('pylsp', {
+vim.lsp.config('pyright', {
     on_attach = on_attach,
 })
-vim.lsp.enable('pylsp')
+vim.lsp.enable('pyright')
 
 vim.lsp.config('rust_analyzer', {
     on_attach = on_attach,
@@ -31,10 +31,10 @@ vim.lsp.config('ruff', {
 })
 vim.lsp.enable('ruff')
 
-vim.lsp.config('biome', {
+vim.lsp.config('ts_ls', {
     on_attach = on_attach,
 })
-vim.lsp.enable('biome')
+vim.lsp.enable('ts_ls')
 
 vim.diagnostic.config({
   virtual_text = true,
