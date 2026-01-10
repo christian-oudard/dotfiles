@@ -4,3 +4,4 @@
 - Don't credit "Claude Code" as a co-author in commit messages, just credit the main author.
 - Never try to run sudo commands, instead ask me, and I will run commands that need root access for you.
 - Use the LSP tool for code navigation (goToDefinition, findReferences, hover, incomingCalls, etc.) when working with Python, Rust, TypeScript, or other supported languages.
+- When invoking the commit skill, use the fully qualified name `commit-commands:commit`, not just `commit`.

@@ -1,4 +1,26 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(uv:*)",
+      "Bash(pip show:*)",
+      "Bash(cargo:*)",
+      "Bash(git:*)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:docs.python.org)",
+      "WebFetch(domain:doc.rust-lang.org)",
+      "WebFetch(domain:docs.rs)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs",
+      "Bash(pgrep:*)",
+      "Bash(ps:*)",
+      "Bash(chmod:*)",
+      "Bash(curl:*)",
+      "Bash(grep:*)"
+    ],
+    "deny": []
+  },
   "env": {
     "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1"
   },
