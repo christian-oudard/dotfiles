@@ -1,2 +1,16 @@
 result
 notes
+
+# Sandbox artifacts (bug: creates dotfiles in CWD instead of blocking in ~)
+.bash_profile
+.bashrc
+.gitconfig
+.gitmodules
+.profile
+.ripgreprc
+.zprofile
+.zshrc
+.idea
+.mcp.json
+.vscode
+.claude/

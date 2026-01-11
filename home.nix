@@ -1,7 +1,12 @@
 # Home Manager configuration
+# Usage: import ./home.nix { username = "christian"; }
+{ username ? "christian" }:
+
 { config, pkgs, lib, secretsPath, ... }:
 
 let
+  homeDir = "/home/${username}";
+
   # Gruvbox color palette
   colors = {
     bg = "#282828";
@@ -30,44 +35,44 @@ let
   # Modifier key for sway
   mod = "Mod4";
 in {
-  home.username = "christian";
-  home.homeDirectory = "/home/christian";
+  home.username = username;
+  home.homeDirectory = homeDir;
   home.stateVersion = "24.11";
 
   # Let Home Manager manage itself
   programs.home-manager.enable = true;
 
   # Agenix secrets configuration
-  age.identityPaths = [ "${config.home.homeDirectory}/.keys/age_key.txt" ];
-
+  age.identityPaths = [ "${homeDir}/.keys/age_key.txt" ];
   age.secrets = {
-    git-config = {
-      file = "${secretsPath}/git-config.age";
-      path = "${config.home.homeDirectory}/.config/git/config.local";
-    };
-    modal-config = {
-      file = "${secretsPath}/modal.toml.age";
-      path = "${config.home.homeDirectory}/.config/modal/modal.toml";
-    };
-    ngrok-config = {
-      file = "${secretsPath}/ngrok.yml.age";
-      path = "${config.home.homeDirectory}/.config/ngrok/ngrok.yml";
-    };
     zshrc-private = {
       file = "${secretsPath}/zshrc-private.age";
-      path = "${config.home.homeDirectory}/.config/zsh/.zshrc_private";
+      path = "${homeDir}/.config/zsh/.zshrc_private";
     };
+    # Uncomment as needed:
+    # git-config = {
+    #   file = "${secretsPath}/git-config.age";
+    #   path = "${homeDir}/.config/git/config.local";
+    # };
+    # modal-config = {
+    #   file = "${secretsPath}/modal.toml.age";
+    #   path = "${homeDir}/.config/modal/modal.toml";
+    # };
+    # ngrok-config = {
+    #   file = "${secretsPath}/ngrok.yml.age";
+    #   path = "${homeDir}/.config/ngrok/ngrok.yml";
+    # };
   };
 
   # Packages
   home.packages = with pkgs; [
-    # 1Password CLI (for retrieving age key)
+    # 1Password CLI
     _1password-cli
 
     # Browser
     brave
 
-    # Sway desktop
+    # Sway desktop (foot, mako, i3status via programs.* below)
     bemenu
     j4-dmenu-desktop
     swaylock
@@ -77,12 +82,26 @@ in {
     slurp
     brightnessctl
 
-    # Terminal utilities
+    # Terminal utilities (tmux, neovim, direnv via programs.* below)
+    nodejs
     fd
     fzf
     ripgrep
     jq
     htop
+    diff-so-fancy
+
+    # Git signing
+    gnupg
+
+    # Secrets decryption
+    age
+
+    # LSP servers for neovim
+    pyright
+    rust-analyzer
+    ruff
+    typescript-language-server
   ];
 
   # Direnv (with nix-direnv for better nix integration)
@@ -104,54 +123,137 @@ in {
       ignoreSpace = true;
       share = true;
     };
+
+    # Zsh options (matching chezmoi setopt)
+    autocd = true;
+    defaultKeymap = "emacs";
+
+    # Environment variables (.zshenv equivalent)
+    sessionVariables = {
+      EDITOR = "nvim";
+      SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-agent.socket";
+      VIRTUAL_ENV_DISABLE_PROMPT = "1";
+      FZF_DEFAULT_COMMAND = "fd --type f --hidden";
+      GRIM_DEFAULT_DIR = "$HOME/screenshots";
+      PNPM_HOME = "$HOME/.local/bin";
+    };
+
     shellAliases = {
+      # ls variants
       ls = "ls --color=auto";
+      i = "ls";
       ll = "ls -l";
       la = "ls -a";
       lla = "ls -la";
+      # Safe defaults
+      cp = "cp -i";
+      mv = "mv -i";
+      # Tools
       diff = "diff --color=auto";
       grep = "grep --color=auto";
       ip = "ip -color=auto";
       less = "less -w";
+      tar = "tar --keep-old-files";
       vim = "nvim";
+      cal = "cal --monday --year --week";
     };
-    initContent = ''
-      # Start tmux automatically in Wayland
-      if [[ -n $WAYLAND_DISPLAY ]] && [[ -z $TMUX ]] && [[ -z $NO_TMUX ]]; then
-          exec env tmux new-session -A -s 0
-      fi
 
-      # Prompt
-      function hline {
-        print ''${(pl:$COLUMNS::\u2500:)}
-      }
-      function last_exit_code() {
-        local EXIT_CODE=$?
-        if [[ $EXIT_CODE -ne 0 ]]; then
-          echo "[$EXIT_CODE] "
+    initContent = lib.mkMerge [
+      # Run first: tmux auto-start
+      (lib.mkBefore ''
+        # Set terminal colors before running tmux
+        if [[ -n $WAYLAND_DISPLAY ]] && [[ -z $TMUX ]] && [[ -z $NO_TMUX ]]; then
+            if [[ -n "$PS1" ]] && [[ -f $HOME/.config/gruvbox.sh ]]; then
+                source $HOME/.config/gruvbox.sh
+            fi
+            exec env tmux new-session -A -s 0
         fi
-      }
-      function venv_status {
-        if [[ -n "$VIRTUAL_ENV" ]]; then
-          echo "(venv) "
-        fi
-      }
-      function width {
-        echo $(( COLUMNS - 24 ))
-      }
-      PROMPT='%F{237}$(hline)
+      '')
+
+      # Main config
+      ''
+        # GPG TTY for signing
+        export GPG_TTY=$(tty)
+
+        # PATH additions
+        typeset -U path PATH
+        path+=(~/bin ~/.local/bin ~/.cargo/bin ~/.npm-global/bin)
+        export PATH
+
+        # Additional zsh options not covered by home-manager
+        setopt \
+          extended_glob \
+          noglobdots \
+          correct \
+          completeinword \
+          longlistjobs \
+          notify \
+          hash_list_all \
+          nohup \
+          auto_pushd \
+          pushd_ignore_dups \
+          prompt_subst \
+          nobeep \
+          noshwordsplit \
+          noclobber \
+          unset
+
+        # Completion
+        autoload -Uz compinit
+        compinit
+        zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+        zstyle ':completion:*' completer _expand_alias _complete _ignored
+
+        # History search
+        autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+        zle -N up-line-or-beginning-search
+        zle -N down-line-or-beginning-search
+
+        # Prompt
+        function hline {
+          print ''${(pl:$COLUMNS::\u2500:)}
+        }
+        function last_exit_code() {
+          local EXIT_CODE=$?
+          if [[ $EXIT_CODE -ne 0 ]]; then
+            echo "[$EXIT_CODE] "
+          fi
+        }
+        function venv_status {
+          if [[ -n "$VIRTUAL_ENV" ]]; then
+            echo "(venv) "
+          fi
+        }
+        function width {
+          echo $(( COLUMNS - 24 ))
+        }
+        function ssh_hostname {
+          if [[ -n "$SSH_TTY" ]]; then
+            echo "%n@%M:"
+          fi
+        }
+        PROMPT='%F{237}$(hline)
 %K{237}%F{4}$%f%k '
-      PROMPT2='%K{237}%F{4}%_>%f%k '
-      RPROMPT='%F{5}$(last_exit_code)$(venv_status)%$(width)<…<%~%<<%f'
+        PROMPT2='%K{237}%F{4}%_>%f%k '
+        RPROMPT='%F{5}$(last_exit_code)$(venv_status)%$(width)<…<$(ssh_hostname)%~%<<%f'
 
-      # Key bindings
-      bindkey -e
-      bindkey '^P' up-line-or-beginning-search
-      bindkey '^N' down-line-or-beginning-search
+        # Key bindings
+        bindkey -e
+        bindkey '^P' up-line-or-beginning-search
+        bindkey '^N' down-line-or-beginning-search
 
-      # Source private config (API keys, tokens)
-      [[ -f "${config.home.homeDirectory}/.config/zsh/.zshrc_private" ]] && source "${config.home.homeDirectory}/.config/zsh/.zshrc_private"
-    '';
+        # Sudo wrapper - refresh timeout when not in pipe
+        sudo() {
+            if [[ -t 0 ]]; then
+                command sudo -v
+            fi
+            command sudo "$@"
+        }
+
+        # Source private config (API keys, tokens)
+        [[ -f ~/.config/zsh/.zshrc_private ]] && source ~/.config/zsh/.zshrc_private
+      ''
+    ];
   };
 
   # Tmux
@@ -182,43 +284,34 @@ in {
     '';
   };
 
-  # Neovim
+  # Neovim - plugins via home-manager, config files via xdg.configFile
   programs.neovim = {
     enable = true;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
-    extraConfig = ''
-      " Dvorak navigation (d/h/t/n)
-      noremap d h
-      noremap h j
-      noremap t k
-      noremap n l
-
-      " Remap displaced keys
-      noremap j d
-      noremap k n
-      noremap K N
-      noremap l t
-      noremap L T
-
-      " Basic settings
-      set number
-      set relativenumber
-      set expandtab
-      set tabstop=4
-      set shiftwidth=4
-      set ignorecase
-      set smartcase
-      set clipboard=unnamedplus
-
-      " Gruvbox
-      colorscheme gruvbox
-    '';
     plugins = with pkgs.vimPlugins; [
       gruvbox-nvim
-      vim-nix
+      vim-commentary
+      vim-surround
+      vim-fugitive
+      ultisnips
+      vim-auto-save
+      nvim-lspconfig
+      vim-python-pep8-indent
+      plenary-nvim
+      nvim-web-devicons
+      trouble-nvim
+      telescope-nvim
+      bufferline-nvim
     ];
+  };
+
+  # Neovim config files (from ./nvim/ directory)
+  xdg.configFile = {
+    "nvim/init.vim".source = ./nvim/init.vim;
+    "nvim/lua/lsp.lua".source = ./nvim/lua/lsp.lua;
+    "nvim/UltiSnips/all.snippets".source = ./nvim/UltiSnips/all.snippets;
   };
 
   # Foot terminal

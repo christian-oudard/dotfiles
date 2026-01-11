@@ -25,10 +25,16 @@
     packages = [ pkgs.terminus_font ];
   };
 
-  # User account
+  # User accounts
   users.users.christian = {
     isNormalUser = true;
     extraGroups = [ "wheel" "video" "networkmanager" "audio" ];
+    shell = pkgs.zsh;
+  };
+
+  users.users.testuser = {
+    isNormalUser = true;
+    extraGroups = [ "video" "audio" ];
     shell = pkgs.zsh;
   };
 
