@@ -53,10 +53,14 @@
   # Zsh system-wide
   programs.zsh.enable = true;
 
-  # System packages (user packages go in home.nix)
+  # System packages (minimal - user packages in home-manager)
   environment.systemPackages = with pkgs; [
     git
-    vim
+    nano
+
+    # Claude Code sandbox
+    socat
+    bubblewrap
   ];
 
   # Fonts
