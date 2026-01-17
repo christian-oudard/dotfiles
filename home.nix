@@ -48,24 +48,60 @@ in {
       file = "${secretsPath}/zshrc-private.age";
       path = "${homeDir}/.config/zsh/.zshrc_private";
     };
-    # Uncomment as needed:
-    # git-config = {
-    #   file = "${secretsPath}/git-config.age";
-    #   path = "${homeDir}/.config/git/config.local";
-    # };
-    # modal-config = {
-    #   file = "${secretsPath}/modal.toml.age";
-    #   path = "${homeDir}/.config/modal/modal.toml";
-    # };
-    # ngrok-config = {
-    #   file = "${secretsPath}/ngrok.yml.age";
-    #   path = "${homeDir}/.config/ngrok/ngrok.yml";
-    # };
+    git-config = {
+      file = "${secretsPath}/git-config.age";
+      path = "${homeDir}/.config/git/config.local";
+    };
+    modal-config = {
+      file = "${secretsPath}/modal.toml.age";
+      path = "${homeDir}/.config/modal/modal.toml";
+    };
+    ngrok-config = {
+      file = "${secretsPath}/ngrok.yml.age";
+      path = "${homeDir}/.config/ngrok/ngrok.yml";
+    };
   };
 
-  # Packages
-  # Shared packages (foot, mako, i3status, tmux, neovim, direnv managed via programs.* below)
-  home.packages = import ./packages.nix { inherit pkgs; };
+  # Packages (programs.* manages: foot, mako, i3status, tmux, neovim, direnv, git, zsh)
+  home.packages = with pkgs; [
+    # 1Password CLI
+    _1password-cli
+
+    # Browser
+    brave
+
+    # Sway desktop
+    bemenu
+    j4-dmenu-desktop
+    swaylock
+    swaybg
+    wl-clipboard
+    grim
+    slurp
+    brightnessctl
+
+    # Terminal utilities
+    python3
+    nodejs
+    fd
+    fzf
+    ripgrep
+    jq
+    htop
+    diff-so-fancy
+
+    # Git signing
+    gnupg
+
+    # Secrets decryption
+    age
+
+    # LSP servers for neovim
+    pyright
+    rust-analyzer
+    ruff
+    typescript-language-server
+  ];
 
   # Direnv (with nix-direnv for better nix integration)
   programs.direnv = {
@@ -271,6 +307,12 @@ in {
     "nvim/lua/lsp.lua".source = ./nvim/lua/lsp.lua;
     "nvim/UltiSnips/all.snippets".source = ./nvim/UltiSnips/all.snippets;
     "gruvbox.sh".source = ./config/gruvbox.sh;
+  };
+
+  # Scripts in ~/bin
+  home.file."bin/claude_notify_hook" = {
+    source = ./bin/claude_notify_hook;
+    executable = true;
   };
 
   # Foot terminal

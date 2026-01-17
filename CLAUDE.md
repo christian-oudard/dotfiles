@@ -17,13 +17,6 @@ New files must be `git add`ed before nix can see them.
 ## Activating Changes
 Run `./rebuild.sh` (Claude can't - sandbox blocks sudo)
 
-## Testing as Another User
-Use `machinectl shell` instead of `sudo -u`:
-```bash
-sudo machinectl shell testuser@
-```
-This creates a proper systemd user session. Required for agenix (secrets decryption) and other systemd user services. `sudo -u testuser -i` doesn't work - it lacks the systemd user instance.
-
 ## Claude Code Sandbox
 Requires `socat` and `bubblewrap` in systemPackages. User runs `/sandbox` in Claude Code. Uses kernel "no new privileges" flag to block sudo.
 
@@ -35,19 +28,23 @@ Requires `socat` and `bubblewrap` in systemPackages. User runs `/sandbox` in Cla
 ## File Structure
 - `flake.nix` - inputs and module composition
 - `flake.lock` - pinned versions (commit this for reproducibility)
-- `hosts/x1carbon/configuration.nix` - system config (minimal packages)
+- `hosts/x1carbon/configuration.nix` - system config (greetd, XKB, minimal packages)
 - `home.nix` - home-manager config (programs, dotfiles, packages)
-- `packages.nix` - user packages imported by home.nix
 - `secrets/` - agenix-encrypted secrets (.age files)
-- `nvim/` - neovim config files (referenced by home.nix via xdg.configFile)
+- `nvim/` - neovim config (init.vim, lua/plugins.lua, lua/lsp.lua, UltiSnips/)
+- `sway/` - sway config and scripts
+- `tmux/` - tmux config
+- `i3status/` - i3status config
+- `config/` - misc config files (gruvbox.sh)
 
 ## Neovim Setup
-Plugins managed via `programs.neovim.plugins` in home.nix (not Packer). Config files stored in repo:
+Plugins managed via `programs.neovim.plugins` in home.nix (not Packer). Config files:
 - `nvim/init.vim` - main config with Dvorak mappings, gruvbox, settings
+- `nvim/lua/plugins.lua` - plugin setup (bufferline, trouble)
 - `nvim/lua/lsp.lua` - LSP config for pyright, rust-analyzer, ruff, ts_ls
 - `nvim/UltiSnips/all.snippets` - custom snippets
 
 LSP servers installed as packages: pyright, rust-analyzer, ruff, typescript-language-server
 
-Disabled: minuet-ai (not in nixpkgs)
+Not available in nixpkgs: minuet-ai, copilot
 

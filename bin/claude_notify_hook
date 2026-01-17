@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+
+import json
+import os
+import subprocess
+import sys
+
+notification = json.loads(sys.stdin.read())
+
+message = notification.get('message')
+
+# Skip idle notifications
+if notification.get('notification_type') == 'idle_prompt':
+    sys.exit(0)
+cwd = notification.get('cwd')
+
+# Check if we're in tmux and if this window is currently active
+tmux_pane = os.environ.get('TMUX_PANE')
+window_is_active = False
+
+if tmux_pane:
+    result = subprocess.run(
+        ['tmux', 'display-message', '-p', '-t', tmux_pane, '#{window_active}'],
+        capture_output=True,
+        text=True
+    )
+    window_is_active = result.stdout.strip() == '1'
+
+# Skip notification if already looking at this window
+if window_is_active:
+    sys.exit(0)
+
+# Extract project name from cwd
+if cwd is not None:
+    message += f' ({cwd})'
+
+# Terminal bell (highlights tmux pane)
+# Write bell directly to the pane's tty since hook stdout isn't connected to terminal
+if tmux_pane:
+    result = subprocess.run(
+        ['tmux', 'display-message', '-p', '-t', tmux_pane, '#{pane_tty}'],
+        capture_output=True,
+        text=True
+    )
+    pane_tty = result.stdout.strip()
+    if pane_tty:
+        try:
+            with open(pane_tty, 'w') as tty:
+                tty.write('\a')
+        except (PermissionError, OSError):
+            pass
+
+# Play sound
+subprocess.run(['paplay', '--volume=32768', '/usr/share/sounds/freedesktop/stereo/complete.oga'])
+
+# Desktop notification with project name
+subprocess.run(['notify-send', '-t', '15000', 'Claude Code', message])
