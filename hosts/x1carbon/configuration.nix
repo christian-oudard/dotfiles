@@ -21,8 +21,15 @@
   # Console (TTY)
   console = {
     font = "ter-i32b";
-    keyMap = "dvorak";
+    useXkbConfig = true;  # Use XKB settings (dvorak, ctrl:swapcaps) on TTY
     packages = [ pkgs.terminus_font ];
+  };
+
+  # XKB keyboard layout (used by console and Sway)
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "dvorak";
+    options = "ctrl:swapcaps";
   };
 
   # User accounts
@@ -32,11 +39,6 @@
     shell = pkgs.zsh;
   };
 
-  users.users.testuser = {
-    isNormalUser = true;
-    extraGroups = [ "video" "audio" ];
-    shell = pkgs.zsh;
-  };
 
   # Passwordless sudo for wheel group
   security.sudo.wheelNeedsPassword = false;
@@ -54,6 +56,21 @@
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
+  };
+
+  # Auto-login and start Sway via greetd
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --cmd sway";
+        user = "greeter";
+      };
+      initial_session = {
+        command = "sway";
+        user = "christian";
+      };
+    };
   };
 
   # Zsh system-wide

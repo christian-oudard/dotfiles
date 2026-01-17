@@ -1,4 +1,4 @@
-" Plugins managed by home-manager (programs.neovim.plugins)
+lua require('plugins')
 lua require('lsp')
 
 " Color scheme, gruvbox with italics and transparent background.
@@ -6,6 +6,9 @@ set termguicolors
 let g:gruvbox_italic = 1
 autocmd VimEnter * ++nested colorscheme gruvbox
 autocmd VimEnter * highlight Normal ctermbg=none guibg=none
+
+" Dim minuet virtual text
+autocmd ColorScheme * highlight! link MinuetVirtualText GruvboxBg3
 
 " Syntax highlighting adjustments
 highlight Search ctermfg=18 ctermbg=17

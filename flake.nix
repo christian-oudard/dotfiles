@@ -27,10 +27,7 @@
             home-manager.useUserPackages = true;
             home-manager.sharedModules = [ agenix.homeManagerModules.default ];
             home-manager.extraSpecialArgs = { secretsPath = ./secrets; };
-            # christian: packages only (dotfiles via chezmoi)
-            home-manager.users.christian = import ./home-packages-only.nix;
-            # testuser: full home-manager config (for testing)
-            home-manager.users.testuser = import ./home.nix { username = "testuser"; };
+            home-manager.users.christian = import ./home.nix { username = "christian"; };
           }
         ];
       };
