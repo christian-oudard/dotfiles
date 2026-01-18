@@ -1,0 +1,213 @@
+{
+  "env": {
+    "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1"
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true
+  },
+  "permissions": {
+    "allow": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+
+      "Bash(git:*)",
+
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(uv:*)",
+      "Bash(ruff:*)",
+      "Bash(mypy:*)",
+      "Bash(pytest:*)",
+
+      "Bash(rustup:*)",
+      "Bash(rustc:*)",
+      "Bash(cargo:*)",
+      "Bash(rustfmt:*)",
+      "Bash(clippy-driver:*)",
+
+      "Bash(elan:*)",
+      "Bash(lean:*)",
+      "Bash(lake:*)",
+
+      "Bash(ghcup:*)",
+      "Bash(ghc:*)",
+      "Bash(ghci:*)",
+      "Bash(cabal:*)",
+      "Bash(stack:*)",
+      "Bash(haskell-language-server-wrapper:*)",
+
+      "Bash(go:*)",
+      "Bash(gofmt:*)",
+      "Bash(gopls:*)",
+      "Bash(golangci-lint:*)",
+
+      "Bash(node:*)",
+      "Bash(pnpm:*)",
+
+      "Bash(make:*)",
+      "Bash(cmake:*)",
+      "Bash(just:*)",
+
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(less:*)",
+      "Bash(wc:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(fd:*)",
+      "Bash(find:*)",
+      "Bash(sed:*)",
+      "Bash(awk:*)",
+      "Bash(sort:*)",
+      "Bash(uniq:*)",
+      "Bash(diff:*)",
+      "Bash(tree:*)",
+      "Bash(file:*)",
+      "Bash(stat:*)",
+      "Bash(realpath:*)",
+      "Bash(dirname:*)",
+      "Bash(basename:*)",
+
+      "Bash(mkdir:*)",
+      "Bash(touch:*)",
+      "Bash(cp:*)",
+      "Bash(mv:*)",
+      "Bash(ln:*)",
+      "Bash(chmod:*)",
+      "Bash(rm:*)",
+      "Bash(rmdir:*)",
+
+      "Bash(echo:*)",
+      "Bash(printf:*)",
+      "Bash(env:*)",
+      "Bash(which:*)",
+      "Bash(whereis:*)",
+      "Bash(type:*)",
+      "Bash(date:*)",
+      "Bash(uname:*)",
+      "Bash(id:*)",
+      "Bash(whoami:*)",
+      "Bash(pwd:*)",
+      "Bash(ps:*)",
+      "Bash(pgrep:*)",
+      "Bash(kill:*)",
+      "Bash(pkill:*)",
+      "Bash(xargs:*)",
+      "Bash(tee:*)",
+      "Bash(timeout:*)",
+      "Bash(time:*)",
+
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "Bash(jq:*)",
+      "Bash(yq:*)",
+
+      "Bash(tar:*)",
+      "Bash(unzip:*)",
+      "Bash(gzip:*)",
+      "Bash(gunzip:*)",
+
+      "Bash(sha256sum:*)",
+      "Bash(md5sum:*)",
+      "Bash(b2sum:*)",
+
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:gist.github.com)",
+      "WebFetch(domain:docs.python.org)",
+      "WebFetch(domain:pypi.org)",
+      "WebFetch(domain:doc.rust-lang.org)",
+      "WebFetch(domain:docs.rs)",
+      "WebFetch(domain:crates.io)",
+      "WebFetch(domain:leanprover.github.io)",
+      "WebFetch(domain:lean-lang.org)",
+      "WebFetch(domain:reservoir.lean-lang.org)",
+      "WebFetch(domain:leanprover-community.github.io)",
+      "WebFetch(domain:haskell.org)",
+      "WebFetch(domain:hackage.haskell.org)",
+      "WebFetch(domain:hoogle.haskell.org)",
+      "WebFetch(domain:go.dev)",
+      "WebFetch(domain:pkg.go.dev)",
+      "WebFetch(domain:golang.org)",
+      "WebFetch(domain:nodejs.org)",
+      "WebFetch(domain:pnpm.io)",
+      "WebFetch(domain:developer.mozilla.org)",
+      "WebFetch(domain:typescriptlang.org)",
+      "WebFetch(domain:man7.org)",
+      "WebFetch(domain:wiki.archlinux.org)",
+
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs"
+    ],
+    "deny": [
+      "Bash(sudo:*)",
+      "Bash(su:*)",
+      "Bash(doas:*)",
+
+      "Bash(pip:*)",
+      "Bash(pip3:*)",
+      "Bash(poetry:*)",
+      "Bash(pdm:*)",
+      "Bash(pipenv:*)",
+      "Bash(pipx:*)",
+      "Bash(conda:*)",
+
+      "Bash(npm:*)",
+      "Bash(npx:*)",
+      "Bash(yarn:*)",
+
+      "Bash(shred:*)",
+      "Bash(dd:*)",
+      "Bash(mkfs:*)",
+      "Bash(fdisk:*)",
+      "Bash(parted:*)",
+
+      "Bash(reboot:*)",
+      "Bash(shutdown:*)",
+      "Bash(poweroff:*)",
+      "Bash(halt:*)",
+
+      "Bash(killall:*)",
+
+      "Bash(crontab:*)",
+      "Bash(at:*)",
+
+      "Bash(nc:*)",
+      "Bash(netcat:*)",
+      "Bash(ncat:*)",
+      "Bash(socat:*)",
+
+      "Bash(mount:*)",
+      "Bash(umount:*)",
+      "Bash(chown:*)"
+    ]
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claude_notify_hook"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "pyright-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "ralph-wiggum@claude-plugins-official": true
+  },
+  "alwaysThinkingEnabled": true
+}

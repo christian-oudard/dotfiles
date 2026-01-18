@@ -111,6 +111,7 @@ alias tar='tar --keep-old-files'
 alias veracrypt='veracrypt --text'
 alias vim='nvim'
 alias cal='cal --monday --year --week'
+alias fast='fast --upload --single-line'
 
 # When not in a pipe, run sudo -v to refresh timeout.
 sudo() {
