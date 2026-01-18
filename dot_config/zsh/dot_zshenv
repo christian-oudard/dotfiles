@@ -1,13 +1,3 @@
-# Executable search path.
-typeset -U path PATH
-path+=(
-    ~/bin
-    ~/.local/bin
-    ~/.cargo/bin
-    ~/.npm-global/bin
-)
-export PATH
-
 # Environment variables.
 export \
     EDITOR=nvim \
@@ -18,6 +8,20 @@ export \
     FZF_DEFAULT_COMMAND='fd --type f --hidden' \
     PNPM_HOME=$HOME/.local/bin \
     GRIM_DEFAULT_DIR=$HOME/screenshots \
-    LIBVIRT_DEFAULT_URI=qemu:///system v \
+    LIBVIRT_DEFAULT_URI=qemu:///system \
     MODAL_CONFIG_PATH="$HOME/.config/modal/modal.toml" \
     ENABLE_LSP_TOOL=1 \
+    GOBIN=$HOME/.local/bin \
+    GOPATH=$HOME/.local/share/go \
+
+# Executable search path.
+typeset -U path PATH
+path+=(
+    ~/bin
+    ~/.local/bin
+    ~/.cargo/bin
+    ~/.npm-global/bin
+    ~/.ghcup/bin
+)
+export PATH
+
