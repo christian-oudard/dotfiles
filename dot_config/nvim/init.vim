@@ -74,6 +74,7 @@ augroup indentation
     autocmd FileType cabal setlocal softtabstop=2 shiftwidth=2
     autocmd FileType go setlocal noexpandtab tabstop=2 softtabstop=2 shiftwidth=2
     autocmd FileType yaml setlocal softtabstop=2 shiftwidth=2
+    autocmd FileType json setlocal softtabstop=2 shiftwidth=2
     autocmd FileType html setlocal softtabstop=2 shiftwidth=2
     autocmd BufNewFile,BufRead *.ejs set filetype=html
     autocmd FileType javascript setlocal softtabstop=2 shiftwidth=2

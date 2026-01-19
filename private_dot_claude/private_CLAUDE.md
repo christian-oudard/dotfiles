@@ -1,4 +1,3 @@
-- Instead of writing code on the command line, use a scratch-pad script called `scratch_claude.py`. Don't do things like `python3 << 'EOF'...` or `uv run python -c "...`, but instead write a script and execute it.
 - Use a test-driven-development (TDD) style. When something is incomplete or broken, make sure there is a unittest showing the oversight. Once test coverage is established, and the test is known to be failing, then we can implement the feature or bugfix.
 - Never make network calls in unittests. They should be possible to run without any internet access.
 - Unittests should run quickly, suggest improving things if they take longer than 30 seconds.
