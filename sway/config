@@ -211,6 +211,15 @@ bindsym Print exec env GRIM_DEFAULT_DIR=$HOME/screenshots grim -g "$(slurp)"
 # Use the Assistant key to toggle dictation.
 bindsym XF86Assistant exec whisper-dictation-toggle
 
+# Volume controls
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioRaiseVolume exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+
+# Brightness controls
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+
 # Include system sway config.
 include /etc/sway/config.d/*
 
