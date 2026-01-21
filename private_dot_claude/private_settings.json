@@ -144,6 +144,7 @@
       "Bash(b2sum:*)",
 
       "WebSearch",
+      "WebFetch(domain:en.wikipedia.org)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "WebFetch(domain:gist.github.com)",
