@@ -25,6 +25,19 @@ return require('packer').startup(
       requires = 'nvim-lua/plenary.nvim'
     }
     use {
+      'Julian/lean.nvim',
+      event = { 'BufReadPre *.lean', 'BufNewFile *.lean' },
+      requires = {
+        'neovim/nvim-lspconfig',
+        'nvim-lua/plenary.nvim',
+      },
+      config = function()
+        require('lean').setup {
+          mappings = true,
+        }
+      end
+    }
+    use {
       'akinsho/bufferline.nvim', tag = '*',
       requires = 'nvim-tree/nvim-web-devicons',
       config = function() require('bufferline').setup {
