@@ -73,13 +73,20 @@
     };
   };
 
-  # Zsh system-wide
+  # Shells
   programs.zsh.enable = true;
+  programs.bash.enable = true;
+
+  # Create /bin/bash symlink for scripts with hardcoded shebangs
+  system.activationScripts.binbash = ''
+    ln -sf /run/current-system/sw/bin/bash /bin/bash
+  '';
 
   # System packages (minimal - user packages in home-manager)
   environment.systemPackages = with pkgs; [
     git
     nano
+    wireguard-tools
 
     # Claude Code sandbox
     socat

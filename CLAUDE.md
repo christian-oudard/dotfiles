@@ -15,7 +15,7 @@ This builds the config to verify it's valid. Sandbox blocks the normal cache pat
 New files must be `git add`ed before nix can see them.
 
 ## Activating Changes
-Run `./rebuild.sh` (Claude can't - sandbox blocks sudo)
+After making changes, run `./rebuild.sh` (requires disabling sandbox).
 
 ## Claude Code Sandbox
 Requires `socat` and `bubblewrap` in systemPackages. User runs `/sandbox` in Claude Code. Uses kernel "no new privileges" flag to block sudo.

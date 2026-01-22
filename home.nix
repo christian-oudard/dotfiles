@@ -81,7 +81,9 @@ in {
     brightnessctl
 
     # Terminal utilities
+    bash
     python3
+    claude-code
     nodejs
     fd
     fzf
@@ -89,9 +91,12 @@ in {
     jq
     htop
     diff-so-fancy
+    chezmoi
+    python3Packages.grip
 
     # Git signing
     gnupg
+    gh
 
     # Secrets decryption
     age
@@ -159,8 +164,6 @@ in {
       tar = "tar --keep-old-files";
       vim = "nvim";
       cal = "cal --monday --year --week";
-      # Claude Code - always use latest via npx
-      claude = "npx @anthropic-ai/claude-code";
     };
 
     initContent = lib.mkMerge [
