@@ -205,6 +205,13 @@ bindswitch --locked lid:off output * enable
 # bindswitch --locked lid:on output * disable
 bindswitch --locked lid:on output $bottom_monitor disable
 
+# Volume and brightness controls
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioRaiseVolume exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl -e set 5%+
+bindsym XF86MonBrightnessDown exec brightnessctl -e set 5%-
+
 # Use PrtSc button to take a screenshot with `grim`.
 bindsym Print exec env GRIM_DEFAULT_DIR=$HOME/screenshots grim -g "$(slurp)"
 
