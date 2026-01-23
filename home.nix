@@ -70,6 +70,9 @@ in {
     gnupg
     gh
 
+    # Remote access
+    ngrok
+
     # Secrets decryption
     age
 

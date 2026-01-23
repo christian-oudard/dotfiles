@@ -73,6 +73,16 @@
     };
   };
 
+  # SSH server
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+    };
+  };
+
   # Shells
   programs.zsh.enable = true;
   programs.bash.enable = true;
