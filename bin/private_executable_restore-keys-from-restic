@@ -1,0 +1,26 @@
+#!/bin/bash
+set -euo pipefail
+
+# Bootstrap: requires RESTIC_PASSWORD set or prompted
+# Get service account key from GCP console or 1Password first
+
+export GOOGLE_APPLICATION_CREDENTIALS="${GOOGLE_APPLICATION_CREDENTIALS:-$HOME/.keys/restic-service-account-key.json}"
+export RESTIC_REPOSITORY="gs:cwo-restic:/"
+
+# Show available snapshots with keys tag
+echo "Available key snapshots:"
+restic snapshots --tag keys
+
+echo ""
+read -p "Snapshot ID to restore (or 'latest'): " SNAPSHOT
+
+# Restore to home directory
+restic restore "$SNAPSHOT" \
+    --target / \
+    --include "$HOME/.gnupg" \
+    --include "$HOME/.ssh" \
+    --include "$HOME/.keys"
+
+echo "Keys restored. You may need to fix permissions:"
+echo "  chmod 700 ~/.gnupg ~/.ssh ~/.keys"
+echo "  chmod 600 ~/.ssh/*"
