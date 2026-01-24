@@ -38,6 +38,7 @@ in {
     swaylock
     swaybg
     wl-clipboard
+    wtype
     grim
     slurp
     brightnessctl

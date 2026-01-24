@@ -13,10 +13,10 @@
     let
       system = "x86_64-linux";
     in {
-      nixosConfigurations.x1carbon = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.dedekind = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
-          ./hosts/x1carbon/configuration.nix
+          ./hosts/dedekind/configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

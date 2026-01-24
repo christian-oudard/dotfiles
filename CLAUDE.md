@@ -5,6 +5,7 @@
 - Full home-manager config via `home.nix`
 - Agenix enabled for secrets
 - Claude Code via npx alias (auto-updates)
+- Dotfiles managed by chezmoi: https://github.com/christian-oudard/dotfiles (clone to `./dotfiles/`)
 
 ## Testing Changes (without sudo)
 ```bash
@@ -29,22 +30,10 @@ Requires `socat` and `bubblewrap` in systemPackages. User runs `/sandbox` in Cla
 - `flake.nix` - inputs and module composition
 - `flake.lock` - pinned versions (commit this for reproducibility)
 - `hosts/x1carbon/configuration.nix` - system config (greetd, XKB, minimal packages)
-- `home.nix` - home-manager config (programs, dotfiles, packages)
-- `secrets/` - agenix-encrypted secrets (.age files)
-- `nvim/` - neovim config (init.vim, lua/plugins.lua, lua/lsp.lua, UltiSnips/)
-- `sway/` - sway config and scripts
-- `tmux/` - tmux config
-- `i3status/` - i3status config
-- `config/` - misc config files (gruvbox.sh)
+- `home.nix` - home-manager config (packages only, dotfiles via chezmoi)
+- `dotfiles/` - chezmoi source repo (clone from github.com/christian-oudard/dotfiles)
 
 ## Neovim Setup
-Plugins managed via `programs.neovim.plugins` in home.nix (not Packer). Config files:
-- `nvim/init.vim` - main config with Dvorak mappings, gruvbox, settings
-- `nvim/lua/plugins.lua` - plugin setup (bufferline, trouble)
-- `nvim/lua/lsp.lua` - LSP config for pyright, rust-analyzer, ruff, ts_ls
-- `nvim/UltiSnips/all.snippets` - custom snippets
-
+Plugins managed via `programs.neovim.plugins` in home.nix (not Packer). Config files in chezmoi dotfiles repo.
 LSP servers installed as packages: pyright, rust-analyzer, ruff, typescript-language-server
-
-Not available in nixpkgs: minuet-ai, copilot
 

@@ -14,3 +14,5 @@ notes
 .mcp.json
 .vscode
 .claude/
+ngrok_api_key.txt
+whisper_dictation

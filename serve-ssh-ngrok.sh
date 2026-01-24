@@ -1,21 +1,24 @@
 #!/usr/bin/env bash
-set -e
 
-# Check if ngrok is authenticated
-if ! ngrok config check &>/dev/null; then
-    echo "ngrok is not configured. Run 'ngrok authtoken <your-token>' first."
-    echo "Get your token from: https://dashboard.ngrok.com/get-started/your-authtoken"
-    exit 1
+# Stop any existing tunnels
+tunnels=$(ngrok api tunnels list 2>/dev/null)
+session_ids=$(echo "$tunnels" | jq -r '.tunnels[].tunnel_session.id // empty')
+if [[ -n "$session_ids" ]]; then
+    echo "Found existing tunnels:"
+    echo "$tunnels" | jq -r '.tunnels[] | .started_at' | while read -r ts; do
+        tunnel=$(echo "$tunnels" | jq -r --arg ts "$ts" '.tunnels[] | select(.started_at == $ts)')
+        age=$(( ($(date +%s) - $(date -d "$ts" +%s)) / 60 ))
+        url=$(echo "$tunnel" | jq -r '.public_url')
+        fwd=$(echo "$tunnel" | jq -r '.forwards_to')
+        echo "  • ${age}m ago: $url -> $fwd"
+    done
+    read -p "Stop these? [y/N] " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        for session_id in $session_ids; do
+            ngrok api tunnel-sessions stop "$session_id"
+        done
+    fi
 fi
 
-# Check if sshd is running
-if ! systemctl is-active --quiet sshd; then
-    echo "SSH server is not running. Enable it in your NixOS config and rebuild."
-    exit 1
-fi
-
-echo "Starting ngrok tunnel to SSH (port 22)..."
-echo "Share the connection info that appears below with whoever needs access."
-echo ""
-
-ngrok tcp 22
+TERM=xterm-256color ngrok tcp 22

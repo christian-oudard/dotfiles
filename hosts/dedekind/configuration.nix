@@ -11,7 +11,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Networking
-  networking.hostName = "x1carbon";
+  networking.hostName = "dedekind";
   networking.networkmanager.enable = true;
 
   # Locale and timezone
@@ -51,6 +51,9 @@
     pulse.enable = true;
   };
   security.rtkit.enable = true;
+
+  # Lid close behavior: lock screen instead of suspend
+  services.logind.settings.Login.HandleLidSwitch = "lock";
 
   # Sway
   programs.sway = {
