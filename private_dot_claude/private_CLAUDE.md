@@ -6,3 +6,6 @@
 - Use the LSP tool for code navigation (goToDefinition, findReferences, hover, incomingCalls, etc.) when working with Python, Rust, TypeScript, or other supported languages.
 - When invoking the commit skill, use the fully qualified name `commit-commands:commit`, not just `commit`.
 - Use the Read tool (with offset/limit for specific line ranges) instead of shell commands like `sed`, `cat`, `head`, or `tail` for viewing file contents.
+- Keep scripts and code minimal. No unnecessary error handling, echo messages, or scaffolding - just the essential commands.
+- When showing commands for me (the user) to run, prefix them with a dollar sign like this: `$ sudo cat hostname`
+- The code we write should be polite, and ask permission before doing consequential things.
