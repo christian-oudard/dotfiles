@@ -121,6 +121,24 @@ sudo() {
     command sudo "$@"
 }
 
+# Backups.
+restic_() {
+    RESTIC_REPOSITORY=gs:cwo-restic:/ \
+    RESTIC_PASSWORD_FILE="$HOME/.keys/restic-password" \
+    GOOGLE_PROJECT_ID=restic-377922 \
+    GOOGLE_APPLICATION_CREDENTIALS="$HOME/.keys/restic-service-account-key.json" \
+    restic "$@"
+}
+
+backup() {
+    local args=(--exclude-file="$HOME/.config/restic/excludes.txt" "$HOME/files" "$@")
+    local usb_repo=/mnt/usb/restic-repo
+    if [[ -d $usb_repo ]]; then
+        restic_ --repo="$usb_repo" backup "${args[@]}"
+    fi
+    restic_ backup "${args[@]}"
+}
+
 # Execute private zshrc.
 ZSH_PRIVATE=~/.config/zsh/.zshrc_private
 if [[ -f $ZSH_PRIVATE ]]; then
