@@ -1,3 +1,9 @@
 **/.direnv/**
 **/.venv/**
 **/.lake/**
+**/target/**
+**/node_modules/**
+**/__pycache__/**
+**/.cabal-sandbox/**
+**/dist/build/**
+**/.git/objects/pack/**
