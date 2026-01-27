@@ -62,9 +62,12 @@ in {
     ripgrep
     jq
     htop
+    dust
     diff-so-fancy
     chezmoi
     python3Packages.grip
+    restic
+    imagemagick
 
     # Git
     git

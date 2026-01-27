@@ -90,6 +90,12 @@
   programs.zsh.enable = true;
   programs.bash.enable = true;
 
+  # nix-ld for running pip-installed packages with C extensions
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc.lib
+  ];
+
   # Create /bin/bash symlink for scripts with hardcoded shebangs
   system.activationScripts.binbash = ''
     ln -sf /run/current-system/sw/bin/bash /bin/bash
