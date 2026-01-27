@@ -24,7 +24,7 @@ order += "battery all"
 order += "tztime local"
 
 read_file dictation {
-  path = "/tmp/nerd-dictation-status"
+  path = "/tmp/whisper-dictation-status"
   format = "%content"
   format_bad = ""
 }
