@@ -65,7 +65,14 @@ function ssh_hostname {
     echo "%n@%M:"
   fi
 }
-PROMPT='%F{237}$(hline)'$'\n''%K{237}%F{4}$%f%k '
+function prompt_char {
+  if [[ $EUID -eq 0 ]]; then
+    echo '%F{1}#'
+  else
+    echo '%F{4}$'
+  fi
+}
+PROMPT='%F{237}$(hline)'$'\n''%K{237}$(prompt_char)%f%k '
 PROMPT2='%K{237}%F{4}%_>%f%k '
 RPROMPT='%F{5}$(last_exit_code)$(venv_status)%$(width)<…<$(ssh_hostname)%~%<<%f'
 
