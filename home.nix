@@ -1,5 +1,3 @@
-# Home Manager configuration
-# Packages only - all dotfiles managed by chezmoi
 { username ? "christian" }:
 
 { config, pkgs, lib, ... }:
@@ -11,7 +9,6 @@ in {
   home.homeDirectory = homeDir;
   home.stateVersion = "24.11";
 
-  # Cursor theme (HiDPI)
   home.pointerCursor = {
     name = "Adwaita";
     package = pkgs.adwaita-icon-theme;
@@ -20,19 +17,22 @@ in {
     x11.enable = true;
   };
 
-  # Let Home Manager manage itself
-  programs.home-manager.enable = true;
-
-  # All packages - chezmoi manages all config files
   home.packages = with pkgs; [
-    # 1Password CLI
+    # Basic
+    zsh
+    bash
+    tmux
+    tmuxPlugins.gruvbox
+    chezmoi
+    age
+    gnupg
     _1password-cli
-
-    # Browser
-    brave
+    eza
+    uutils-coreutils-noprefix
 
     # Sway desktop (config via chezmoi)
     sway
+    foot
     bemenu
     j4-dmenu-desktop
     swaylock
@@ -44,56 +44,41 @@ in {
     brightnessctl
     mako
     i3status
-    i3status-rust
-    foot
     pulsemixer
+    brave
 
     # Terminal utilities
-    zsh
-    tmux
-    tmuxPlugins.gruvbox
-    bash
-    python3
-    uv
-    claude-code
-    nodejs
+    diff-so-fancy
+    dust
     fd
     fzf
-    ripgrep
-    jq
     htop
-    dust
-    diff-so-fancy
-    chezmoi
-    python3Packages.grip
-    restic
     imagemagick
-
-    # Git
-    git
-    gnupg
-    gh
-
-    # Remote access
     ngrok
+    restic
+    ripgrep
+    tree
 
-    # Secrets decryption
-    age
-
-    # LSP servers for neovim
-    pyright
-    rust-analyzer
+    # Programming
+    git
+    gh
+    claude-code
+    python3
+    uv
     ruff
+    nodejs
+    jq
     typescript-language-server
+    rust-analyzer
   ];
 
-  # Direnv - this one is fine, doesn't conflict
+  programs.home-manager.enable = true;
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
   };
 
-  # Neovim - plugins via home-manager, config via chezmoi
   programs.neovim = {
     enable = true;
     defaultEditor = true;
