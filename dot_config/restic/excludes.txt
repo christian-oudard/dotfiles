@@ -7,3 +7,4 @@
 **/.cabal-sandbox/**
 **/dist/build/**
 **/.git/objects/pack/**
+**/documents/**/page_*.png
