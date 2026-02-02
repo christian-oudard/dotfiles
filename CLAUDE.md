@@ -37,6 +37,10 @@ Two separate Claude configurations exist here:
 - **User-level settings** (`private_dot_claude/`): Edit `private_settings.json` and `private_CLAUDE.md` here to change global Claude Code behavior across all projects. These are applied to `~/.claude/` via chezmoi.
 - **Repo-specific settings** (`.claude/`): Settings that only apply when working in this dotfiles repository. Not managed by chezmoi.
 
+**Important**: When examining Claude Code settings in this repo, always read the chezmoi source files (`private_dot_claude/private_settings.json`), not the deployed files (`~/.claude/settings.json`).
+
+**Before editing permissions**: Read `rstrict-sandbox/README.md` for the sandboxing setup, documented settings, and known limitations. Many sandbox settings found online or hallucinated by Claude don't actually exist.
+
 ## Encryption
 
 Uses age encryption with identity at `~/.keys/age_chezmoi_key.txt`. Encrypted files have `.age` extension.

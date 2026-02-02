@@ -9,3 +9,4 @@
 - Keep scripts and code minimal. No unnecessary error handling, echo messages, or scaffolding - just the essential commands.
 - When showing commands for me (the user) to run, prefix them with a dollar sign like this: `$ sudo cat hostname`
 - The code we write should be polite, and ask permission before doing consequential things.
+- Do not attempt to read secrets or system configuration without asking first.
