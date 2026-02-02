@@ -1,13 +1,7 @@
 # Zsh settings for interactive shells.
 
-# Set terminal colors before running tmux.
+# Auto-start tmux on Wayland.
 if [[ -n $WAYLAND_DISPLAY ]] && [[ -z $TMUX ]] && [[ -z $NO_TMUX ]]; then
-    if [[ -n "$PS1" ]]; then
-        GRUVBOX=$HOME/.config/gruvbox.sh
-        if [[ -f $GRUVBOX ]]; then
-            source $GRUVBOX
-        fi
-    fi
     exec env tmux new-session -A -s 0
 fi
 
@@ -92,28 +86,19 @@ bindkey -e
 bindkey '^P' up-line-or-beginning-search
 bindkey '^N' down-line-or-beginning-search
 
-# Create aliases for all uutils commands. Don't try to alias the '[' command.
-for full_cmd in /usr/bin/uu-*(N); do
-  uu_cmd=${full_cmd##*/}
-  cmd=${uu_cmd#uu-}
-  if [[ $cmd != '[' ]]; then
-    alias "$cmd"="$uu_cmd"
-  fi
-done
-
 # Aliases.
 alias ls='eza'
 alias i='eza'
 alias ll='eza -l'
 alias la='eza -a'
 alias lla='eza -la'
-alias cp='uu-cp -i'
+alias cp='cp -i'
 alias diff='diff --color=auto'
 alias du='dust'
 alias grep='grep --color=auto'
 alias ip='ip -color=auto'
 alias less='less -w'
-alias mv='uu-mv -i'
+alias mv='mv -i'
 alias tar='tar --keep-old-files'
 alias veracrypt='veracrypt --text'
 alias vim='nvim'
