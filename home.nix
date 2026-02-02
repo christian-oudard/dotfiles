@@ -98,6 +98,7 @@ in {
       trouble-nvim
       telescope-nvim
       bufferline-nvim
+      lean-nvim
     ];
   };
 }

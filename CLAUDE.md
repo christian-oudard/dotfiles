@@ -1,10 +1,11 @@
-# NixOS Config
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Current State
-- NixOS 25.11 (stable), flake-based
+- NixOS unstable, flake-based
 - Full home-manager config via `home.nix`
-- Agenix enabled for secrets
-- Claude Code via npx alias (auto-updates)
+- Disko for LUKS/LVM disk management
 - Dotfiles managed by chezmoi: https://github.com/christian-oudard/dotfiles (clone to `./dotfiles/`)
 
 ## Testing Changes (without sudo)
@@ -29,11 +30,11 @@ Requires `socat` and `bubblewrap` in systemPackages. User runs `/sandbox` in Cla
 ## File Structure
 - `flake.nix` - inputs and module composition
 - `flake.lock` - pinned versions (commit this for reproducibility)
-- `hosts/x1carbon/configuration.nix` - system config (greetd, XKB, minimal packages)
+- `hosts/dedekind/configuration.nix` - system config (greetd, XKB, minimal packages)
+- `hosts/dedekind/disk-config.nix` - disko config for LUKS/LVM partitioning
 - `home.nix` - home-manager config (packages only, dotfiles via chezmoi)
 - `dotfiles/` - chezmoi source repo (clone from github.com/christian-oudard/dotfiles)
 
 ## Neovim Setup
 Plugins managed via `programs.neovim.plugins` in home.nix (not Packer). Config files in chezmoi dotfiles repo.
 LSP servers installed as packages: pyright, rust-analyzer, ruff, typescript-language-server
-
