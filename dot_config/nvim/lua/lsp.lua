@@ -1,7 +1,7 @@
 local on_attach = function(client, bufnr)
   -- Complete object members with omnifunc and Ctrl-Space.
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  vim.api.nvim_buf_set_keymap(bufnr, 'i', '<C-Space>', '<C-x><C-o>', {noremap = true, silent = true})
+  vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+  vim.keymap.set('i', '<C-Space>', '<C-x><C-o>', { buffer = bufnr, silent = true })
 
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
