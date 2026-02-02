@@ -1,10 +1,31 @@
 lua require('lsp')
+lua require('nvim-web-devicons').setup{}
+lua require('trouble').setup{}
+lua require('telescope').setup{}
 
 " Color scheme, gruvbox with italics and transparent background.
 set termguicolors
-let g:gruvbox_italic = 1
-autocmd VimEnter * ++nested colorscheme gruvbox
-autocmd VimEnter * highlight Normal ctermbg=none guibg=none
+lua << EOF
+require('gruvbox').setup {
+  italic = {
+    strings = false,
+    emphasis = true,
+    comments = true,
+    operators = false,
+  },
+  transparent_mode = true,
+}
+EOF
+colorscheme gruvbox
+
+lua << EOF
+require('bufferline').setup {
+  options = {
+    show_buffer_close_icons = false,
+    modified_icon = '',
+  },
+}
+EOF
 
 " Dim minuet virtual text
 autocmd ColorScheme * highlight! link MinuetVirtualText GruvboxBg3
@@ -82,6 +103,9 @@ augroup indentation
     autocmd FileType markdown setlocal softtabstop=4 shiftwidth=4 textwidth=90 formatoptions-=t
     autocmd FileType javascriptreact setlocal softtabstop=2 shiftwidth=2
 augroup END
+
+" Tab line (bufferline)
+set showtabline=2
 
 " Status line
 set laststatus=2
