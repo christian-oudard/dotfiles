@@ -1,4 +1,3 @@
-lua require('plugins')
 lua require('lsp')
 
 " Color scheme, gruvbox with italics and transparent background.
