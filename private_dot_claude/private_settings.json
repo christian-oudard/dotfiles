@@ -1,21 +1,36 @@
 {
   "env": {
     "TMPPREFIX": "/tmp/claude/zsh",
-    "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1"
+    "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
   },
   "sandbox": {
     "enabled": true,
     "autoAllowBashIfSandboxed": true,
     "allowUnsandboxedCommands": false,
-    "excludedCommands": ["uv:*", "pnpm:*"]
+    "excludedCommands": ["uv:*", "pnpm:*"],
+    "filesystem": {
+      "read": {
+        "allowOnly": ["./**", "/tmp/claude/**"],
+        "denyWithinAllow": ["./.claude/**", "./secrets/**"]
+      },
+      "write": {
+        "allowOnly": ["./**", "/tmp/claude/**"],
+        "denyWithinAllow": ["./.claude/**"]
+      }
+    },
+    "network": {
+      "allowedHosts": ["api.anthropic.com"]
+    }
   },
   "permissions": {
     "allow": [
-      "Read",
+      "Read(./**)",
+      "Read(/tmp/claude/**)",
       "Write(./**)",
       "Edit(./**)",
-      "Write(//tmp/claude/**)",
-      "Edit(//tmp/claude/**)",
+      "Write(/tmp/claude/**)",
+      "Edit(/tmp/claude/**)",
 
       "Bash(git:status:*)",
       "Bash(git:log:*)",
@@ -83,18 +98,10 @@
       "Bash(cmake:*)",
       "Bash(just:*)",
 
-      "Bash(cat:*)",
       "Bash(ls:*)",
-      "Bash(head:*)",
-      "Bash(tail:*)",
-      "Bash(less:*)",
       "Bash(wc:*)",
-      "Bash(grep:*)",
-      "Bash(rg:*)",
       "Bash(fd:*)",
       "Bash(find:*)",
-      "Bash(sed:*)",
-      "Bash(awk:*)",
       "Bash(sort:*)",
       "Bash(uniq:*)",
       "Bash(diff:*)",
@@ -147,6 +154,11 @@
       "Bash(b2sum:*)",
 
       "WebSearch",
+      "WebFetch(domain:localhost)",
+      "WebFetch(domain:api.anthropic.com)",
+      "WebFetch(domain:www.anthropic.com)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:mcp.context7.com)",
       "WebFetch(domain:en.wikipedia.org)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
@@ -194,6 +206,12 @@
       "mcp__c4ai-sse__ask"
     ],
     "deny": [
+      "Read(/etc/**)",
+      "Read(/root/**)",
+      "Read(/home/christian/.claude/**)",
+      "Write(.claude/**)",
+      "Edit(.claude/**)",
+
       "Bash(gh:*)",
 
       "Bash(sudo:*)",
