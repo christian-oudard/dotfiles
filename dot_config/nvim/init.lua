@@ -17,11 +17,33 @@ require('gruvbox').setup {
 }
 vim.cmd('colorscheme gruvbox')
 
+-- Gruvbox palette for highlight customization
+-- View all colors with :lua print(vim.inspect(require('gruvbox').palette))
+local palette = require('gruvbox').palette
+
 -- Bufferline
 require('bufferline').setup {
   options = {
     show_buffer_close_icons = false,
     modified_icon = '',
+    separator_style = { '', '' },
+  },
+  highlights = {
+    fill = { bg = palette.dark0 },
+    buffer_selected = {
+      fg = palette.light1,
+      bg = palette.dark2,
+      bold = true,
+      italic = true,
+    },
+    close_button_selected = { bg = palette.dark2 },
+    separator = { fg = palette.dark0, bg = palette.dark0 },
+    separator_visible = { fg = palette.dark0, bg = palette.dark0 },
+    separator_selected = { fg = palette.dark2, bg = palette.dark2 },
+    indicator_visible = { fg = palette.dark0, bg = palette.dark0 },
+    indicator_selected = { fg = palette.dark2, bg = palette.dark2 },
+    modified_selected = { bg = palette.dark2 },
+    duplicate_selected = { bg = palette.dark2 },
   },
 }
 
@@ -34,10 +56,8 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 })
 
 -- Syntax highlighting adjustments
-vim.api.nvim_set_hl(0, 'Search', { ctermfg = 18, ctermbg = 17 })
-vim.api.nvim_set_hl(0, 'IncSearch', { ctermfg = 18, ctermbg = 16 })
-vim.api.nvim_set_hl(0, 'TabLineSel', { ctermfg = 3, ctermbg = 18 })
-vim.api.nvim_set_hl(0, 'Error', { underline = true, ctermfg = 1, ctermbg = 18 })
+vim.api.nvim_set_hl(0, 'Error', { underline = true, fg = palette.bright_red })
+vim.api.nvim_set_hl(0, 'TabLineFill', { bg = palette.dark0 })
 
 --------------------------------------------------------------------------------
 -- Options
