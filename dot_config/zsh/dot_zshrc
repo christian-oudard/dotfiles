@@ -51,6 +51,11 @@ function venv_status {
     echo "(venv) "
   fi
 }
+function nix_shell_status {
+  if [[ -n "$IN_NIX_SHELL" ]]; then
+    echo "(nix) "
+  fi
+}
 function width {
   echo $(( COLUMNS - 24 ))
 }
@@ -68,7 +73,7 @@ function prompt_char {
 }
 PROMPT='%F{237}$(hline)'$'\n''%K{237}$(prompt_char)%f%k '
 PROMPT2='%K{237}%F{4}%_>%f%k '
-RPROMPT='%F{5}$(last_exit_code)$(venv_status)%$(width)<…<$(ssh_hostname)%~%<<%f'
+RPROMPT='%F{5}$(last_exit_code)$(nix_shell_status)$(venv_status)%$(width)<…<$(ssh_hostname)%~%<<%f'
 
 # Plugins.
 autoload -Uz \
@@ -87,6 +92,7 @@ bindkey '^P' up-line-or-beginning-search
 bindkey '^N' down-line-or-beginning-search
 
 # Aliases.
+alias nix-shell='nix-shell --command zsh'
 alias ls='eza'
 alias i='eza'
 alias ll='eza -l'
