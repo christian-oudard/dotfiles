@@ -13,6 +13,14 @@
   # Networking
   networking.hostName = "dedekind";
   networking.networkmanager.enable = true;
+  networking.enableIPv6 = false;
+  boot.kernel.sysctl."net.ipv6.conf.all.disable_ipv6" = 1;
+  boot.kernel.sysctl."net.ipv6.conf.default.disable_ipv6" = 1;
+  networking.getaddrinfo.precedence = {
+    "::1/128" = 50;
+    "::ffff:0:0/96" = 100;  # Prefer IPv4
+    "::/0" = 40;
+  };
 
   # Locale and timezone
   time.timeZone = "US/Mountain";
@@ -106,10 +114,8 @@
     git
     nano
     wireguard-tools
-
-    # Claude Code sandbox
-    socat
-    bubblewrap
+    gcc
+    pkg-config
   ];
 
   # Fonts

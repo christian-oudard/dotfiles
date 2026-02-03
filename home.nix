@@ -66,6 +66,8 @@ in {
     git
     gh
     claude-code
+    socat
+    bubblewrap
     python3
     uv
     ruff
@@ -74,9 +76,12 @@ in {
     jq
     typescript-language-server
     rust-analyzer
-    lean4
+    elan
     podman
     tinyproxy
+
+    # Libraries
+    cairo.dev
   ];
 
   programs.home-manager.enable = true;
