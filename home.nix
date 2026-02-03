@@ -45,6 +45,8 @@ in {
     slurp
     brightnessctl
     mako
+    libnotify
+    batsignal
     i3status
     pulsemixer
     brave
