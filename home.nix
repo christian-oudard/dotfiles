@@ -23,12 +23,14 @@ in {
     bash
     tmux
     tmuxPlugins.gruvbox
+    eza
+    uutils-coreutils-noprefix
+
+    # Dotfiles
     chezmoi
     age
     gnupg
     _1password-cli
-    eza
-    uutils-coreutils-noprefix
 
     # Sway desktop (config via chezmoi)
     sway
@@ -58,6 +60,7 @@ in {
     restic
     ripgrep
     tree
+    wget
 
     # Programming
     git
@@ -66,10 +69,14 @@ in {
     python3
     uv
     ruff
+    pyright
     nodejs
     jq
     typescript-language-server
     rust-analyzer
+    lean4
+    podman
+    tinyproxy
   ];
 
   programs.home-manager.enable = true;
