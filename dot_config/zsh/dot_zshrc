@@ -1,13 +1,7 @@
 # Zsh settings for interactive shells.
 
-# Set terminal colors before running tmux.
+# Auto-start tmux on Wayland.
 if [[ -n $WAYLAND_DISPLAY ]] && [[ -z $TMUX ]] && [[ -z $NO_TMUX ]]; then
-    if [[ -n "$PS1" ]]; then
-        GRUVBOX=$HOME/.config/gruvbox.sh
-        if [[ -f $GRUVBOX ]]; then
-            source $GRUVBOX
-        fi
-    fi
     exec env tmux new-session -A -s 0
 fi
 
@@ -129,21 +123,21 @@ sudo() {
 }
 
 # Backups.
-restic_() {
+restic() {
     RESTIC_REPOSITORY=gs:cwo-restic:/ \
     RESTIC_PASSWORD_FILE="$HOME/.keys/restic-password" \
     GOOGLE_PROJECT_ID=restic-377922 \
     GOOGLE_APPLICATION_CREDENTIALS="$HOME/.keys/restic-service-account-key.json" \
-    restic "$@"
+    command restic "$@"
 }
 
 backup() {
     local args=(--exclude-file="$HOME/.config/restic/excludes.txt" "$HOME/files" "$@")
     local usb_repo=/mnt/usb/restic-repo
     if [[ -d $usb_repo ]]; then
-        restic_ --repo="$usb_repo" backup "${args[@]}"
+        restic --repo="$usb_repo" backup "${args[@]}"
     fi
-    restic_ backup "${args[@]}"
+    restic backup "${args[@]}"
 }
 
 # Execute private zshrc.
