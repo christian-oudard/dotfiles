@@ -222,7 +222,7 @@ bindsym XF86Assistant exec whisper-dictation-toggle
 include /etc/sway/config.d/*
 
 # Warn about low battery.
-exec --no-startup-id i3-battery-popup
+exec batsignal -c 10 -d 5
 
 # Start Mako notification daemon.
 exec mako
