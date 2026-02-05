@@ -13,6 +13,7 @@ export \
     ENABLE_LSP_TOOL=1 \
     GOBIN=$HOME/.local/bin \
     GOPATH=$HOME/.local/share/go \
+    PDFCONVERT_OUTPUT_DIR="$HOME/files/library/pdfconvert_documents/" \
 
 # Executable search path.
 typeset -U path PATH

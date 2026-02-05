@@ -1,3 +1,6 @@
+-- Plugin manager (bootstraps lazy.nvim if needed)
+require('plugins')
+
 -- Plugin setup
 require('lsp')
 require('nvim-web-devicons').setup{}
