@@ -15,13 +15,29 @@
       url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    whisper-dictation-src = {
+      url = "github:christian-oudard/whisper_dictation";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, disko, claude-code, ... }:
+  outputs = { self, nixpkgs, home-manager, disko, claude-code, whisper-dictation-src, ... }:
     let
       system = "x86_64-linux";
       overlay-claude-code = final: prev: {
         claude-code = claude-code.packages.${system}.default;
+      };
+      overlay-whisper-dictation = final: prev: {
+        whisper-dictation = prev.python3Packages.buildPythonApplication {
+          pname = "whisper-dictation";
+          version = "0.1.0";
+          src = whisper-dictation-src;
+          pyproject = true;
+          build-system = [ prev.python3Packages.setuptools ];
+          dependencies = with prev.python3Packages; [
+            faster-whisper torch sounddevice numpy
+          ];
+        };
       };
     in {
       nixosConfigurations.dedekind = nixpkgs.lib.nixosSystem {
@@ -30,7 +46,7 @@
           ./hosts/dedekind/configuration.nix
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
-          { nixpkgs.overlays = [ overlay-claude-code ]; }
+          { nixpkgs.overlays = [ overlay-claude-code overlay-whisper-dictation ]; }
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

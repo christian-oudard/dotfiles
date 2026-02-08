@@ -53,6 +53,7 @@ in {
     batsignal
     i3status
     pulsemixer
+    wev
     brave
 
     # Terminal utilities
@@ -75,6 +76,7 @@ in {
     bubblewrap
     python3
     uv
+    whisper-dictation
     ruff
     pyright
     nodejs

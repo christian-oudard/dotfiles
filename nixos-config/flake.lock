@@ -100,7 +100,8 @@
         "claude-code": "claude-code",
         "disko": "disko",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "whisper-dictation-src": "whisper-dictation-src"
       }
     },
     "systems": {
@@ -115,6 +116,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "whisper-dictation-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1770520323,
+        "narHash": "sha256-Lpq5qN3zAoh5gP5eMyviDNHfrbQ2G7ZM8NeVYczB0zg=",
+        "owner": "christian-oudard",
+        "repo": "whisper_dictation",
+        "rev": "d64e0934905d7e5dbba3c2cdc8810509a62bd6c9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "christian-oudard",
+        "repo": "whisper_dictation",
         "type": "github"
       }
     }

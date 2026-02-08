@@ -215,8 +215,9 @@ bindsym XF86MonBrightnessDown exec brightnessctl -e set 5%-
 # Use PrtSc button to take a screenshot with `grim`.
 bindsym Print exec env GRIM_DEFAULT_DIR=$HOME/screenshots grim -g "$(slurp)"
 
-# Use the Assistant key to toggle dictation.
+# Toggle dictation (Assistant key on some keyboards, Favorites/star on others).
 bindsym XF86Assistant exec whisper-dictation-toggle
+bindsym XF86Favorites exec whisper-dictation-toggle
 
 # Include system sway config.
 include /etc/sway/config.d/*
