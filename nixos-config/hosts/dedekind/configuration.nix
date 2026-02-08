@@ -154,12 +154,6 @@
     };
   };
 
-  # Hide other users' processes
-  fileSystems."/proc" = {
-    device = "proc";
-    fsType = "proc";
-    options = [ "hidepid=2" ];
-  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
