@@ -92,7 +92,9 @@ bindkey '^P' up-line-or-beginning-search
 bindkey '^N' down-line-or-beginning-search
 
 # Aliases.
-alias nix-shell='nix-shell --command zsh'
+if command -v nix-shell &>/dev/null; then
+    alias nix-shell='nix-shell --command zsh'
+fi
 alias ls='eza'
 alias i='eza'
 alias ll='eza -l'

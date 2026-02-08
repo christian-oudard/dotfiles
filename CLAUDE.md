@@ -8,15 +8,13 @@ This is a chezmoi dotfiles repository. Files here are source templates that chez
 
 ## Branches
 
-- **`main`** — Arch Linux
-- **`nixos`** — NixOS
+- **`main`** — Cross-platform base (works on both Arch and NixOS)
+- **`archlinux`** — Arch Linux-specific additions on top of main
+- **`nixos`** — NixOS-specific additions on top of main
 
-These branches intentionally diverge in:
-- **Neovim plugin management**: Arch uses lazy.nvim (`dot_config/nvim/lua/plugins.lua`), NixOS has plugins managed by nix (no plugin manager in the config)
-- **Shell aliases**: Arch aliases coreutils to uutils (`uu-cp`, `uu-mv`), NixOS uses standard coreutils
-- **NixOS-specific shell config**: `nix-shell` alias, `nix_shell_status` prompt indicator, `LD_LIBRARY_PATH`
-
-Claude settings (`private_dot_claude/`) and the bulk of `dot_config/nvim/init.lua` should be kept in sync between branches.
+Platform-specific differences:
+- **Neovim plugin management**: `archlinux` uses lazy.nvim (`dot_config/nvim/lua/plugins.lua`), `nixos` has plugins managed by nix
+- **Shell aliases**: `archlinux` aliases coreutils to uutils (`uu-cp`, `uu-mv`), `main`/`nixos` use standard coreutils
 
 ## Chezmoi Naming Conventions
 
