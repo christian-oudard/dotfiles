@@ -122,11 +122,11 @@
     "whisper-dictation-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1770520323,
-        "narHash": "sha256-Lpq5qN3zAoh5gP5eMyviDNHfrbQ2G7ZM8NeVYczB0zg=",
+        "lastModified": 1770527093,
+        "narHash": "sha256-j0FsqnjsAhERp4adfAygBUH8LZyu1tvsq8l/tA8FTC4=",
         "owner": "christian-oudard",
         "repo": "whisper_dictation",
-        "rev": "d64e0934905d7e5dbba3c2cdc8810509a62bd6c9",
+        "rev": "ef6d400ef8da5e3731fdcac002fd7fb28a3bcbbd",
         "type": "github"
       },
       "original": {
