@@ -1,12 +1,12 @@
-- Use a test-driven-development (TDD) style. When something is incomplete or broken, make sure there is a unittest showing the oversight. Once test coverage is established, and the test is known to be failing, then we can implement the feature or bugfix.
+- Work incrementally. Don't try to get it all done in one shot. Make small to moderate changes, then test or validate them before moving on.
+- Use a test-driven-development (TDD) style when it makes sense to do so. When something is incomplete or broken, make sure there is a unittest showing the oversight. Once test coverage is established, and the test is known to be failing, then we can implement the feature or bugfix.
 - Never make network calls in unittests. They should be possible to run without any internet access.
 - Unittests should run quickly, suggest improving things if they take longer than 30 seconds.
 - Don't credit "Claude Code" as a co-author in commit messages, just credit the main author.
 - Never try to run sudo commands, instead ask me, and I will run commands that need root access for you.
 - Use the LSP tool for code navigation (goToDefinition, findReferences, hover, incomingCalls, etc.) when working with Python, Rust, TypeScript, or other supported languages.
-- When invoking the commit skill, use the fully qualified name `commit-commands:commit`, not just `commit`.
 - Use the Read tool (with offset/limit for specific line ranges) instead of shell commands like `sed`, `cat`, `head`, or `tail` for viewing file contents.
 - Keep scripts and code minimal. No unnecessary error handling, echo messages, or scaffolding - just the essential commands.
 - When showing commands for me (the user) to run, prefix them with a dollar sign like this: `$ sudo cat hostname`
-- The code we write should be polite, and ask permission before doing consequential things.
+- The code we write should be polite, and should ask permission before doing consequential things.
 - Do not attempt to read secrets or system configuration without asking first.
