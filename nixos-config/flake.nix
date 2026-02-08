@@ -39,21 +39,25 @@
           ];
         };
       };
+      commonModules = [
+        home-manager.nixosModules.home-manager
+        { nixpkgs.overlays = [ overlay-claude-code overlay-whisper-dictation ]; }
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.christian = import ./home.nix { username = "christian"; };
+          home-manager.users.agent = import ./agent-home.nix;
+        }
+      ];
     in {
       nixosConfigurations.dedekind = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [
-          ./hosts/dedekind/configuration.nix
-          disko.nixosModules.disko
-          home-manager.nixosModules.home-manager
-          { nixpkgs.overlays = [ overlay-claude-code overlay-whisper-dictation ]; }
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.christian = import ./home.nix { username = "christian"; };
-            home-manager.users.agent = import ./agent-home.nix;
-          }
-        ];
+        modules = [ ./hosts/dedekind/configuration.nix disko.nixosModules.disko ] ++ commonModules;
+      };
+
+      nixosConfigurations.cantor = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [ ./hosts/cantor/configuration.nix ] ++ commonModules;
       };
     };
 }

@@ -1,4 +1,4 @@
-# NixOS system configuration for dedekind (X1 Carbon)
+# NixOS system configuration for cantor
 { config, lib, pkgs, ... }:
 
 {
@@ -7,5 +7,5 @@
     ../../common.nix
   ];
 
-  networking.hostName = "dedekind";
+  networking.hostName = "cantor";
 }
