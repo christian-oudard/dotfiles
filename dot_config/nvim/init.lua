@@ -1,4 +1,5 @@
 -- Plugin setup
+require('plugins')
 require('lsp')
 require('nvim-web-devicons').setup{}
 require('trouble').setup{}

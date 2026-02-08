@@ -91,6 +91,15 @@ bindkey -e
 bindkey '^P' up-line-or-beginning-search
 bindkey '^N' down-line-or-beginning-search
 
+# Create aliases for all uutils commands. Don't try to alias the '[' command.
+for full_cmd in /usr/bin/uu-*(N); do
+  uu_cmd=${full_cmd##*/}
+  cmd=${uu_cmd#uu-}
+  if [[ $cmd != '[' ]]; then
+    alias "$cmd"="$uu_cmd"
+  fi
+done
+
 # Aliases.
 if command -v nix-shell &>/dev/null; then
     alias nix-shell='nix-shell --command zsh'
@@ -100,13 +109,13 @@ alias i='eza'
 alias ll='eza -l'
 alias la='eza -a'
 alias lla='eza -la'
-alias cp='cp -i'
+alias cp='uu-cp -i'
 alias diff='diff --color=auto'
 alias du='dust'
 alias grep='grep --color=auto'
 alias ip='ip -color=auto'
 alias less='less -w'
-alias mv='mv -i'
+alias mv='uu-mv -i'
 alias tar='tar --keep-old-files'
 alias veracrypt='veracrypt --text'
 alias vim='nvim'
