@@ -5,6 +5,12 @@
     "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1",
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
   },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "excludedCommands": ["uv:*", "pnpm:*"],
+    "allowUnsandboxedCommands": false
+  },
   "hooks": {
     "Notification": [
       {
@@ -28,15 +34,6 @@
   },
   "permissions": {
     "allow": [
-      "Bash(cat:*)",
-      "Bash(head:*)",
-      "Bash(tail:*)",
-      "Bash(less:*)",
-      "Bash(more:*)",
-      "Bash(bat:*)",
-      "Bash(sed:*)",
-      "Bash(awk:*)",
-      "Bash(grep:*)",
       "Bash(rg:*)",
       "Bash(ls:*)",
       "Bash(fd:*)",
@@ -44,11 +41,9 @@
       "Bash(tree:*)",
       "Bash(file:*)",
       "Bash(stat:*)",
-      "Bash(wc:*)",
       "Bash(realpath:*)",
       "Bash(dirname:*)",
       "Bash(basename:*)",
-
       "Bash(mkdir:*)",
       "Bash(touch:*)",
       "Bash(cp:*)",
@@ -57,7 +52,6 @@
       "Bash(chmod:*)",
       "Bash(rm:*)",
       "Bash(rmdir:*)",
-
       "Bash(diff:*)",
       "Bash(sort:*)",
       "Bash(uniq:*)",
@@ -75,18 +69,13 @@
       "Bash(git:status:*)",
       "Bash(git:log:*)",
       "Bash(git:diff:*)",
-      "Bash(git:branch:*)",
+      "Bash(git:branch:)",
+      "Bash(git:branch:-a:*)",
+      "Bash(git:branch:-r:*)",
+      "Bash(git:branch:--list:*)",
+      "Bash(git:branch:-v:*)",
       "Bash(git:show:*)",
       "Bash(git:blame:*)",
-      "Bash(git:add:*)",
-      "Bash(git:commit:*)",
-      "Bash(git:stash:*)",
-      "Bash(git:checkout:*)",
-      "Bash(git:switch:*)",
-      "Bash(git:merge:*)",
-      "Bash(git:restore:*)",
-      "Bash(git:tag:*)",
-      "Bash(git:cherry-pick:*)",
       "Bash(git:rev-parse:*)",
       "Bash(git:ls-files:*)",
       "Bash(git:ls-tree:*)",
@@ -151,8 +140,11 @@
       "mcp__c4ai-sse__ask"
     ],
     "deny": [
-      "Bash(ag:*)",
+      "Read(~/.keys/**)",
+      "Read(~/.ssh/**)",
+      "Read(~/.gnupg/**)",
 
+      "Bash(ag:*)",
       "Bash(curl:*)",
       "Bash(wget:*)",
       "Bash(nc:*)",
@@ -175,7 +167,6 @@
       "Bash(npm:*)",
       "Bash(npx:*)",
       "Bash(yarn:*)",
-      "Bash(pnpm:*)",
 
       "Bash(shred:*)",
       "Bash(dd:*)",
