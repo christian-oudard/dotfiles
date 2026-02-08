@@ -51,8 +51,6 @@ Two separate Claude configurations exist here:
 
 **Important**: When examining Claude Code settings in this repo, always read the chezmoi source files (`private_dot_claude/private_settings.json`), not the deployed files (`~/.claude/settings.json`).
 
-**Before editing permissions**: Read `rstrict-sandbox/README.md` for the sandboxing setup, documented settings, and known limitations. Many sandbox settings found online or hallucinated by Claude don't actually exist.
-
 ## Encryption
 
 Uses age encryption with identity at `~/.keys/age_chezmoi_key.txt`. Encrypted files have `.age` extension.
@@ -79,16 +77,14 @@ NixOS unstable, flake-based. Full home-manager config via `home.nix`. Disko for 
 ### Testing Changes (without sudo)
 
 ```bash
-XDG_CACHE_HOME=/tmp/claude/nix-cache nixos-rebuild build --flake nixos-config/
+nixos-rebuild build --flake nixos-config/
 ```
-
-This builds the config to verify it's valid. Sandbox blocks the normal cache path, so use temp cache.
 
 New files must be `git add`ed before nix can see them.
 
 ### Activating Changes
 
-After making changes, run `./nixos-config/rebuild.sh` (requires disabling sandbox).
+After making changes, run `./nixos-config/rebuild.sh`
 
 ### Neovim Setup
 

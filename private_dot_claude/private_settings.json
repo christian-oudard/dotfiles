@@ -8,7 +8,7 @@
   "sandbox": {
     "enabled": true,
     "autoAllowBashIfSandboxed": true,
-    "excludedCommands": ["uv:*", "pnpm:*"],
+    "excludedCommands": ["uv:*", "pnpm:*", "nixos-rebuild:*"],
     "allowUnsandboxedCommands": false
   },
   "hooks": {
@@ -34,6 +34,9 @@
   },
   "permissions": {
     "allow": [
+      "Write(/tmp/claude/**)",
+      "Edit(/tmp/claude/**)",
+
       "Bash(rg:*)",
       "Bash(ls:*)",
       "Bash(fd:*)",
@@ -96,9 +99,10 @@
       "WebFetch(domain:en.wikipedia.org)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "WebFetch(domain:release-assets.githubusercontent.com)",
-      "WebFetch(domain:gist.github.com)",
       "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:gist.github.com)",
+      "WebFetch(domain:codeload.githubusercontent.com)",
+      "WebFetch(domain:release-assets.githubusercontent.com)",
       "WebFetch(domain:wiki.archlinux.org)",
       "WebFetch(domain:search.nixos.org)",
       "WebFetch(domain:channels.nixos.org)",

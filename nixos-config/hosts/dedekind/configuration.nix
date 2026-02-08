@@ -109,6 +109,7 @@
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     stdenv.cc.cc.lib
+    portaudio
   ];
 
   # Create /bin/bash symlink for scripts with hardcoded shebangs
@@ -154,7 +155,11 @@
   };
 
   # Hide other users' processes
-  boot.kernel.sysctl."kernel.hidepid" = 2;
+  fileSystems."/proc" = {
+    device = "proc";
+    fsType = "proc";
+    options = [ "hidepid=2" ];
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
