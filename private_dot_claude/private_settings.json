@@ -8,7 +8,7 @@
   "sandbox": {
     "enabled": true,
     "autoAllowBashIfSandboxed": false,
-    "excludedCommands": ["uv:*", "pnpm:*"],
+    "excludedCommands": ["git:commit:*", "uv:*", "pnpm:*"],
     "allowUnsandboxedCommands": false
   },
   "hooks": {
