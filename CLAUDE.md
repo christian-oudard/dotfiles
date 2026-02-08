@@ -6,6 +6,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a chezmoi dotfiles repository. Files here are source templates that chezmoi applies to the home directory.
 
+## Branches
+
+- **`main`** — Arch Linux
+- **`nixos`** — NixOS
+
+These branches intentionally diverge in:
+- **Neovim plugin management**: Arch uses lazy.nvim (`dot_config/nvim/lua/plugins.lua`), NixOS has plugins managed by nix (no plugin manager in the config)
+- **Shell aliases**: Arch aliases coreutils to uutils (`uu-cp`, `uu-mv`), NixOS uses standard coreutils
+- **NixOS-specific shell config**: `nix-shell` alias, `nix_shell_status` prompt indicator, `LD_LIBRARY_PATH`
+
+Claude settings (`private_dot_claude/`) and the bulk of `dot_config/nvim/init.lua` should be kept in sync between branches.
+
 ## Chezmoi Naming Conventions
 
 - `dot_` prefix → `.` (e.g., `dot_config/` → `~/.config/`)
@@ -48,6 +60,6 @@ Uses age encryption with identity at `~/.keys/age_chezmoi_key.txt`. Encrypted fi
 ## Key Configurations
 
 - **Shell**: zsh with config in `dot_config/zsh/`
-- **Editor**: neovim with plugins managed via nix (not packer), config in `dot_config/nvim/`
+- **Editor**: neovim, config in `dot_config/nvim/` (see Branches section for plugin management differences)
 - **Window Manager**: sway with config in `dot_config/sway/`
 - **Terminal**: foot with config in `dot_config/foot/`
