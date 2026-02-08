@@ -1,0 +1,166 @@
+# NixOS system configuration for X1 Carbon
+{ config, lib, pkgs, ... }:
+
+{
+  imports = [
+    ./hardware-configuration.nix
+  ];
+
+  # Boot
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  # Networking
+  networking.hostName = "dedekind";
+  networking.networkmanager.enable = true;
+  networking.enableIPv6 = false;
+  boot.kernel.sysctl."net.ipv6.conf.all.disable_ipv6" = 1;
+  boot.kernel.sysctl."net.ipv6.conf.default.disable_ipv6" = 1;
+  networking.getaddrinfo.precedence = {
+    "::1/128" = 50;
+    "::ffff:0:0/96" = 100;  # Prefer IPv4
+    "::/0" = 40;
+  };
+
+  # Locale and timezone
+  time.timeZone = "US/Mountain";
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  # Console (TTY)
+  console = {
+    font = "ter-i32b";
+    useXkbConfig = true;  # Use XKB settings (dvorak, ctrl:swapcaps) on TTY
+    packages = [ pkgs.terminus_font ];
+  };
+
+  # XKB keyboard layout (used by console and Sway)
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "dvorak";
+    options = "ctrl:swapcaps";
+  };
+
+  # User accounts
+  users.users.christian = {
+    isNormalUser = true;
+    homeMode = "700";
+    extraGroups = [ "wheel" "video" "networkmanager" "audio" ];
+    shell = pkgs.zsh;
+  };
+
+  users.users.agent = {
+    isNormalUser = true;
+    homeMode = "755";
+    shell = pkgs.bash;
+  };
+
+
+  # Passwordless sudo for wheel group
+  security.sudo.wheelNeedsPassword = false;
+
+  # Audio (PipeWire)
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+  security.rtkit.enable = true;
+
+  # Lid close behavior: lock screen instead of suspend
+  services.logind.settings.Login.HandleLidSwitch = "lock";
+
+  # Sway
+  programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+  };
+
+  # Auto-login and start Sway via greetd
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --cmd sway";
+        user = "greeter";
+      };
+      initial_session = {
+        command = "sway";
+        user = "christian";
+      };
+    };
+  };
+
+  # SSH server
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+    };
+  };
+
+  # Shells
+  programs.zsh.enable = true;
+  programs.bash.enable = true;
+
+  # nix-ld for running pip-installed packages with C extensions
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc.lib
+  ];
+
+  # Create /bin/bash symlink for scripts with hardcoded shebangs
+  system.activationScripts.binbash = ''
+    ln -sf /run/current-system/sw/bin/bash /bin/bash
+  '';
+
+  # System packages (minimal - user packages in home-manager)
+  environment.systemPackages = with pkgs; [
+    git
+    nano
+    acl
+    wireguard-tools
+    gcc
+    pkg-config
+  ];
+
+  # Fonts
+  fonts.packages = with pkgs; [
+    terminus_font
+    noto-fonts
+    noto-fonts-color-emoji
+    nerd-fonts.symbols-only
+    nerd-fonts.noto
+  ];
+
+  # XDG Portal
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+
+  # Resource limits for coding agent.
+  systemd.slices.agent = {
+    description = "Resource limits for coding agent";
+    sliceConfig = {
+      CPUQuota = "200%";
+      MemoryMax = "8G";
+      TasksMax = 1000;
+      IOWeight = 50;
+    };
+  };
+
+  # Hide other users' processes
+  boot.kernel.sysctl."kernel.hidepid" = 2;
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  # Enable flakes
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  system.stateVersion = "24.11";
+}
