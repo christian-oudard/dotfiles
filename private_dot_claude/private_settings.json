@@ -7,8 +7,8 @@
   },
   "sandbox": {
     "enabled": true,
-    "autoAllowBashIfSandboxed": true,
-    "excludedCommands": ["uv:*", "pnpm:*", "nixos-rebuild:*"],
+    "autoAllowBashIfSandboxed": false,
+    "excludedCommands": ["uv:*", "pnpm:*"],
     "allowUnsandboxedCommands": false
   },
   "hooks": {
