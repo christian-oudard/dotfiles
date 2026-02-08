@@ -32,6 +32,10 @@ in {
     gnupg
     _1password-cli
 
+    # Backup and sync
+    restic
+    syncthing
+
     # Sway desktop (config via chezmoi)
     sway
     foot
@@ -59,7 +63,6 @@ in {
     htop
     imagemagick
     ngrok
-    restic
     ripgrep
     tree
     wget
@@ -79,11 +82,6 @@ in {
     typescript-language-server
     rust-analyzer
     elan
-    podman
-    tinyproxy
-
-    # Libraries
-    cairo.dev
   ];
 
   programs.home-manager.enable = true;

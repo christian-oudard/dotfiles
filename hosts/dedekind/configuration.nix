@@ -43,8 +43,15 @@
   # User accounts
   users.users.christian = {
     isNormalUser = true;
+    homeMode = "700";
     extraGroups = [ "wheel" "video" "networkmanager" "audio" ];
     shell = pkgs.zsh;
+  };
+
+  users.users.agent = {
+    isNormalUser = true;
+    homeMode = "755";
+    shell = pkgs.bash;
   };
 
 
@@ -113,6 +120,7 @@
   environment.systemPackages = with pkgs; [
     git
     nano
+    acl
     wireguard-tools
     gcc
     pkg-config
@@ -133,6 +141,20 @@
     wlr.enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
+
+  # Resource limits for coding agent.
+  systemd.slices.agent = {
+    description = "Resource limits for coding agent";
+    sliceConfig = {
+      CPUQuota = "200%";
+      MemoryMax = "8G";
+      TasksMax = 1000;
+      IOWeight = 50;
+    };
+  };
+
+  # Hide other users' processes
+  boot.kernel.sysctl."kernel.hidepid" = 2;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

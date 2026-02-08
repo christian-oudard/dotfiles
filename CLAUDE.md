@@ -6,7 +6,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - NixOS unstable, flake-based
 - Full home-manager config via `home.nix`
 - Disko for LUKS/LVM disk management
-- Dotfiles managed by chezmoi: https://github.com/christian-oudard/dotfiles (clone to `./dotfiles/`)
 
 ## Testing Changes (without sudo)
 ```bash
@@ -25,7 +24,6 @@ Requires `socat` and `bubblewrap` in systemPackages. User runs `/sandbox` in Cla
 **Sandbox limitations:**
 - Can't run sudo (intended)
 - Can't GPG-sign commits (blocks ~/.gnupg)
-- Creates empty dotfiles in CWD as protection artifacts (bug) - these are gitignored
 
 ## File Structure
 - `flake.nix` - inputs and module composition
@@ -33,8 +31,7 @@ Requires `socat` and `bubblewrap` in systemPackages. User runs `/sandbox` in Cla
 - `hosts/dedekind/configuration.nix` - system config (greetd, XKB, minimal packages)
 - `hosts/dedekind/disk-config.nix` - disko config for LUKS/LVM partitioning
 - `home.nix` - home-manager config (packages only, dotfiles via chezmoi)
-- `dotfiles/` - chezmoi source repo (clone from github.com/christian-oudard/dotfiles)
 
 ## Neovim Setup
-Plugins managed via `programs.neovim.plugins` in home.nix (not Packer). Config files in chezmoi dotfiles repo.
+Plugins managed via `programs.neovim.plugins` in home.nix. Config files in chezmoi dotfiles repo.
 LSP servers installed as packages: pyright, rust-analyzer, ruff, typescript-language-server
