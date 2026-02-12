@@ -157,7 +157,7 @@ This creates `/mnt/etc/nixos/hardware-configuration.nix` with detected mounts.
 cd /mnt/home/christian
 git clone https://github.com/christian-oudard/dotfiles
 cd dotfiles
-git checkout nixos
+git checkout main
 ```
 
 ### 3.8 Copy Hardware Config
