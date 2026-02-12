@@ -37,6 +37,7 @@
 
   # User accounts
   users.users.christian = {
+    uid = 1000;
     isNormalUser = true;
     homeMode = "700";
     extraGroups = [ "wheel" "video" "networkmanager" "audio" ];
