@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-This is a chezmoi dotfiles repository. Files here are source templates that chezmoi applies to the home directory.
+This is a chezmoi dotfiles repository. Files here are source templates that chezmoi applies to the home directory. Never read from `~/` or `~/.config/` to check config state — always read the chezmoi source files in this repo instead.
 
 ## Branch
 
@@ -71,6 +71,8 @@ Private/sensitive shell config is in `encrypted_private_dot_zshrc_private.age`.
 ## NixOS Configuration (`nixos-config/`)
 
 NixOS unstable, flake-based. Full home-manager config via `home.nix`. Disko for LUKS/LVM disk management.
+
+Unfree packages are allowed globally via `dot_config/nixpkgs/config.nix`.
 
 ### File Structure
 

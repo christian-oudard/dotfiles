@@ -50,8 +50,15 @@
     shell = pkgs.bash;
   };
 
-  # Passwordless sudo for wheel group
-  security.sudo.wheelNeedsPassword = false;
+  # Sudo: ask for password, cache 15 minutes globally across all terminals
+  security.sudo = {
+    wheelNeedsPassword = true;
+    extraConfig = ''
+      Defaults timestamp_type=global
+      Defaults timestamp_timeout=15
+      Defaults lecture=never
+    '';
+  };
 
   # Audio (PipeWire)
   services.pipewire = {
