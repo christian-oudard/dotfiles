@@ -7,4 +7,4 @@
 **/.cabal-sandbox/**
 **/dist/build/**
 **/.git/objects/pack/**
-**/documents/**/page_*.png
+**/pdfconvert_documents/**/page_*.png

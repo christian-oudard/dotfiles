@@ -206,6 +206,119 @@ Once satisfied, you can remove the Arch package list:
 rm ~/arch-packages.txt
 ```
 
+## Packages to Add Later
+
+These Arch packages aren't in the current NixOS config. Add to `home.nix` as needed.
+
+### Development Tools
+
+| Arch | NixOS | Notes |
+|------|-------|-------|
+| `cmake` | `cmake` | |
+| `deno` | `deno` | |
+| `go` | `go` | |
+| `rustup` | `rustup` | Or just use `cargo` + `rustc` |
+| `pnpm` | `pnpm` | |
+| `just` | `just` | |
+| `pandoc-cli` | `pandoc` | |
+| `tectonic` | `tectonic` | |
+| `moreutils` | `moreutils` | sponge, parallel, etc |
+| `opam` | `opam` | OCaml |
+| `ghcup-hs-bin` | `ghc` / `cabal-install` | Haskell |
+
+### Virtualization
+
+| Arch | NixOS | Notes |
+|------|-------|-------|
+| `docker` | `docker` | Also enable `virtualisation.docker.enable` |
+| `docker-buildx` | `docker-buildx` | |
+| `qemu-full` | `qemu` | |
+| `libvirt` | `libvirt` | Enable `virtualisation.libvirtd.enable` |
+| `virt-manager` | `virt-manager` | |
+| `virt-viewer` | `virt-viewer` | |
+
+### CLI Utilities
+
+| Arch | NixOS | Notes |
+|------|-------|-------|
+| `aria2` | `aria2` | |
+| `bind` | `dnsutils` | dig, nslookup |
+| `dos2unix` | `dos2unix` | |
+| `enscript` | `enscript` | |
+| `glow` | `glow` | Markdown viewer |
+| `iperf3` | `iperf3` | |
+| `mitmproxy` | `mitmproxy` | |
+| `mupdf-tools` | `mupdf` | |
+| `nmap` | `nmap` | |
+| `openbsd-netcat` | `netcat-openbsd` | |
+| `rclone` | `rclone` | |
+| `rsync` | `rsync` | |
+| `smartmontools` | `smartmontools` | |
+| `whois` | `whois` | |
+| `wlr-randr` | `wlr-randr` | |
+| `xdg-utils` | `xdg-utils` | |
+| `yq` | `yq-go` | |
+| `yt-dlp` | `yt-dlp` | |
+| `ttyd` | `ttyd` | Terminal sharing |
+| `viddy-bin` | `viddy` | Modern watch |
+
+### Desktop Apps
+
+| Arch | NixOS | Notes |
+|------|-------|-------|
+| `1password` | `_1password-gui` | |
+| `calibre` | `calibre` | |
+| `krita` | `krita` | |
+| `libreoffice-still` | `libreoffice` | |
+| `signal-desktop` | `signal-desktop` | |
+| `steam` | — | Use `programs.steam.enable = true` in configuration.nix |
+| `zoom` | `zoom-us` | |
+| `veracrypt` | `veracrypt` | |
+
+### Games / Hobbies
+
+| Arch | NixOS | Notes |
+|------|-------|-------|
+| `prismlauncher` | `prismlauncher` | Minecraft |
+| `mgba-qt-git` | `mgba` | GBA emulator |
+| `sabaki-bin` | `sabaki` | Go game board |
+| `katago-cuda` | `katago` | Go AI (check CUDA support) |
+
+### Specialized
+
+| Arch | NixOS | Notes |
+|------|-------|-------|
+| `google-cloud-cli` | `google-cloud-sdk` | |
+| `ledger-live-bin` | `ledger-live-desktop` | Hardware wallet |
+| `monero-gui` | `monero-gui` | |
+| `ib-tws` | — | May need custom package |
+| `cuda` | `cudaPackages.cudatoolkit` | |
+| `cudnn` | `cudaPackages.cudnn` | |
+
+### Hardware (add to configuration.nix if needed)
+
+| Arch | NixOS | Notes |
+|------|-------|-------|
+| `nvidia-open` | — | `hardware.nvidia.open = true` |
+| `nvidia-container-toolkit` | — | `hardware.nvidia-container-toolkit.enable` |
+| `intel-ucode` | — | `hardware.cpu.intel.updateMicrocode = true` |
+| `bluez` | — | `hardware.bluetooth.enable = true` |
+
+### Python Packages
+
+These were installed system-wide on Arch. On NixOS, prefer using `uv` or `nix-shell`:
+
+```bash
+# Create a project environment
+uv init myproject && cd myproject
+uv add matplotlib pandas scipy sympy pytest
+```
+
+Or for one-off use:
+```bash
+nix-shell -p python3Packages.matplotlib python3Packages.pandas
+```
+
 ## Troubleshooting
 
 ### Can't Unlock LUKS

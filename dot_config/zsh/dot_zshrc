@@ -134,8 +134,10 @@ backup() {
     local args=(--exclude-file="$HOME/.config/restic/excludes.txt" "$HOME/files" "$@")
     local usb_repo=/mnt/usb/restic-repo
     if [[ -d $usb_repo ]]; then
+        echo "==> Backing up to USB ($usb_repo)"
         restic --repo="$usb_repo" backup "${args[@]}"
     fi
+    echo "==> Backing up to Google Cloud (gs:cwo-restic:/)"
     restic backup "${args[@]}"
 }
 

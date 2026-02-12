@@ -60,6 +60,21 @@ Uses age encryption with identity at `~/.keys/age_chezmoi_key.txt`. Encrypted fi
 - **Window Manager**: sway with config in `dot_config/sway/`
 - **Terminal**: foot with config in `dot_config/foot/`
 
+## Shell Functions and Aliases (`dot_config/zsh/dot_zshrc`)
+
+Custom shell functions defined in zshrc:
+
+- **`backup`** — Runs restic backup to USB (if mounted at `/mnt/usb/restic-repo`) then to Google Cloud (`gs:cwo-restic:/`). Excludes defined in `dot_config/restic/excludes.txt`
+- **`restic`** — Wrapper that sets Google Cloud credentials and default repo
+
+Key aliases:
+- `ls`, `i`, `ll`, `la` → eza
+- `du` → dust
+- `vim` → nvim
+- `cp`, `mv` → uutils with `-i` flag (Arch only)
+
+Private/sensitive shell config is in `encrypted_private_dot_zshrc_private.age`.
+
 ## NixOS Configuration (`nixos-config/`)
 
 NixOS unstable, flake-based. Full home-manager config via `home.nix`. Disko for LUKS/LVM disk management.
