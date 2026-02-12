@@ -6,15 +6,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a chezmoi dotfiles repository. Files here are source templates that chezmoi applies to the home directory.
 
-## Branches
+## Branch
 
-- **`main`** — Cross-platform base (works on both Arch and NixOS)
-- **`archlinux`** — Arch Linux-specific additions on top of main
-- **`nixos`** — NixOS-specific additions on top of main
-
-Platform-specific differences:
-- **Neovim plugin management**: `archlinux` uses lazy.nvim (`dot_config/nvim/lua/plugins.lua`), `nixos` has plugins managed by nix
-- **Shell aliases**: `archlinux` aliases coreutils to uutils (`uu-cp`, `uu-mv`), `main`/`nixos` use standard coreutils
+- **`main`** — NixOS-based dotfiles (single branch)
 
 ## Chezmoi Naming Conventions
 
@@ -56,7 +50,7 @@ Uses age encryption with identity at `~/.keys/age_chezmoi_key.txt`. Encrypted fi
 ## Key Configurations
 
 - **Shell**: zsh with config in `dot_config/zsh/`
-- **Editor**: neovim, config in `dot_config/nvim/` (see Branches section for plugin management differences)
+- **Editor**: neovim, plugins managed via nix (see `nixos-config/home.nix`), config in `dot_config/nvim/`
 - **Window Manager**: sway with config in `dot_config/sway/`
 - **Terminal**: foot with config in `dot_config/foot/`
 
@@ -71,7 +65,6 @@ Key aliases:
 - `ls`, `i`, `ll`, `la` → eza
 - `du` → dust
 - `vim` → nvim
-- `cp`, `mv` → uutils with `-i` flag (Arch only)
 
 Private/sensitive shell config is in `encrypted_private_dot_zshrc_private.age`.
 

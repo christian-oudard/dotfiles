@@ -74,6 +74,7 @@ in {
     claude-code
     socat
     bubblewrap
+    libseccomp
     python3
     uv
     whisper-dictation
