@@ -1,14 +1,27 @@
-- Work incrementally. Don't try to get it all done in one shot. Make small to moderate changes, then test or validate them before moving on.
-- Use a test-driven-development (TDD) style when it makes sense to do so. When something is incomplete or broken, make sure there is a unittest showing the oversight. Once test coverage is established, and the test is known to be failing, then we can implement the feature or bugfix.
-- Never make network calls in unittests. They should be possible to run without any internet access.
-- Unittests should run quickly, suggest improving things if they take longer than 30 seconds.
-- Don't credit "Claude Code" as a co-author in commit messages, just credit the main author.
-- Never try to run sudo commands, instead ask me, and I will run commands that need root access for you.
-- Use the LSP tool for code navigation (goToDefinition, findReferences, hover, incomingCalls, etc.) when working with Python, Rust, TypeScript, or other supported languages.
-- Use the Read tool (with offset/limit for specific line ranges) instead of shell commands like `sed`, `cat`, `head`, or `tail` for viewing file contents.
-- Keep scripts and code minimal. No unnecessary error handling, echo messages, or scaffolding - just the essential commands.
-- When showing commands for me (the user) to run, prefix them with a dollar sign like this: `$ sudo cat hostname`
-- The code we write should be polite, and should ask permission before doing consequential things.
+# Development Style
+
+- Work incrementally. Make small to moderate changes, then test or validate before moving on.
+- Keep code minimal. No unnecessary error handling, echo messages, or scaffolding.
+- Prompt the user before destructive or consequential actions (deleting data, overwriting files, modifying system config).
 - Do not attempt to read secrets or system configuration without asking first.
-- Don't use box-drawing characters (║, ╔, ╗, │, ┌, ┐, etc.) that require exact horizontal alignment in text files. They break easily with variable-width content. Use simpler dividers like `====` or `----` instead.
+
+# Testing
+
+- Use TDD when it makes sense. Write a failing test first, then implement.
+- Never make network calls in unittests. They should run without internet access.
+- Unittests should run quickly. Suggest improvements if they take longer than 30 seconds.
+
+# Tools and Environment
+
+- OS is NixOS. Prefer nix packages over language-level package managers where practical.
 - Prefer uv over pip for Python package management.
+- Never run sudo commands. Ask me, and I will run commands that need root access.
+- When showing commands for me to run, prefix with a dollar sign: `$ sudo nixos-rebuild switch`
+
+# Formatting
+
+- Don't use box-drawing characters (║, ╔, ╗, │, ┌, ┐, etc.) that require exact horizontal alignment. Use `====` or `----` dividers instead.
+
+# Git
+
+- Don't credit "Claude Code" as a co-author in commit messages.
