@@ -10,3 +10,5 @@
 - When showing commands for me (the user) to run, prefix them with a dollar sign like this: `$ sudo cat hostname`
 - The code we write should be polite, and should ask permission before doing consequential things.
 - Do not attempt to read secrets or system configuration without asking first.
+- Don't use box-drawing characters (║, ╔, ╗, │, ┌, ┐, etc.) that require exact horizontal alignment in text files. They break easily with variable-width content. Use simpler dividers like `====` or `----` instead.
+- Prefer uv over pip for Python package management.

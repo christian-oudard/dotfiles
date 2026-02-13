@@ -40,7 +40,7 @@
     uid = 1000;
     isNormalUser = true;
     homeMode = "700";
-    extraGroups = [ "wheel" "video" "networkmanager" "audio" ];
+    extraGroups = [ "wheel" "video" "networkmanager" "audio" "docker" ];
     shell = pkgs.zsh;
   };
 
@@ -103,6 +103,9 @@
     };
   };
 
+  # Docker
+  virtualisation.docker.enable = true;
+
   # Shells
   programs.zsh.enable = true;
   programs.bash.enable = true;
@@ -133,6 +136,7 @@
   fonts.packages = with pkgs; [
     terminus_font
     noto-fonts
+    noto-fonts-cjk-sans
     noto-fonts-color-emoji
     nerd-fonts.symbols-only
     nerd-fonts.noto
@@ -144,6 +148,11 @@
     wlr.enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
+
+  # Temp directory for Claude Code sandbox (TMPDIR=/tmp/claude)
+  systemd.tmpfiles.rules = [
+    "d /tmp/claude 0755 christian users -"
+  ];
 
   # Resource limits for coding agent
   systemd.slices.agent = {
