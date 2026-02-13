@@ -44,12 +44,6 @@
     shell = pkgs.zsh;
   };
 
-  users.users.agent = {
-    isNormalUser = true;
-    homeMode = "755";
-    shell = pkgs.bash;
-  };
-
   # Sudo: ask for password, cache 15 minutes globally across all terminals
   security.sudo = {
     wheelNeedsPassword = true;
@@ -90,16 +84,6 @@
         command = "sway";
         user = "christian";
       };
-    };
-  };
-
-  # SSH server
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-      PermitRootLogin = "no";
     };
   };
 
@@ -153,17 +137,6 @@
   systemd.tmpfiles.rules = [
     "d /tmp/claude 0755 christian users -"
   ];
-
-  # Resource limits for coding agent
-  systemd.slices.agent = {
-    description = "Resource limits for coding agent";
-    sliceConfig = {
-      CPUQuota = "200%";
-      MemoryMax = "8G";
-      TasksMax = 1000;
-      IOWeight = 50;
-    };
-  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

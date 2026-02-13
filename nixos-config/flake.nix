@@ -46,7 +46,6 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.christian = import ./home.nix { username = "christian"; };
-          home-manager.users.agent = import ./agent-home.nix;
         }
       ];
     in {
