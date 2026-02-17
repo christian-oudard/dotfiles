@@ -106,6 +106,12 @@
     ln -sf /run/current-system/sw/bin/bash /bin/bash
   '';
 
+  # Playwright (NixOS-wrapped Chromium for crawl4ai)
+  environment.sessionVariables = {
+    PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
+    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
+  };
+
   # System packages (minimal - user packages in home-manager)
   environment.systemPackages = with pkgs; [
     git
@@ -114,6 +120,7 @@
     wireguard-tools
     gcc
     pkg-config
+    playwright-driver
   ];
 
   # Fonts
