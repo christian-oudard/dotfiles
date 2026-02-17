@@ -55,6 +55,7 @@ in {
     pulsemixer
     wev
     brave
+    signal-desktop
 
     # Terminal utilities
     diff-so-fancy
