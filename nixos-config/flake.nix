@@ -7,10 +7,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     claude-code = {
       url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,7 +17,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, disko, claude-code, whisper-dictation-src, ... }:
+  outputs = { self, nixpkgs, home-manager, claude-code, whisper-dictation-src, ... }:
     let
       system = "x86_64-linux";
       overlay-claude-code = final: prev: {
@@ -51,7 +47,7 @@
     in {
       nixosConfigurations.dedekind = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [ ./hosts/dedekind/configuration.nix disko.nixosModules.disko ] ++ commonModules;
+        modules = [ ./hosts/dedekind/configuration.nix ] ++ commonModules;
       };
 
       nixosConfigurations.cantor = nixpkgs.lib.nixosSystem {
