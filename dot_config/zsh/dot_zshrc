@@ -57,7 +57,7 @@ function nix_shell_status {
   fi
 }
 function cave_status {
-  if [[ -n "$CODING_CAVE" ]]; then
+  if [[ -n "$CODING_CAVE_VERSION" ]]; then
     echo "(cave) "
   fi
 }
