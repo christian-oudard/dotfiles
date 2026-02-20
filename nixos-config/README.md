@@ -28,6 +28,20 @@ reboot
 ./rebuild.sh
 ```
 
+## Updating Flake Inputs
+
+Update a single input:
+
+```bash
+nix flake update whisper-dictation-src
+```
+
+Or update all inputs at once:
+
+```bash
+nix flake update
+```
+
 ## Recovery (Unbootable System)
 
 If the system won't boot after install, boot from a NixOS live USB:
