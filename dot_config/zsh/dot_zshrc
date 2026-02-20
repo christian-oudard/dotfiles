@@ -56,6 +56,11 @@ function nix_shell_status {
     echo "(nix) "
   fi
 }
+function cave_status {
+  if [[ -n "$CODING_CAVE" ]]; then
+    echo "(cave) "
+  fi
+}
 function width {
   echo $(( COLUMNS - 24 ))
 }
@@ -73,7 +78,7 @@ function prompt_char {
 }
 PROMPT='%F{237}$(hline)'$'\n''%K{237}$(prompt_char)%f%k '
 PROMPT2='%K{237}%F{4}%_>%f%k '
-RPROMPT='%F{5}$(last_exit_code)$(nix_shell_status)$(venv_status)%$(width)<…<$(ssh_hostname)%~%<<%f'
+RPROMPT='%F{5}$(last_exit_code)$(nix_shell_status)$(venv_status)$(cave_status)%$(width)<…<$(ssh_hostname)%~%<<%f'
 
 # Plugins.
 autoload -Uz \
