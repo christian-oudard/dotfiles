@@ -13,6 +13,7 @@
 
 - When you have finished a significant chunk of work, commit your changes.
 - Never credit "Claude Code" as a co-author in commit messages.
+- Don't make multiple commits in a row touching the same file. Combine them into one.
 
 ## Responsibility and Agency
 
