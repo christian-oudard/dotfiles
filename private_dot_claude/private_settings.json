@@ -19,13 +19,6 @@
       "Bash(dirname:*)",
       "Bash(basename:*)",
       "Bash(mkdir:*)",
-      "Bash(touch:*)",
-      "Bash(cp:*)",
-      "Bash(mv:*)",
-      "Bash(ln:*)",
-      "Bash(chmod:*)",
-      "Bash(rm:*)",
-      "Bash(rmdir:*)",
       "Bash(diff:*)",
       "Bash(sort:*)",
       "Bash(uniq:*)",
@@ -162,23 +155,6 @@
       }
     ]
   },
-  "enabledPlugins": {
-    "pyright-lsp@claude-plugins-official": true,
-    "rust-analyzer-lsp@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true,
-    "commit-commands@claude-plugins-official": true,
-    "security-guidance@claude-plugins-official": true,
-    "ralph-loop@claude-plugins-official": true
-  },
-  "sandbox": {
-    "enabled": true,
-    "autoAllowBashIfSandboxed": false,
-    "allowUnsandboxedCommands": false,
-    "excludedCommands": [
-      "git:commit:*",
-      "uv:*",
-      "pnpm:*"
-    ]
-  },
+  "enabledPlugins": {},
   "alwaysThinkingEnabled": true
 }
