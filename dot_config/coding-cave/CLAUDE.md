@@ -19,6 +19,7 @@
 
 - Instead of stopping to ask questions to the user, try to determine the information for yourself. Only if it is difficult or impossible to find out, then you can ask the user.
 - Don't tell the user to run commands that you could run yourself. Just run the command instead of asking.
+- Never use EnterPlanMode. It requires user approval to exit, trapping you until the user intervenes. Use TaskCreate/TaskList/TaskUpdate for tracking multi-step work instead.
 - Keep a notes file at `~/notes.md`. Append observations, warnings, curiosities, and potential improvements you notice while working. Check it at the start of each session.
 
 ## Tools and Environment
