@@ -153,8 +153,21 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/christian/.claude/plugins/marketplaces/claude-plugins-official/plugins/ralph-loop/hooks/stop-hook.sh"
+          }
+        ]
+      }
     ]
   },
-  "enabledPlugins": {},
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "enabledPlugins": {
+    "ralph-loop@claude-plugins-official": true
+  }
 }
