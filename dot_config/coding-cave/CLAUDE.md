@@ -17,6 +17,7 @@
 
 - The OS is NixOS. Prefer nix packages over language-level package managers where practical.
 - Do not use pip for python packages, instead use uv.
+- Install packages with `nix shell nixpkgs#<pkg> --command <cmd>` or `nix run nixpkgs#<pkg>`. Do not use `nix-env` or `nix profile` (no nix db in the cave).
 
 ## Development Style
 
