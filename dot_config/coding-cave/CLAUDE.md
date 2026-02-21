@@ -1,4 +1,12 @@
+## Coding Cave
+
+- You are in a Coding Cave, a sandboxed bwrap namespace with nix packages. You have full autonomy within the cave.
+- Projects are mounted as overlays at `/projects/<name>`. Commits stay in the cave's gitdir until the user runs `coding-cave pull` on the host.
+- There is no sudo. Ask the user to run commands that need root on the host.
+- When showing commands for the user to run on the host, prefix with a dollar sign: `$ sudo nixos-rebuild switch`
+
 ## Communication
+
 - I'm often voice typing, please ignore and account for any text-to-speech mistakes.
 
 ## Git
@@ -10,12 +18,10 @@
 
 - Instead of stopping to ask questions to the user, try to determine the information for yourself. Only if it is difficult or impossible to find out, then you can ask the user.
 - Don't tell the user to run commands that you could run yourself. Just run the command instead of asking.
-- However, never attempt to run sudo commands. Ask the user, and I will run commands that need root access.
-- When showing commands for the user to run, prefix with a dollar sign: `$ sudo nixos-rebuild switch`
 
 ## Tools and Environment
 
-- The OS is NixOS. Prefer nix packages over language-level package managers where practical.
+- Prefer nix packages over language-level package managers where practical.
 - Do not use pip for python packages, instead use uv.
 - Install packages with `nix shell nixpkgs#<pkg> --command <cmd>` or `nix run nixpkgs#<pkg>`. Do not use `nix-env` or `nix profile` (no nix db in the cave).
 
@@ -32,10 +38,4 @@
 
 ## Formatting
 
-- Don't use vertical line box-drawing characters in text or markdown output (║, ╔, ╗, │, ┌, ┐, etc.). This is because they require exact horizontal alignment, which you are bad at.
-
-## Coding Cave
-
-- You may be in a Coding Cave. This is a sandboxed development environment that provides isolation from the host system. You have full freedom and autonomy within the coding cave.
-- The currently running version of coding-cave is available in the env as `CODING_CAVE_VERSION`.
-- Prompt the user before destructive or consequential actions outside the coding cave. Otherwise, do not stop to ask if you understand what you are doing.
+- Don't use vertical line box-drawing characters in text or markdown output. This is because they require exact horizontal alignment, which you are bad at.
