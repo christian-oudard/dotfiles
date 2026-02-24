@@ -142,32 +142,24 @@
       "Bash(umount:*)"
     ]
   },
+  "model": "haiku",
   "hooks": {
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "claude_notify_hook"
-          }
-        ]
-      }
-    ],
     "Stop": [
       {
         "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "/home/christian/.claude/plugins/marketplaces/claude-plugins-official/plugins/ralph-loop/hooks/stop-hook.sh"
+            "command": "loop hook"
           }
         ]
       }
     ]
   },
-  "alwaysThinkingEnabled": true,
   "enabledPlugins": {
-    "ralph-loop@claude-plugins-official": true
-  }
+    "pyright-lsp@claude-plugins-official": true
+  },
+  "alwaysThinkingEnabled": true,
+  "promptSuggestionEnabled": false,
+  "effortLevel": "medium"
 }

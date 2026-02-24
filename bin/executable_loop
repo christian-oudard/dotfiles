@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+
+from pathlib import Path
+import json
+import sys
+
+
+def main():
+    if sys.argv[1] == 'hook':
+        hook()
+    elif sys.argv[1] == 'stop':
+        delete_prompt_file()
+        print('Loop stopped.')
+    else:
+        n = int(sys.argv[1])
+        prompt = sys.argv[2]
+        write_prompt_file(n, prompt)
+        print('Loop activated.')
+
+
+def hook():
+    # Load loop data. Only loop if there is a prompt file.
+    loop_data = read_prompt_file()
+    if loop_data is None:
+        return
+    n = loop_data['n']
+    prompt = loop_data['prompt']
+
+    # Keep blocking the Stop event until the loop completes.
+    event = json.loads(sys.stdin.read())
+    event_name = event['hook_event_name']
+    if event_name != 'Stop':
+        return
+    hook_output = {
+        "decision": "block",
+        "reason": prompt,
+        "systemMessage": f"Iterations remaining: {n}",
+    }
+
+    # Decrement the counter.
+    n -= 1
+    if n <= 0:
+        delete_prompt_file()
+        hook_output = {
+            "systemMessage": "Loop finished"
+        }
+    else:
+        write_prompt_file(n, prompt)
+
+    print(json.dumps(hook_output))
+
+
+def read_prompt_file():
+    path = prompt_file_path()
+    if path.exists():
+        return json.load(prompt_file_path().open())
+
+
+def write_prompt_file(n, prompt):
+    data = dict(n=n, prompt=prompt)
+    json.dump(data, prompt_file_path().open('w'))
+
+
+def delete_prompt_file():
+    prompt_file_path().unlink()
+
+
+def prompt_file_path():
+    return dot_claude_dir() / 'loop.json'
+
+
+def dot_claude_dir():
+    # Find the closest Claude config directory. The home directory Claude config does not count.
+    p = Path.cwd()
+    for p in [p, *p.parents]:
+        if p == Path.home():
+            break
+        dot_claude = p / '.claude'
+        if dot_claude.exists():
+            return dot_claude
+
+    print("Not in a project, or there is no .claude directory.")
+    sys.exit(1)
+
+
+if __name__ == '__main__':
+    main()
