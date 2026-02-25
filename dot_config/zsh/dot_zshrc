@@ -64,9 +64,9 @@ function cave_status {
 function width {
   echo $(( COLUMNS - 24 ))
 }
-function ssh_hostname {
-  if [[ -n "$SSH_TTY" ]]; then
-    echo "%n@%M:"
+function user_host {
+  if [[ "$USER" != "christian" || "$HOST" != "cantor" ]]; then
+    echo "%n@%m"
   fi
 }
 function prompt_char {
@@ -76,9 +76,9 @@ function prompt_char {
     echo '%F{4}$'
   fi
 }
-PROMPT='%F{237}$(hline)'$'\n''%K{237}$(prompt_char)%f%k '
+PROMPT='%F{237}$(hline)'$'\n''%K{237}%F{4}$(user_host)$(prompt_char)%f%k '
 PROMPT2='%K{237}%F{4}%_>%f%k '
-RPROMPT='%F{5}$(last_exit_code)$(nix_shell_status)$(venv_status)$(cave_status)%$(width)<…<$(ssh_hostname)%~%<<%f'
+RPROMPT='%F{5}$(last_exit_code)$(nix_shell_status)$(venv_status)$(cave_status)%$(width)<…<%~%<<%f'
 
 # Plugins.
 autoload -Uz \
