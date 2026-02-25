@@ -142,7 +142,6 @@
       "Bash(umount:*)"
     ]
   },
-  "model": "haiku",
   "hooks": {
     "Stop": [
       {
