@@ -1,11 +1,11 @@
 ---
 description: "Start a coding loop."
-argument-hint: "NUM_ITERATIONS PROMPT"
+argument-hint: "NUM_ITERATIONS TASK"
 allowed-tools: ["Bash(loop:*)"]
 hide-from-slash-command-tool: "true"
 ---
+/loop $ARGUMENTS
 
-Run this command:
 ```!
-loop $1
+loop
 ```

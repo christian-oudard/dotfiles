@@ -4,10 +4,11 @@ from pathlib import Path
 import json
 import sys
 import os
+import re
 
 
 INITIAL_PROMPT = """\
-Loop activated. Work incrementally — implement one piece, verify it, then \
+Loop activated. Work incrementally: implement one piece, verify it, then \
 stop. You will be re-prompted with the task after each iteration.
 
 ## Task
@@ -28,8 +29,8 @@ to finish everything in one iteration.
 
 ## Early completion
 
-If the task is genuinely and fully complete, you may output exactly: \
-`<promise>TASK COMPLETE</promise>`
+If the task is genuinely and fully complete, output exactly the words \
+TASK_COMPLETE as a standalone message (nothing else).
 
 You MUST NOT output this unless the task is unequivocally done. Do not use \
 it to escape the loop because you feel stuck, think the task is impossible, \
@@ -42,54 +43,114 @@ attempts — use them.
 {prompt}
 """
 
+VERIFICATION_PROMPT = """\
+# Verification iteration
+
+You indicated the task is complete. Before confirming, do a thorough review:
+
+1. Re-read the original task requirements below.
+2. Read through all code you wrote or modified.
+3. Run the tests or otherwise verify the implementation works end-to-end.
+4. Check for edge cases, missing requirements, or loose ends.
+
+After your review, output exactly one of these keywords as a standalone \
+message:
+
+- REVIEW_OKAY — the task is fully and genuinely complete.
+- REVIEW_INCOMPLETE — you found something incomplete or broken. Briefly \
+describe what remains before the keyword.
+
+## Task
+
+{prompt}
+"""
+
 
 def main():
-    if sys.argv[1] == 'hook':
+    if len(sys.argv) > 1 and sys.argv[1] == 'hook':
         hook()
-    elif sys.argv[1] == 'stop':
+    elif len(sys.argv) > 1 and sys.argv[1] == 'stop':
         delete_loop_file()
         print('Loop stopped.')
     else:
-        n = int(sys.argv[1])
-        prompt = last_user_message(current_transcript())
-        assert prompt is not None, "No user message found in transcript."
-        write_loop_file(n, prompt)
-        print(INITIAL_PROMPT.format(n=n, prompt=prompt))
+        start()
+
+
+def start():
+    # Find the invocation of the /loop command in the transcript.
+    transcript = current_transcript()
+    loop_args = None
+    for line in reverse_lines(transcript):
+        msg = json.loads(line)
+        if msg.get('type') != 'user':
+            continue
+        content = msg.get('message', {}).get('content')
+        if not isinstance(content, str):  # Tool calls are lists, not strings.
+            continue
+        m = re.search(r'<command-name>/loop</command-name>.*?<command-args>(.*?)</command-args>', content, re.DOTALL)
+        if m:
+            loop_args = m.group(1).strip()
+            break
+    assert loop_args is not None
+
+    # Parse the arguments.
+    parts = loop_args.split(None, 1)
+    assert len(parts) == 2
+    n = int(parts[0])
+    prompt = parts[1]
+
+    # Save the prompt which activates the stop hook.
+    write_loop_file(n, prompt)
+    print(INITIAL_PROMPT.format(prompt=prompt))
 
 
 def hook():
+    # Check whether there is a loop file.
     loop_data = read_loop_file()
     if loop_data is None:
         return
 
+    # Only catch Stop hooks.
     event = json.loads(sys.stdin.read())
     if event['hook_event_name'] != 'Stop':
         return
 
-    # Check if the agent output a completion promise.
-    transcript_path = event.get('transcript_path')
-    if transcript_path and has_completion_promise(transcript_path):
-        delete_loop_file()
-        print(json.dumps({
-            "systemMessage": "Loop complete (promise detected). Summarize what you accomplished.",
-        }))
-        return
-
+    # Decrement the iteration counter.
     n = loop_data['n']
     prompt = loop_data['prompt']
-
     n -= 1
+
+    # Check whether there was a completion keyword given by the agent.
+    transcript_path = event.get('transcript_path')
+    keyword = last_assistant_keyword(transcript_path) if transcript_path else None
+
     if n <= 0:
+        # Iterations exhausted — end the loop.
         delete_loop_file()
         print(json.dumps({
-            "systemMessage": "Loop complete. Summarize what you accomplished.",
+            "decision": "block",
+            "reason": "Loop complete (iterations exhausted). Summarize what you accomplished.",
         }))
-    else:
-        write_loop_file(n, prompt)
-        reason = CONTINUATION_PROMPT.format(n=n, prompt=prompt)
+    elif keyword == 'REVIEW_OKAY':
+        # Verified complete — end the loop.
+        delete_loop_file()
         print(json.dumps({
             "decision": "block",
-            "reason": reason,
+            "reason": "Loop complete (verified). Summarize what you accomplished.",
+        }))
+    elif keyword == 'TASK_COMPLETE':
+        # First claim — enter verification iteration.
+        write_loop_file(n, prompt)
+        print(json.dumps({
+            "decision": "block",
+            "reason": VERIFICATION_PROMPT.format(prompt=prompt),
+        }))
+    else:
+        # Normal continuation. Covers REVIEW_INCOMPLETE and no keyword.
+        write_loop_file(n, prompt)
+        print(json.dumps({
+            "decision": "block",
+            "reason": CONTINUATION_PROMPT.format(prompt=prompt),
         }))
 
 
@@ -128,19 +189,24 @@ def dot_claude_dir():
 
 # Transcript parsing.
 
+
 def current_transcript():
-    """Find the active session's transcript by most recently modified JSONL."""
-    cwd = str(Path.cwd())
-    encoded = cwd.replace('/', '-')
-    project_dir = Path.home() / '.claude' / 'projects' / encoded
+    """Find the active session's transcript (most recently modified JSONL for this project)."""
+    project_root = dot_claude_dir().parent.resolve()
+    folder_name = re.sub(r'[/_]', '-', str(project_root))
+    project_dir = Path.home() / '.claude' / 'projects' / folder_name
+    assert project_dir.exists()
     jsonl_files = sorted(project_dir.glob('*.jsonl'), key=lambda f: f.stat().st_mtime)
-    assert jsonl_files, f"No JSONL files in {project_dir}"
+    assert len(jsonl_files) > 0
     return str(jsonl_files[-1])
 
 
-def has_completion_promise(transcript_path):
-    """Check if the last assistant message contains a completion promise."""
-    import re
+
+def last_assistant_keyword(transcript_path):
+    """Check the last assistant message for a loop keyword.
+
+    Returns 'TASK_COMPLETE', 'REVIEW_OKAY', 'REVIEW_INCOMPLETE', or None.
+    """
     for line in reverse_lines(transcript_path):
         msg = json.loads(line)
         if msg.get('type') == 'assistant':
@@ -150,10 +216,11 @@ def has_completion_promise(transcript_path):
                     block.get('text', '') for block in content
                     if block.get('type') == 'text'
                 )
-                if re.search(r'<promise>\s*TASK COMPLETE\s*</promise>', text):
-                    return True
-            return False  # Only check the last assistant message.
-    return False
+                for kw in ('TASK_COMPLETE', 'REVIEW_OKAY', 'REVIEW_INCOMPLETE'):
+                    if kw in text:
+                        return kw
+            return None  # Only check the last assistant message.
+    return None
 
 
 def last_user_message(transcript_path):
