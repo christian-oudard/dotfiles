@@ -96,9 +96,14 @@ def hook():
     transcript_path = event.get('transcript_path')
 
     # On the first hook call, the prompt is null — parse it from the transcript.
+    # If parsing fails (stray loop.json from a previous session), clean up silently.
     first = loop_data['prompt'] is None
     if first:
-        n, prompt = parse_loop_args(transcript_path)
+        result = parse_loop_args(transcript_path)
+        if result is None:
+            delete_loop_file()
+            return
+        n, prompt = result
     else:
         n = loop_data['n']
         prompt = loop_data['prompt']
@@ -193,7 +198,7 @@ def parse_loop_args(transcript_path):
             assert len(parts) == 2, "Expected: /loop NUM_ITERATIONS TASK"
             return int(parts[0]), parts[1]
 
-    raise AssertionError("Could not find /loop invocation in transcript")
+    return None
 
 
 def find_keyword(text):
