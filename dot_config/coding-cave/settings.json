@@ -1,0 +1,18 @@
+{
+  "model": "opus",
+  "reasoning_effort": "high",
+  "skipDangerousModePermissionPrompt": true,
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claude-loop hook"
+          }
+        ]
+      }
+    ]
+  }
+}
