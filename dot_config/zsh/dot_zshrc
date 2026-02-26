@@ -69,14 +69,14 @@ function user_host {
     echo "%n@%m"
   fi
 }
-function prompt_char {
+function basic_prompt {
   if [[ $EUID -eq 0 ]]; then
-    echo '%F{1}#'
+    echo "%F{1}$(user_host)#"
   else
-    echo '%F{4}$'
+    echo "%F{4}$(user_host)$"
   fi
 }
-PROMPT='%F{237}$(hline)'$'\n''%K{237}%F{4}$(user_host)$(prompt_char)%f%k '
+PROMPT='%F{237}$(hline)'$'\n''%K{237}$(basic_prompt)%f%k '
 PROMPT2='%K{237}%F{4}%_>%f%k '
 RPROMPT='%F{5}$(last_exit_code)$(nix_shell_status)$(venv_status)$(cave_status)%$(width)<…<%~%<<%f'
 
