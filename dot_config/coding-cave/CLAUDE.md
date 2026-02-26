@@ -14,6 +14,7 @@
 - When you have finished a significant chunk of work, commit your changes.
 - Never credit "Claude Code" as a co-author in commit messages.
 - Don't make multiple commits in a row touching the same file. Amend instead.
+- Multiple agents may be working on the same gitdir concurrently. Only commit your own changes — if you see uncommitted changes you didn't make, leave them alone.
 
 ## Responsibility and Agency
 
