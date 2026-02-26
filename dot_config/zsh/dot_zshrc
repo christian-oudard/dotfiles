@@ -36,6 +36,9 @@ HISTFILE=$ZDOTDIR/.zhistory
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
 
+# Filter dangerous commands from history (complements histignorespace).
+source ${ZDOTDIR}/history_filter.zsh
+
 # Prompt
 function hline {
   print ${(pl:$COLUMNS::\u2500:)}
