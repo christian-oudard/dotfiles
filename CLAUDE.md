@@ -92,12 +92,35 @@ New files must be `git add`ed before nix can see them.
 
 ### Activating Changes
 
-After making changes, run `./nixos-config/rebuild.sh`
+After making changes, run `./nixos-config/system_update.sh`
 
 ### Neovim Setup
 
 Plugins managed via `programs.neovim.plugins` in `nixos-config/home.nix`. Config files in chezmoi dotfiles repo.
 LSP servers installed as packages: pyright, rust-analyzer, ruff, typescript-language-server
+
+## Tests
+
+System tests live in `nixos-config/system_tests/`. Two test files:
+
+- **`test_build.py`** — Build-time tests. Inspect nix evaluation output, not the live system. Safe to run from the cave or anywhere with flake access. Run after changing `nixos-config/`.
+- **`test_runtime.py`** — Runtime tests. Verify the live deployed system (SSL connectivity, paths, commands). Only reliable on the host after a rebuild. Run automatically by `system_update.sh`.
+
+```bash
+./nixos-config/check_build.sh                  # cave: nix build + build tests
+./nixos-config/system_update.sh                # host: rebuild + full suite
+```
+
+Tests must not require network access beyond basic HTTPS (no API keys, no auth).
+
+## System Configuration Responsibilities
+
+When working in this repo, Claude Code is responsible for:
+
+- **Keep tests green**: Run `uvx pytest nixos-config/system_tests/test_build.py` after any change to `nixos-config/`. Do not commit changes that break build tests.
+- **Add tests for new invariants**: When adding system config (new packages, paths, services), add a corresponding test that verifies the expected behavior.
+- **Test before suggesting rebuilds**: Before telling the user to run `system_update.sh`, verify the nix expression parses (`nix-instantiate --parse`) and that tests still pass.
+- **Validate SSL/TLS**: The nix-built system Python has correct SSL paths, but uv's standalone Python needs `/etc/ssl/cert.pem` (provided via `environment.etc` in common.nix). Do not change `security.pki.useCompatibleBundle` — it drops CAs.
 
 ## Claude Code Sandbox
 

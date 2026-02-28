@@ -106,6 +106,10 @@
     ln -sf /run/current-system/sw/bin/bash /bin/bash
   '';
 
+  # uv's standalone Python expects CA certs at /etc/ssl/cert.pem, which NixOS
+  # doesn't create. Symlink it to the NixOS CA bundle so SSL works in uv venvs.
+  environment.etc."ssl/cert.pem".source = "/etc/ssl/certs/ca-bundle.crt";
+
   # Playwright (NixOS-wrapped Chromium for crawl4ai)
   environment.sessionVariables = {
     PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
