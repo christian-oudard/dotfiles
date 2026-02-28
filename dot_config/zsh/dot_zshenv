@@ -20,11 +20,12 @@ export LD_LIBRARY_PATH="$NIX_LD_LIBRARY_PATH${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH
 
 # Executable search path.
 typeset -U path PATH
-path+=(
+path=(
     ~/bin
     ~/.local/bin
     ~/.cargo/bin
     ~/.npm-global/bin
     ~/.ghcup/bin
+    $path
 )
 export PATH
