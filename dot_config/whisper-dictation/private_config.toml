@@ -1,3 +1,9 @@
+history_file = "~/dictation_history.jsonl"
+vocabulary_hints = """
+git, Claude, CUDA, NixOS, Nix, nixpkgs, direnv, Neovim, pyright, ruff, Wayland, bemenu, JSONL, TOML,
+chezmoi, VRAM, ripgrep, PipeWire, WireGuard
+"""
+
 [paste_methods]
 foot = "C-S-v"
 brave-browser = "C-v"

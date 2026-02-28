@@ -115,7 +115,7 @@ vim.opt.showbreak = '↪'
 vim.opt.listchars = { tab = '→ ', nbsp = '␣', trail = '•', extends = '⟩', precedes = '⟨' }
 vim.opt.list = true
 vim.opt.wrap = true
-vim.opt.textwidth = 120
+vim.opt.textwidth = 100
 
 -- Tab line (bufferline)
 vim.opt.showtabline = 2
