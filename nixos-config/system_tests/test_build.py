@@ -109,6 +109,42 @@ def test_system_packages_include_essentials():
         assert name in pkg_str, f"{name} not in systemPackages"
 
 
+def test_home_packages_include_shell_and_terminal():
+    """home.packages should include shell and terminal tools."""
+    pkgs = _nix_eval("home-manager.users.christian.home.packages")
+    pkg_str = " ".join(pkgs)
+    for name in ["zsh", "bash", "tmux", "foot", "eza"]:
+        assert name in pkg_str, f"{name} not in home.packages"
+
+
+def test_home_packages_include_desktop():
+    """home.packages should include sway desktop tools."""
+    pkgs = _nix_eval("home-manager.users.christian.home.packages")
+    pkg_str = " ".join(pkgs)
+    for name in ["bemenu", "j4-dmenu-desktop", "swaylock", "swaybg",
+                  "grim", "slurp", "brightnessctl", "mako",
+                  "batsignal", "i3status", "wl-clipboard", "libnotify"]:
+        assert name in pkg_str, f"{name} not in home.packages"
+
+
+def test_home_packages_include_cli_tools():
+    """home.packages should include CLI tools referenced by dotfiles."""
+    pkgs = _nix_eval("home-manager.users.christian.home.packages")
+    pkg_str = " ".join(pkgs)
+    for name in ["dust", "fd", "fzf", "ripgrep", "jq",
+                  "chezmoi", "restic", "gnupg"]:
+        assert name in pkg_str, f"{name} not in home.packages"
+
+
+def test_home_packages_include_dev_tools():
+    """home.packages should include development tools."""
+    pkgs = _nix_eval("home-manager.users.christian.home.packages")
+    pkg_str = " ".join(pkgs)
+    for name in ["python3", "uv", "nodejs", "pyright", "ruff",
+                  "rust-analyzer", "gh"]:
+        assert name in pkg_str, f"{name} not in home.packages"
+
+
 # --- Key system settings ---
 
 
