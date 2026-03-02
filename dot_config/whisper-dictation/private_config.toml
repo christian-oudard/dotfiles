@@ -1,7 +1,7 @@
 history_file = "~/dictation_history.jsonl"
 vocabulary_hints = """
 git, Claude, opus, sonnet, haiku, CUDA, NixOS, Nix, nixpkgs, direnv, Neovim, pyright, ruff, Wayland, bemenu, JSONL, TOML,
-chezmoi, VRAM, ripgrep, PipeWire, WireGuard
+chezmoi, VRAM, ripgrep, PipeWire, WireGuard, zsh
 """
 
 [paste_methods]
