@@ -99,6 +99,7 @@
   programs.nix-ld.libraries = with pkgs; [
     stdenv.cc.cc.lib
     portaudio
+    cudaPackages.libcublas
   ];
 
   # Create /bin/bash symlink for scripts with hardcoded shebangs
