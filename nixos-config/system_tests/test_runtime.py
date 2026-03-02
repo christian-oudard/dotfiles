@@ -117,3 +117,19 @@ def test_gnome_keyring_works():
         assert retrieved == password, f"Expected {password!r}, got {retrieved!r}"
     finally:
         keyring.delete_password(service, username)
+
+
+# --- Playwright ---
+
+
+def test_playwright_launches_browser():
+    """Playwright should launch chromium headless and render HTML."""
+    from playwright.sync_api import sync_playwright
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        page.set_content("<h1>hello</h1>")
+        assert page.locator("h1").text_content() == "hello"
+        page.close()
+        browser.close()
