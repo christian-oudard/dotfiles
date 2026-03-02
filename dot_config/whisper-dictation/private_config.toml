@@ -1,6 +1,6 @@
 history_file = "~/dictation_history.jsonl"
 vocabulary_hints = """
-git, Claude, CUDA, NixOS, Nix, nixpkgs, direnv, Neovim, pyright, ruff, Wayland, bemenu, JSONL, TOML,
+git, Claude, opus, sonnet, haiku, CUDA, NixOS, Nix, nixpkgs, direnv, Neovim, pyright, ruff, Wayland, bemenu, JSONL, TOML,
 chezmoi, VRAM, ripgrep, PipeWire, WireGuard
 """
 
