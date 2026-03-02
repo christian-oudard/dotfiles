@@ -98,3 +98,22 @@ def test_dev_tool_commands():
         ] if not _has_command(cmd)
     ]
     assert not missing, f"Missing commands: {missing}"
+
+
+# --- gnome-keyring / Secret Service ---
+
+
+def test_gnome_keyring_works():
+    """keyring module should store, retrieve, and delete a password via gnome-keyring."""
+    import keyring
+
+    service = "test-gnome-keyring-check"
+    username = "testuser"
+    password = "s3cret-test-value"
+
+    try:
+        keyring.set_password(service, username, password)
+        retrieved = keyring.get_password(service, username)
+        assert retrieved == password, f"Expected {password!r}, got {retrieved!r}"
+    finally:
+        keyring.delete_password(service, username)
