@@ -72,6 +72,9 @@
     wrapperFeatures.gtk = true;
   };
 
+  # Keyring (Secret Service API for Python keyring, etc.)
+  services.gnome.gnome-keyring.enable = true;
+
   # Auto-login and start Sway via greetd
   services.greetd = {
     enable = true;

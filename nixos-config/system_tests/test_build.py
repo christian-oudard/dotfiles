@@ -162,3 +162,8 @@ def test_zsh_enabled():
 def test_nix_ld_enabled():
     """nix-ld should be enabled for pip-installed packages with C extensions."""
     assert _nix_eval("programs.nix-ld.enable") is True
+
+
+def test_gnome_keyring_enabled():
+    """gnome-keyring should be enabled for Secret Service API."""
+    assert _nix_eval("services.gnome.gnome-keyring.enable") is True

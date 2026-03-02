@@ -220,6 +220,9 @@ bindsym XF86Assistant exec whisper-dictation-toggle
 bindsym XF86Favorites exec whisper-dictation-toggle
 bindcode 455 exec whisper-dictation-repeat
 
+# Start gnome-keyring secrets daemon (secrets only, not ssh — we use ssh-agent).
+exec eval $(gnome-keyring-daemon --components=secrets)
+
 # Include system sway config.
 include /etc/sway/config.d/*
 
