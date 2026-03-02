@@ -34,6 +34,8 @@ in {
 
     # Backup and sync
     restic
+    rclone
+    rsync
     syncthing
 
     # Sway desktop (config via chezmoi)
