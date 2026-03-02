@@ -2,6 +2,9 @@
   "model": "opus",
   "reasoning_effort": "high",
   "skipDangerousModePermissionPrompt": true,
+  "sandbox": {
+    "enabled": false
+  },
   "hooks": {
     "Stop": [
       {
