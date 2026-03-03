@@ -38,6 +38,9 @@
 - Design changes and code changes are separate. Update `DESIGN.md` first, then implement.
 - Periodically look for opportunities to simplify — remove unnecessary abstractions, reduce indirection, and consolidate code that has grown more complex than the problem requires.
 - Before you decide that something is done, do a code review and see if there's anything else you missed.
+- Fail Loudly. If there is a chance of something failing, let it fail, do not suppress crucial errors.
+- Don't Repeat Yourself (DRY). If you are doing the same thing multiple times, refactor it into something repeatable.
+- You Ain't Gonna Need It (YAGNI). Only build what is required now, do not overbuild by speculating what will be required in the future.
 
 ## Testing
 
