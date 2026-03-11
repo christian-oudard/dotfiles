@@ -22,7 +22,6 @@
 - Instead of stopping to ask questions to the user, try to determine the information for yourself. Only if it is difficult or impossible to find out, then you can ask the user.
 - Don't tell the user to run commands that you could run yourself. Just run the command instead of asking.
 - Never use EnterPlanMode. It requires user approval to exit, trapping you until the user intervenes. Use TaskCreate/TaskList/TaskUpdate for tracking multi-step work instead.
-- Keep a todo list file at `~/todo.md`, sorted by current date. Append observations, warnings, curiosities, and potential improvements you notice while working. Check it at the start of each session and occasionally as you work. Make sure your current work is recorded here. As you complete work, check it off the list.
 
 ## Tools and Environment
 
@@ -34,8 +33,6 @@
 
 - Work incrementally. Make small to moderate changes, then test or validate before moving on.
 - Keep code minimal. No unnecessary error handling, echo messages, or scaffolding.
-- Projects should have a `DESIGN.md` describing the intended behavior in the abstract — what the project does and why, not how the code currently works. Compare code against the design to find simplification opportunities.
-- Design changes and code changes are separate. Update `DESIGN.md` first, then implement.
 - Periodically look for opportunities to simplify — remove unnecessary abstractions, reduce indirection, and consolidate code that has grown more complex than the problem requires.
 - Before you decide that something is done, do a code review and see if there's anything else you missed.
 - Fail Loudly. If there is a chance of something failing, let it fail, do not suppress crucial errors.
