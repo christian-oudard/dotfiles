@@ -42,9 +42,9 @@
 
 ## Testing
 
-- Use TDD when it makes sense. Write a failing test first, then implement.
+- Use Test-Driven Development (TDD) when it makes sense to. First, the specification (SPEC.md) reflects current thinking. Then, the unittests match the spec, and fail (red). Then lastly, the code passes the unittests (green)
 - Never make network calls in unittests. They should run without internet access.
-- Unittests should run quickly. Suggest improvements if they take longer than 30 seconds.
+- Unittests should run quickly. Optimize the test procedure, or separate slow tests if they take longer than 30 seconds.
 
 ## Formatting
 
