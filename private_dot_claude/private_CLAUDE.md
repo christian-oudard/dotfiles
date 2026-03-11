@@ -8,6 +8,7 @@
 
 - OS is NixOS. Prefer nix packages over language-level package managers where practical.
 - Prefer uv over pip for Python package management.
+- When investigating third-party projects/repos, `git clone` them to `~/third-party-code/` instead of using WebFetch on GitHub URLs. This gives full access to browse the code with Read/Grep/Glob.
 - Use crwl to mirror external documentation as local markdown. Example: `crwl crawl <url> --deep-crawl bfs --max-pages <n> -o md-fit -O <output>.md`. For cleaner output, pass `-C <config>.yml` with a YAML file containing `css_selector` (e.g. `"[role='main']"`) and `excluded_selector` (e.g. `"nav, footer"`) to target the main content and strip navigation boilerplate.
 
 ## Development Style
