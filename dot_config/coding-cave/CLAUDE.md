@@ -22,6 +22,7 @@
 - Instead of stopping to ask questions to the user, try to determine the information for yourself. Only if it is difficult or impossible to find out, then you can ask the user.
 - Don't tell the user to run commands that you could run yourself. Just run the command instead of asking.
 - Never use EnterPlanMode. It requires user approval to exit, trapping you until the user intervenes. Use TaskCreate/TaskList/TaskUpdate for tracking multi-step work instead.
+- Be humble. If you don't know something, just ask the question and pass that question along, to be clarified later. Don't guess or assume if you don't *know*.
 
 ## Tools and Environment
 
