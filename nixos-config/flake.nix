@@ -11,13 +11,21 @@
       url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-claude = {
+      url = "github:christian-oudard/nix-claude";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    persist = {
+      url = "github:christian-oudard/persist";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     whisper-dictation-src = {
       url = "github:christian-oudard/whisper_dictation";
       flake = false;
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, claude-code, whisper-dictation-src, ... }:
+  outputs = { self, nixpkgs, home-manager, claude-code, nix-claude, persist, whisper-dictation-src, ... }:
     let
       system = "x86_64-linux";
       overlay-claude-code = final: prev: {
@@ -41,7 +49,13 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.christian = import ./home.nix { username = "christian"; };
+          home-manager.users.christian = {
+            imports = [
+              nix-claude.homeManagerModules.default
+              (import ./home.nix { username = "christian"; })
+              (import ./claude.nix { inherit persist; })
+            ];
+          };
         }
       ];
     in {

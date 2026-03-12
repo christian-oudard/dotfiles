@@ -59,6 +59,26 @@
         "type": "github"
       }
     },
+    "nix-claude": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1773342841,
+        "narHash": "sha256-LjP4wVg4KaIdAJLABA98Mqe8OEdCRUS0A9POtmbJCZE=",
+        "owner": "christian-oudard",
+        "repo": "nix-claude",
+        "rev": "145fd8f74bf75f740e1472a32bd16f5bc852f2d8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "christian-oudard",
+        "repo": "nix-claude",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1771848320,
@@ -75,11 +95,33 @@
         "type": "github"
       }
     },
+    "persist": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1773344620,
+        "narHash": "sha256-ivzKHgIwEh4TNF1J3XZLcMpnY4eXttU0MMBSgfdcxz4=",
+        "owner": "christian-oudard",
+        "repo": "persist",
+        "rev": "c53c4ae47235dad5bb867157666e7a3f1f141fd3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "christian-oudard",
+        "repo": "persist",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "claude-code": "claude-code",
         "home-manager": "home-manager",
+        "nix-claude": "nix-claude",
         "nixpkgs": "nixpkgs",
+        "persist": "persist",
         "whisper-dictation-src": "whisper-dictation-src"
       }
     },

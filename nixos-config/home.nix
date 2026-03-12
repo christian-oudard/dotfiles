@@ -74,7 +74,6 @@ in {
     # Programming
     git
     gh
-    claude-code
     socat
     bubblewrap
     libseccomp
@@ -102,6 +101,8 @@ in {
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+    # init.lua is managed by chezmoi, not home-manager.
+    # Only use nix for plugin installs; don't add config attributes to plugins.
     plugins = with pkgs.vimPlugins; [
       gruvbox-nvim
       vim-commentary
