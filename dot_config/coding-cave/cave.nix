@@ -5,11 +5,11 @@
 
   config = { pkgs, persist, ... }: {
     packages = with pkgs; [
-      python3 uv perl tree eza nano direnv zsh
+      python3 uv perl tree eza nano direnv zsh neovim
     ];
 
     env = {
-      EDITOR = "${pkgs.nano}/bin/nano";
+      EDITOR = "nvim";
     };
 
     settings = {
