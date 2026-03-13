@@ -3,8 +3,14 @@
     persist = "github:christian-oudard/persist";
   };
 
-  config = { persist }: {
-    plugins.persist = persist.plugin.x86_64-linux;
+  config = { pkgs, persist, ... }: {
+    packages = with pkgs; [
+      python3 uv perl tree eza nano direnv zsh
+    ];
+
+    env = {
+      EDITOR = "${pkgs.nano}/bin/nano";
+    };
 
     settings = {
       model = "opus";

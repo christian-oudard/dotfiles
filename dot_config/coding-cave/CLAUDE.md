@@ -1,13 +1,7 @@
-## Coding Cave
-
-- You are in a Coding Cave, a sandboxed bwrap namespace with nix packages. You have full autonomy within the cave.
-- Projects are mounted as overlays at `/projects/<name>`. Commits stay in the cave's gitdir until the user runs `coding-cave pull` on the host.
-- There is no sudo. Ask the user to run commands that need root on the host.
-- When showing commands for the user to run on the host, prefix with a dollar sign: `$ sudo nixos-rebuild switch`
-
 ## Communication
 
 - I'm often voice typing, please ignore and account for any text-to-speech mistakes.
+- When showing commands for the user to run, prefix with a dollar sign: `$ sudo nixos-rebuild switch`
 
 ## Git
 
@@ -15,7 +9,6 @@
 - Never credit "Claude Code" as a co-author in commit messages.
 - Don't make multiple commits in a row touching the same file. Amend instead.
 - Only amend commits after origin/main. Do not amend pushed commits.
-- Multiple agents may be working on the same gitdir concurrently. Only commit your own changes — if you see uncommitted changes you didn't make, leave them alone.
 
 ## Responsibility and Agency
 
@@ -28,7 +21,6 @@
 
 - Prefer nix packages over language-level package managers where practical.
 - Do not use pip for python packages, instead use uv.
-- Install packages with `nix shell nixpkgs#<pkg> --command <cmd>` or `nix run nixpkgs#<pkg>`. Do not use `nix-env` or `nix profile` (no nix db in the cave).
 
 ## Development Style
 
