@@ -7,7 +7,20 @@
     plugins = [ persist ];
 
     packages = with pkgs; [
-      python3 uv perl tree eza nano direnv zsh neovim
+      # General
+      tree eza nano direnv zsh neovim
+
+      # Python
+      python3 python3Packages.pytest uv
+
+      # Haskell
+      ghc cabal-install stack
+
+      # JS/TypeScript
+      nodejs typescript
+
+      # Rust
+      cargo rustc rustfmt clippy
     ];
 
     env = {
