@@ -29,10 +29,9 @@
 
     settings = {
       model = "opus";
-      reasoning_effort = "high";
       alwaysThinkingEnabled = true;
       promptSuggestionEnabled = false;
-      effortLevel = "medium";
+      effortLevel = "high";
     };
   };
 }
