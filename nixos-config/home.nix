@@ -87,6 +87,7 @@ in {
     typescript-language-server
     rust-analyzer
     elan
+    google-cloud-sdk
   ];
 
   programs.home-manager.enable = true;
