@@ -4,6 +4,8 @@
   };
 
   config = { pkgs, persist, ... }: {
+    plugins = [ persist ];
+
     packages = with pkgs; [
       python3 uv perl tree eza nano direnv zsh neovim
     ];
