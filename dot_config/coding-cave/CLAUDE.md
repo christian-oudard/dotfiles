@@ -37,6 +37,7 @@
 - Use Test-Driven Development (TDD) when it makes sense to. First, the specification (SPEC.md) reflects current thinking. Then, the unittests match the spec, and fail (red). Then lastly, the code passes the unittests (green)
 - Never make network calls in unittests. They should run without internet access.
 - Unittests should run quickly. Optimize the test procedure, or separate slow tests if they take longer than 30 seconds.
+- Any time you notice that you or the code have made a mistake or gotten confused, that mistake or confusion is a good candidate for a unittest.
 
 ## Formatting
 
