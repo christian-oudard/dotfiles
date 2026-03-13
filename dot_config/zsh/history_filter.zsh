@@ -1,6 +1,14 @@
-# history_filter.zsh — zshaddhistory hook to suppress dangerous commands.
-# Source this file from zshrc. The zshaddhistory function is called by zsh
-# before writing each command to history. Return 0 = save, 1 = suppress.
+# history_filter.zsh — zshaddhistory hook to filter history entries.
+# Source this file from zshrc.
+#
+# Two mechanisms:
+# 1. Pre-execution: zshaddhistory blocks dangerous commands (return 1)
+#    and defers safe commands (return 2 = session-only, not written to file).
+# 2. Post-execution: precmd hook persists deferred commands only if they
+#    succeeded (exit code 0). Failed commands stay in the current session
+#    for arrow-up but are never written to HISTFILE.
+
+zmodload zsh/datetime  # provides $EPOCHSECONDS
 
 # --- Layer 2: Always dangerous commands ---
 typeset -gA _hf_always_dangerous
@@ -208,5 +216,25 @@ zshaddhistory() {
     _hf_check_segment "$segment" && return 1
   done
 
-  return 0
+  # Command passed all filters. Defer to precmd — persist only on success.
+  __hf_pending="$cmd"
+  __hf_pending_time=$EPOCHSECONDS
+  return 2  # add to session history, don't write to file yet
 }
+
+# --- Persist successful commands, discard failed ones ---
+__hf_persist_or_discard() {
+  local last_status=$?
+  if [[ -n "$__hf_pending" ]] && (( last_status == 0 )); then
+    local elapsed=$(( EPOCHSECONDS - __hf_pending_time ))
+    print -r -- ": ${__hf_pending_time}:${elapsed};${__hf_pending}" >> "$HISTFILE"
+  fi
+  __hf_pending=""
+  return $last_status
+}
+# Must be first in precmd_functions to capture $? before other hooks change it.
+precmd_functions=(__hf_persist_or_discard "${precmd_functions[@]}")
+
+# Prevent zsh from writing deferred (failed) commands to HISTFILE on exit.
+# Successful commands were already appended in precmd.
+zshexit() { unset HISTFILE; }
