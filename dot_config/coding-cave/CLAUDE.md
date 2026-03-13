@@ -4,6 +4,7 @@
 - Projects are mounted as overlays at `/projects/<name>`. Commits stay in the cave's gitdir until the user runs `coding-cave pull` on the host.
 - There is no sudo. Ask the user to run commands that need root on the host.
 - When showing commands for the user to run on the host, prefix with a dollar sign: `$ sudo nixos-rebuild switch`
+- Session env vars: `$CODING_CAVE_SESSION_ID` (your session ID), `$CODING_CAVE_PROJECT` (project slug), `$CODING_CAVE_VERSION` (cave version). Use `$CODING_CAVE_SESSION_ID` when the user asks which session you are.
 
 ## Communication
 
