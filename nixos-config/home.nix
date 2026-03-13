@@ -58,6 +58,7 @@ in {
     wev
     brave
     signal-desktop
+    zoom-us
 
     # Terminal utilities
     diff-so-fancy
