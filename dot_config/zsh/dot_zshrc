@@ -61,7 +61,7 @@ function nix_shell_status {
 }
 function cave_status {
   if [[ -n "$CODING_CAVE_VERSION" ]]; then
-    echo "(cave) "
+    echo "(cave${CODING_CAVE_SESSION_INDEX}) "
   fi
 }
 function width {
