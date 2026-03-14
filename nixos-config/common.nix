@@ -94,6 +94,12 @@
   # Docker
   virtualisation.docker.enable = true;
 
+  # SSH: use absolute path so root (nixos-rebuild) can fetch private flake inputs
+  programs.ssh.extraConfig = ''
+    Host github.com
+      IdentityFile /home/christian/.ssh/christian_dedekind
+  '';
+
   # Shells
   programs.zsh.enable = true;
   programs.bash.enable = true;
