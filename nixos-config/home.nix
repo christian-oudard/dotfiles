@@ -86,7 +86,7 @@ in {
     nodejs
     jq
     typescript-language-server
-    rust-analyzer
+    rustup
     elan
     google-cloud-sdk
   ];
