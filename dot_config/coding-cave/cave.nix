@@ -28,7 +28,7 @@
 
     packages = with pkgs; [
       # General
-      tree eza nano direnv zsh neovim
+      tree eza nano direnv zsh neovim diff-so-fancy
 
       # Python
       python3 python3Packages.pytest uv
