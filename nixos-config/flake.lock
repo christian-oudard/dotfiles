@@ -24,11 +24,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773451839,
-        "narHash": "sha256-a7yGiEC2Nh4z7b5aR9sTPDnFOt7ykYQ3yU/MEdhKUWA=",
+        "lastModified": 1773504138,
+        "narHash": "sha256-CQZelDz8KtJBcY88cP9KKpqD5WNYkkwOR2U7RhW53T8=",
         "owner": "sadjow",
         "repo": "claude-code-nix",
-        "rev": "e64e47c888e3eb19d8c58c91046310582634271c",
+        "rev": "57fec627abf180c338ebdf1b0c5230b59e536ce0",
         "type": "github"
       },
       "original": {
@@ -134,11 +134,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773453314,
-        "narHash": "sha256-Z0MtyOwbyyccvwAa2ifzbqb2S2poD5sOmqekVoZZ5OA=",
+        "lastModified": 1773512028,
+        "narHash": "sha256-oPn3IJXCdE9hUbE4Af++84cvaN0rt80C+kwTzD2bt4I=",
         "owner": "christian-oudard",
         "repo": "persist",
-        "rev": "e4d33eedd794869acc7ecb3d9ed8b4258fad73d2",
+        "rev": "4f6fbd5e0318493e2121ee3f6aac859ab24d98c8",
         "type": "github"
       },
       "original": {
@@ -177,11 +177,11 @@
     "whisper-dictation-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1772476393,
-        "narHash": "sha256-sBLy+3tED1iYEbFiuslH4HAnvmZNBCLw6ix4zoMMj4I=",
+        "lastModified": 1773522400,
+        "narHash": "sha256-3sYNo5PoiEUyBDSHFucKsb344+8pe6kv8SymipOv9Eg=",
         "owner": "christian-oudard",
         "repo": "whisper_dictation",
-        "rev": "4cf064d91f91e64dbe27539b424dbe0bd116f5d2",
+        "rev": "08952a41dfe69f596d58fa58cde5ea14c6937c2e",
         "type": "github"
       },
       "original": {
