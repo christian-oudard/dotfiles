@@ -24,7 +24,7 @@
       flake = false;
     };
     agent-capabilities = {
-      url = "github:christian-oudard/agent-capabilities";
+      url = "git+ssh://git@github.com/christian-oudard/agent-capabilities";
       flake = false;
     };
     whisper-dictation-src = {
