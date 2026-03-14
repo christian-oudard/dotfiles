@@ -1,0 +1,32 @@
+[user]
+    email = ChristianOudard@pm.me
+    name = Christian Oudard
+    signingkey = 4A2836BB6C6386BC61A27E4E21F7F2C0152F8B5F
+[commit]
+    gpgSign = true
+[init]
+    defaultBranch = main
+[alias]
+    s = status
+    st = status
+    d = diff -w
+    dc = diff -w --cached
+    ci = commit --verbose
+    cia = commit --verbose --all
+    co = checkout
+    su = submodule update --init --recursive
+    logg = log --graph
+[pull]
+    ff = only
+	rebase = true
+[core]
+	pager = diff-so-fancy | less --tabs=4 -RFX
+[interactive]
+	diffFilter = diff-so-fancy --patch
+[protocol "file"]
+	allow = always
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
