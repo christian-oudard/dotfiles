@@ -44,3 +44,5 @@
 ## Formatting
 
 - Don't use vertical line box-drawing characters in text or markdown output. This is because they require exact horizontal alignment, which you are bad at.
+- Systematically replace em-dashes ("—") with a period (".") to start a new sentence, or a comma (",") to continue the sentence.
+
