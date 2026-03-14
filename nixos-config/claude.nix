@@ -1,4 +1,4 @@
-{ persist }:
+{ persist, claude-plugins-official, agent-capabilities }:
 
 { pkgs, ... }:
 
@@ -8,6 +8,16 @@
     package = pkgs.claude-code;
 
     plugins.persist = persist.plugin.${pkgs.stdenv.hostPlatform.system};
+
+    # Official plugins
+    plugins.commit-commands.src = "${claude-plugins-official}/plugins/commit-commands";
+    plugins.code-simplifier.src = "${claude-plugins-official}/plugins/code-simplifier";
+    plugins.frontend-design.src = "${claude-plugins-official}/plugins/frontend-design";
+
+    # Agent capabilities
+    plugins.audio-transcription.src = "${agent-capabilities}/audio_transcription";
+    plugins.pdf-conversion.src = "${agent-capabilities}/pdf_conversion";
+    plugins.website-mirroring.src = "${agent-capabilities}/website_mirroring";
 
     settings = {
       env = {
@@ -155,6 +165,8 @@
       };
       enabledPlugins = {
         "pyright-lsp@claude-plugins-official" = true;
+        "typescript-lsp@claude-plugins-official" = true;
+        "rust-analyzer-lsp@claude-plugins-official" = true;
       };
       alwaysThinkingEnabled = true;
       promptSuggestionEnabled = false;

@@ -19,13 +19,21 @@
       url = "github:christian-oudard/persist";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    claude-plugins-official = {
+      url = "github:anthropics/claude-plugins-official";
+      flake = false;
+    };
+    agent-capabilities = {
+      url = "github:christian-oudard/agent-capabilities";
+      flake = false;
+    };
     whisper-dictation-src = {
       url = "github:christian-oudard/whisper_dictation";
       flake = false;
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, claude-code, nix-claude, persist, whisper-dictation-src, ... }:
+  outputs = { self, nixpkgs, home-manager, claude-code, nix-claude, persist, claude-plugins-official, agent-capabilities, whisper-dictation-src, ... }:
     let
       system = "x86_64-linux";
       overlay-claude-code = final: prev: {
@@ -53,7 +61,7 @@
             imports = [
               nix-claude.homeManagerModules.default
               (import ./home.nix { username = "christian"; })
-              (import ./claude.nix { inherit persist; })
+              (import ./claude.nix { inherit persist claude-plugins-official agent-capabilities; })
             ];
           };
         }
