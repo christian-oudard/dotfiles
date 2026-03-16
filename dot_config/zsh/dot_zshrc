@@ -7,8 +7,7 @@ fi
 
 # Zsh options.
 setopt \
-  append_history \
-  share_history \
+  inc_append_history_time \
   extended_history \
   histignorespace \
   hist_find_no_dups \
