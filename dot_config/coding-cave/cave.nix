@@ -26,9 +26,15 @@
       { src = "${agent-capabilities}/website_mirroring"; }
     ];
 
+    files = {
+      ".config/direnv/direnvrc" = ''
+        source ${pkgs.nix-direnv}/share/nix-direnv/direnvrc
+      '';
+    };
+
     packages = with pkgs; [
       # General
-      tree eza nano direnv zsh neovim diff-so-fancy
+      tree eza nano direnv nix-direnv zsh neovim diff-so-fancy
 
       # Python
       python3 python3Packages.pytest uv
