@@ -27,9 +27,7 @@
     ];
 
     files = {
-      ".config/direnv/direnvrc" = ''
-        source ${pkgs.nix-direnv}/share/nix-direnv/direnvrc
-      '';
+      ".config/direnv/direnvrc" = "source ${pkgs.nix-direnv}/share/nix-direnv/direnvrc";
     };
 
     packages = with pkgs; [
