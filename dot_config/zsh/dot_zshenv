@@ -1,5 +1,6 @@
 # Environment variables.
 export \
+    NIX_BUILD_SHELL=zsh \
     EDITOR=nvim \
     SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket" \
     GPG_TTY=$(tty 2>/dev/null) \
@@ -13,7 +14,7 @@ export \
     ENABLE_LSP_TOOL=1 \
     GOBIN=$HOME/.local/bin \
     GOPATH=$HOME/.local/share/go \
-    PDFCONVERT_OUTPUT_DIR="$HOME/pdf_documents/" \
+    PDFCONVERT_OUTPUT_DIR="$HOME/files/library/pdfconvert_documents/" \
 
 # Prepend nix-ld libs, preserving any inherited LD_LIBRARY_PATH, such as from direnv or nix-shell.
 export LD_LIBRARY_PATH="$NIX_LD_LIBRARY_PATH${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
