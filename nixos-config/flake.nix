@@ -60,8 +60,7 @@
           home-manager.users.christian = {
             imports = [
               nix-claude.homeManagerModules.default
-              (import ./home.nix { username = "christian"; })
-              (import ./claude.nix { inherit persist claude-plugins-official agent-capabilities; })
+              (import ./home.nix { username = "christian"; inherit persist claude-plugins-official agent-capabilities; })
             ];
           };
         }

@@ -11,20 +11,11 @@
     };
   };
 
-  config = { pkgs, persist, claude-plugins-official, agent-capabilities, ... }: {
-    plugins = [
-      persist
-
-      # Official plugins
-      { src = "${claude-plugins-official}/plugins/commit-commands"; }
-      { src = "${claude-plugins-official}/plugins/code-simplifier"; }
-      { src = "${claude-plugins-official}/plugins/frontend-design"; }
-
-      # Agent capabilities
-      { src = "${agent-capabilities}/audio_transcription"; }
-      { src = "${agent-capabilities}/pdf_conversion"; }
-      { src = "${agent-capabilities}/website_mirroring"; }
-    ];
+  config = { pkgs, persist, claude-plugins-official, agent-capabilities, ... }:
+  let
+    claude = import ./claude.nix { inherit persist claude-plugins-official agent-capabilities; };
+  in {
+    inherit (claude) plugins settings;
 
     files = {
       ".config/direnv/direnvrc" = "source ${pkgs.nix-direnv}/share/nix-direnv/direnvrc";
@@ -49,13 +40,6 @@
 
     env = {
       EDITOR = "nvim";
-    };
-
-    settings = {
-      model = "opus";
-      alwaysThinkingEnabled = true;
-      promptSuggestionEnabled = false;
-      effortLevel = "high";
     };
   };
 }

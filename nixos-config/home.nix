@@ -1,10 +1,13 @@
-{ username ? "christian" }:
+{ username ? "christian", persist, claude-plugins-official, agent-capabilities }:
 
 { config, pkgs, lib, ... }:
 
 let
   homeDir = "/home/${username}";
 in {
+  imports = [
+    (import ./claude.nix { inherit persist claude-plugins-official agent-capabilities; })
+  ];
   home.username = username;
   home.homeDirectory = homeDir;
   home.stateVersion = "24.11";
