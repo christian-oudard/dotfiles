@@ -9,7 +9,6 @@ fi
 setopt \
   inc_append_history_time \
   extended_history \
-  histignorespace \
   hist_find_no_dups \
   hist_ignore_all_dups \
   hist_reduce_blanks \

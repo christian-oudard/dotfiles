@@ -198,6 +198,9 @@ zshaddhistory() {
   local cmd="${1%%$'\n'}"
   [[ -z "$cmd" ]] && return 0
 
+  # Honour histignorespace: leading space keeps in session, skips HISTFILE.
+  [[ "$cmd" == [[:space:]]* ]] && return 2
+
   # Layer 4: secrets (check full line before splitting)
   _hf_has_secrets "$cmd" && return 1
 
