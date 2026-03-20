@@ -16,9 +16,9 @@ in
         claude = {
           plugins = [
             persist
-    ${lib.concatMapStringsSep "\n" (src: ''        { src = "${src}"; }'') (lib.attrValues claude.pluginSources)}
+    ${lib.concatMapStringsSep "\n" (src: "        { src = \"${src}\"; }") (lib.attrValues claude.pluginSources)}
           ];
-          settings = ${lib.generators.toPretty {} claude.settings};
+          settings = ${builtins.replaceStrings ["\n"] ["\n      "] (lib.generators.toPretty {} claude.settings)};
         };
 
         files = {
