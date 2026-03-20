@@ -33,7 +33,19 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, claude-code, nix-claude, persist, claude-plugins-official, agent-capabilities, whisper-dictation-src, ... }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      claude-code,
+      nix-claude,
+      persist,
+      claude-plugins-official,
+      agent-capabilities,
+      whisper-dictation-src,
+      ...
+    }:
     let
       system = "x86_64-linux";
       overlay-claude-code = final: prev: {
@@ -47,25 +59,37 @@
           pyproject = true;
           build-system = [ prev.python3Packages.setuptools ];
           dependencies = with prev.python3Packages; [
-            faster-whisper torch sounddevice numpy
+            faster-whisper
+            torch
+            sounddevice
+            numpy
           ];
         };
       };
       commonModules = [
         home-manager.nixosModules.home-manager
-        { nixpkgs.overlays = [ overlay-claude-code overlay-whisper-dictation ]; }
+        {
+          nixpkgs.overlays = [
+            overlay-claude-code
+            overlay-whisper-dictation
+          ];
+        }
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.christian = {
             imports = [
               nix-claude.homeManagerModules.default
-              (import ./home.nix { username = "christian"; inherit persist claude-plugins-official agent-capabilities; })
+              (import ./home.nix {
+                username = "christian";
+                inherit persist claude-plugins-official agent-capabilities;
+              })
             ];
           };
         }
       ];
-    in {
+    in
+    {
       nixosConfigurations.dedekind = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [ ./hosts/dedekind/configuration.nix ] ++ commonModules;

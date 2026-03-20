@@ -1,16 +1,29 @@
-{ username ? "christian", persist, claude-plugins-official, agent-capabilities }:
+{
+  username ? "christian",
+  persist,
+  claude-plugins-official,
+  agent-capabilities,
+}:
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   homeDir = "/home/${username}";
-in {
-  imports = let
-    args = { inherit persist claude-plugins-official agent-capabilities; };
-  in [
-    (import ./claude.nix args).module
-    (import ./gen-cave.nix args)
-  ];
+in
+{
+  imports =
+    let
+      args = { inherit persist claude-plugins-official agent-capabilities; };
+    in
+    [
+      (import ./claude.nix args).module
+      (import ./gen-cave.nix args)
+    ];
   home.username = username;
   home.homeDirectory = homeDir;
   home.stateVersion = "24.11";

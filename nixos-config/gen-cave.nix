@@ -1,4 +1,8 @@
-{ persist, claude-plugins-official, agent-capabilities }:
+{
+  persist,
+  claude-plugins-official,
+  agent-capabilities,
+}:
 
 let
   claude = import ./claude.nix { inherit persist claude-plugins-official agent-capabilities; };
@@ -16,9 +20,13 @@ in
         claude = {
           plugins = [
             persist
-    ${lib.concatMapStringsSep "\n" (src: "        { src = \"${src}\"; }") (lib.attrValues claude.pluginSources)}
+    ${lib.concatMapStringsSep "\n" (src: "        { src = \"${src}\"; }") (
+      lib.attrValues claude.pluginSources
+    )}
           ];
-          settings = ${builtins.replaceStrings ["\n"] ["\n      "] (lib.generators.toPretty {} claude.settings)};
+          settings = ${
+            builtins.replaceStrings [ "\n" ] [ "\n      " ] (lib.generators.toPretty { } claude.settings)
+          };
         };
 
         files = {
@@ -27,7 +35,7 @@ in
 
         packages = with pkgs; [
           # General
-          tree eza nano direnv nix-direnv zsh neovim diff-so-fancy nil nixfmt
+          tree eza nano direnv nix-direnv zsh neovim diff-so-fancy
           # Python
           python3 python3Packages.pytest uv
           # Haskell

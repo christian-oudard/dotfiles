@@ -1,5 +1,10 @@
 # Shared NixOS configuration for all hosts
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   # Boot
@@ -13,7 +18,7 @@
   boot.kernel.sysctl."net.ipv6.conf.default.disable_ipv6" = 1;
   networking.getaddrinfo.precedence = {
     "::1/128" = 50;
-    "::ffff:0:0/96" = 100;  # Prefer IPv4
+    "::ffff:0:0/96" = 100; # Prefer IPv4
     "::/0" = 40;
   };
 
@@ -40,7 +45,13 @@
     uid = 1000;
     isNormalUser = true;
     homeMode = "700";
-    extraGroups = [ "wheel" "video" "networkmanager" "audio" "docker" ];
+    extraGroups = [
+      "wheel"
+      "video"
+      "networkmanager"
+      "audio"
+      "docker"
+    ];
     shell = pkgs.zsh;
   };
 
@@ -164,7 +175,10 @@
   nixpkgs.config.allowUnfree = true;
 
   # Enable flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   system.stateVersion = "24.11";
 }
