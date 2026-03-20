@@ -84,6 +84,7 @@ RPROMPT='%F{5}$(last_exit_code)$(nix_shell_status)$(venv_status)$(cave_status)%$
 # Plugins.
 autoload -Uz \
   compinit \
+  add-zsh-hook \
   up-line-or-beginning-search down-line-or-beginning-search
 compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -150,6 +151,13 @@ ZSH_PRIVATE=~/.config/zsh/.zshrc_private
 if [[ -f $ZSH_PRIVATE ]]; then
     source $ZSH_PRIVATE
 fi
+
+# Emit OSC 7 so tmux knows the logical PWD (preserves symlink paths in splits).
+function _osc7_cwd {
+  printf '\e]7;file://%s%s\e\\' "${HOST}" "${PWD}"
+}
+add-zsh-hook chpwd _osc7_cwd
+_osc7_cwd
 
 # direnv, per-directory configuration during cd. https://direnv.net/
 if command -v direnv &>/dev/null; then
