@@ -5,8 +5,11 @@
 let
   homeDir = "/home/${username}";
 in {
-  imports = [
-    (import ./claude.nix { inherit persist claude-plugins-official agent-capabilities; })
+  imports = let
+    args = { inherit persist claude-plugins-official agent-capabilities; };
+  in [
+    (import ./claude.nix args).module
+    (import ./cave.nix args)
   ];
   home.username = username;
   home.homeDirectory = homeDir;

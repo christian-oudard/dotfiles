@@ -1,8 +1,6 @@
 { persist, claude-plugins-official, agent-capabilities }:
 
-{ pkgs, lib, ... }:
-
-let
+rec {
   pluginSources = {
     commit-commands = "${claude-plugins-official}/plugins/commit-commands";
     code-simplifier = "${claude-plugins-official}/plugins/code-simplifier";
@@ -11,221 +9,171 @@ let
     pdf-conversion = "${agent-capabilities}/pdf_conversion";
     website-mirroring = "${agent-capabilities}/website_mirroring";
   };
-in {
-  programs.claude-code = {
-    enable = true;
-    package = pkgs.claude-code;
 
-    plugins.persist = persist.plugin.${pkgs.stdenv.hostPlatform.system};
-    plugins.commit-commands.src = pluginSources.commit-commands;
-    plugins.code-simplifier.src = pluginSources.code-simplifier;
-    plugins.frontend-design.src = pluginSources.frontend-design;
-    plugins.audio-transcription.src = pluginSources.audio-transcription;
-    plugins.pdf-conversion.src = pluginSources.pdf-conversion;
-    plugins.website-mirroring.src = pluginSources.website-mirroring;
-
-    settings = {
-      env = {
-        TMPPREFIX = "/tmp/claude/zsh";
-        CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY = "1";
-        CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1";
-      };
-      permissions = {
-        allow = [
-          "Write(/tmp/claude/**)"
-          "Edit(/tmp/claude/**)"
-          "Bash(rg:*)"
-          "Bash(ls:*)"
-          "Bash(fd:*)"
-          "Bash(find:*)"
-          "Bash(tree:*)"
-          "Bash(file:*)"
-          "Bash(stat:*)"
-          "Bash(realpath:*)"
-          "Bash(dirname:*)"
-          "Bash(basename:*)"
-          "Bash(mkdir:*)"
-          "Bash(diff:*)"
-          "Bash(sort:*)"
-          "Bash(uniq:*)"
-          "Bash(wc:*)"
-          "Bash(date:*)"
-          "Bash(which:*)"
-          "Bash(whereis:*)"
-          "Bash(type:*)"
-          "Bash(env:*)"
-          "Bash(pwd:*)"
-          "Bash(id:*)"
-          "Bash(whoami:*)"
-          "Bash(uname:*)"
-          "Bash(git:status:*)"
-          "Bash(git:log:*)"
-          "Bash(git:diff:*)"
-          "Bash(git:branch:)"
-          "Bash(git:branch:-a:*)"
-          "Bash(git:branch:-r:*)"
-          "Bash(git:branch:--list:*)"
-          "Bash(git:branch:-v:*)"
-          "Bash(git:show:*)"
-          "Bash(git:blame:*)"
-          "Bash(git:rev-parse:*)"
-          "Bash(git:ls-files:*)"
-          "Bash(git:ls-tree:*)"
-          "Bash(git:cat-file:*)"
-          "Bash(git:config --get:*)"
-          "Bash(git:config --list:*)"
-          "Bash(git:remote -v:*)"
-          "Bash(git:remote get-url:*)"
-          "Bash(git:remote show:*)"
-          "WebSearch"
-          "WebFetch(domain:localhost)"
-          "WebFetch(domain:api.anthropic.com)"
-          "WebFetch(domain:www.anthropic.com)"
-          "WebFetch(domain:docs.anthropic.com)"
-          "WebFetch(domain:code.claude.com)"
-          "WebFetch(domain:mcp.context7.com)"
-          "WebFetch(domain:en.wikipedia.org)"
-          "WebFetch(domain:github.com)"
-          "WebFetch(domain:raw.githubusercontent.com)"
-          "WebFetch(domain:api.github.com)"
-          "WebFetch(domain:gist.github.com)"
-          "WebFetch(domain:codeload.githubusercontent.com)"
-          "WebFetch(domain:release-assets.githubusercontent.com)"
-          "WebFetch(domain:wiki.archlinux.org)"
-          "WebFetch(domain:search.nixos.org)"
-          "WebFetch(domain:channels.nixos.org)"
-          "WebFetch(domain:docs.python.org)"
-          "WebFetch(domain:pypi.org)"
-          "WebFetch(domain:files.pythonhosted.org)"
-          "WebFetch(domain:doc.rust-lang.org)"
-          "WebFetch(domain:docs.rs)"
-          "WebFetch(domain:crates.io)"
-          "WebFetch(domain:lib.rs)"
-          "WebFetch(domain:leanprover.github.io)"
-          "WebFetch(domain:leanprover-community.github.io)"
-          "WebFetch(domain:lean-lang.org)"
-          "WebFetch(domain:reservoir.lean-lang.org)"
-          "WebFetch(domain:release.lean-lang.org)"
-          "WebFetch(domain:haskell.org)"
-          "WebFetch(domain:hackage.haskell.org)"
-          "WebFetch(domain:hoogle.haskell.org)"
-          "WebFetch(domain:go.dev)"
-          "WebFetch(domain:pkg.go.dev)"
-          "WebFetch(domain:golang.org)"
-          "WebFetch(domain:nodejs.org)"
-          "WebFetch(domain:pnpm.io)"
-          "WebFetch(domain:registry.npmjs.org)"
-          "WebFetch(domain:developer.mozilla.org)"
-          "WebFetch(domain:typescriptlang.org)"
-          "WebFetch(domain:man7.org)"
-          "WebFetch(domain:data1.fullyjustified.net)"
-          "WebFetch(domain:relay.fullyjustified.net)"
-          "mcp__context7__resolve-library-id"
-          "mcp__context7__query-docs"
-          "mcp__c4ai-sse__md"
-          "mcp__c4ai-sse__html"
-          "mcp__c4ai-sse__screenshot"
-          "mcp__c4ai-sse__pdf"
-          "mcp__c4ai-sse__execute_js"
-          "mcp__c4ai-sse__crawl"
-          "mcp__c4ai-sse__ask"
-        ];
-        deny = [
-          "Read(~/.keys/**)"
-          "Read(~/.ssh/**)"
-          "Read(~/.gnupg/**)"
-          "Bash(ag:*)"
-          "Bash(curl:*)"
-          "Bash(wget:*)"
-          "Bash(nc:*)"
-          "Bash(netcat:*)"
-          "Bash(ncat:*)"
-          "Bash(socat:*)"
-          "Bash(ssh:*)"
-          "Bash(scp:*)"
-          "Bash(rsync:*)"
-          "Bash(ftp:*)"
-          "Bash(sftp:*)"
-          "Bash(sudo:*)"
-          "Bash(su:*)"
-          "Bash(doas:*)"
-          "Bash(pkexec:*)"
-          "Bash(pip:*)"
-          "Bash(pip3:*)"
-          "Bash(npm:*)"
-          "Bash(npx:*)"
-          "Bash(yarn:*)"
-          "Bash(shred:*)"
-          "Bash(dd:*)"
-          "Bash(mkfs:*)"
-          "Bash(fdisk:*)"
-          "Bash(parted:*)"
-          "Bash(reboot:*)"
-          "Bash(shutdown:*)"
-          "Bash(poweroff:*)"
-          "Bash(halt:*)"
-          "Bash(mount:*)"
-          "Bash(umount:*)"
-        ];
-      };
-      enabledPlugins = {
-        "pyright-lsp@claude-plugins-official" = true;
-        "typescript-lsp@claude-plugins-official" = true;
-        "rust-analyzer-lsp@claude-plugins-official" = true;
-      };
-      alwaysThinkingEnabled = true;
-      promptSuggestionEnabled = false;
-      effortLevel = "medium";
-    };
+  settings = {
+    model = "opus";
+    effortLevel = "high";
+    alwaysThinkingEnabled = true;
+    promptSuggestionEnabled = false;
   };
 
-  # Generate cave.nix for coding-cave, with plugin store paths resolved
-  xdg.configFile."coding-cave/cave.nix".text = ''
-    {
-      inputs = {
-        persist = "github:christian-oudard/persist";
+  module = { pkgs, lib, ... }: {
+    programs.claude-code = {
+      enable = true;
+      package = pkgs.claude-code;
+
+      plugins = lib.mapAttrs (_: src: { inherit src; }) pluginSources // {
+        persist = persist.plugin.${pkgs.stdenv.hostPlatform.system};
       };
 
-      config = { pkgs, persist, ... }: {
-        claude = {
-          plugins = [
-            persist
-            { src = "${pluginSources.commit-commands}"; }
-            { src = "${pluginSources.code-simplifier}"; }
-            { src = "${pluginSources.frontend-design}"; }
-            { src = "${pluginSources.audio-transcription}"; }
-            { src = "${pluginSources.pdf-conversion}"; }
-            { src = "${pluginSources.website-mirroring}"; }
-          ];
-          settings = {
-            model = "opus";
-            alwaysThinkingEnabled = true;
-            promptSuggestionEnabled = false;
-            effortLevel = "high";
-          };
-        };
-
-        files = {
-          ".config/direnv/direnvrc" = "source ''${pkgs.nix-direnv}/share/nix-direnv/direnvrc";
-        };
-
-        packages = with pkgs; [
-          # General
-          tree eza nano direnv nix-direnv zsh neovim diff-so-fancy
-          # Python
-          python3 python3Packages.pytest uv
-          # Haskell
-          ghc cabal-install stack
-          # JS/TypeScript
-          nodejs typescript
-          # Rust
-          cargo rustc rustfmt clippy
-        ];
-
+      settings = settings // {
         env = {
-          EDITOR = "nvim";
+          TMPPREFIX = "/tmp/claude/zsh";
+          CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY = "1";
+          CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1";
         };
+        permissions = {
+          allow = [
+            "Write(/tmp/claude/**)"
+            "Edit(/tmp/claude/**)"
+            "Bash(rg:*)"
+            "Bash(ls:*)"
+            "Bash(fd:*)"
+            "Bash(find:*)"
+            "Bash(tree:*)"
+            "Bash(file:*)"
+            "Bash(stat:*)"
+            "Bash(realpath:*)"
+            "Bash(dirname:*)"
+            "Bash(basename:*)"
+            "Bash(mkdir:*)"
+            "Bash(diff:*)"
+            "Bash(sort:*)"
+            "Bash(uniq:*)"
+            "Bash(wc:*)"
+            "Bash(date:*)"
+            "Bash(which:*)"
+            "Bash(whereis:*)"
+            "Bash(type:*)"
+            "Bash(env:*)"
+            "Bash(pwd:*)"
+            "Bash(id:*)"
+            "Bash(whoami:*)"
+            "Bash(uname:*)"
+            "Bash(git:status:*)"
+            "Bash(git:log:*)"
+            "Bash(git:diff:*)"
+            "Bash(git:branch:)"
+            "Bash(git:branch:-a:*)"
+            "Bash(git:branch:-r:*)"
+            "Bash(git:branch:--list:*)"
+            "Bash(git:branch:-v:*)"
+            "Bash(git:show:*)"
+            "Bash(git:blame:*)"
+            "Bash(git:rev-parse:*)"
+            "Bash(git:ls-files:*)"
+            "Bash(git:ls-tree:*)"
+            "Bash(git:cat-file:*)"
+            "Bash(git:config --get:*)"
+            "Bash(git:config --list:*)"
+            "Bash(git:remote -v:*)"
+            "Bash(git:remote get-url:*)"
+            "Bash(git:remote show:*)"
+            "WebSearch"
+            "WebFetch(domain:localhost)"
+            "WebFetch(domain:api.anthropic.com)"
+            "WebFetch(domain:www.anthropic.com)"
+            "WebFetch(domain:docs.anthropic.com)"
+            "WebFetch(domain:code.claude.com)"
+            "WebFetch(domain:mcp.context7.com)"
+            "WebFetch(domain:en.wikipedia.org)"
+            "WebFetch(domain:github.com)"
+            "WebFetch(domain:raw.githubusercontent.com)"
+            "WebFetch(domain:api.github.com)"
+            "WebFetch(domain:gist.github.com)"
+            "WebFetch(domain:codeload.githubusercontent.com)"
+            "WebFetch(domain:release-assets.githubusercontent.com)"
+            "WebFetch(domain:wiki.archlinux.org)"
+            "WebFetch(domain:search.nixos.org)"
+            "WebFetch(domain:channels.nixos.org)"
+            "WebFetch(domain:docs.python.org)"
+            "WebFetch(domain:pypi.org)"
+            "WebFetch(domain:files.pythonhosted.org)"
+            "WebFetch(domain:doc.rust-lang.org)"
+            "WebFetch(domain:docs.rs)"
+            "WebFetch(domain:crates.io)"
+            "WebFetch(domain:lib.rs)"
+            "WebFetch(domain:leanprover.github.io)"
+            "WebFetch(domain:leanprover-community.github.io)"
+            "WebFetch(domain:lean-lang.org)"
+            "WebFetch(domain:reservoir.lean-lang.org)"
+            "WebFetch(domain:release.lean-lang.org)"
+            "WebFetch(domain:haskell.org)"
+            "WebFetch(domain:hackage.haskell.org)"
+            "WebFetch(domain:hoogle.haskell.org)"
+            "WebFetch(domain:go.dev)"
+            "WebFetch(domain:pkg.go.dev)"
+            "WebFetch(domain:golang.org)"
+            "WebFetch(domain:nodejs.org)"
+            "WebFetch(domain:pnpm.io)"
+            "WebFetch(domain:registry.npmjs.org)"
+            "WebFetch(domain:developer.mozilla.org)"
+            "WebFetch(domain:typescriptlang.org)"
+            "WebFetch(domain:man7.org)"
+            "WebFetch(domain:data1.fullyjustified.net)"
+            "WebFetch(domain:relay.fullyjustified.net)"
+            "mcp__context7__resolve-library-id"
+            "mcp__context7__query-docs"
+            "mcp__c4ai-sse__md"
+            "mcp__c4ai-sse__html"
+            "mcp__c4ai-sse__screenshot"
+            "mcp__c4ai-sse__pdf"
+            "mcp__c4ai-sse__execute_js"
+            "mcp__c4ai-sse__crawl"
+            "mcp__c4ai-sse__ask"
+          ];
+          deny = [
+            "Read(~/.keys/**)"
+            "Read(~/.ssh/**)"
+            "Read(~/.gnupg/**)"
+            "Bash(ag:*)"
+            "Bash(curl:*)"
+            "Bash(wget:*)"
+            "Bash(nc:*)"
+            "Bash(netcat:*)"
+            "Bash(ncat:*)"
+            "Bash(socat:*)"
+            "Bash(ssh:*)"
+            "Bash(scp:*)"
+            "Bash(rsync:*)"
+            "Bash(ftp:*)"
+            "Bash(sftp:*)"
+            "Bash(sudo:*)"
+            "Bash(su:*)"
+            "Bash(doas:*)"
+            "Bash(pkexec:*)"
+            "Bash(pip:*)"
+            "Bash(pip3:*)"
+            "Bash(npm:*)"
+            "Bash(npx:*)"
+            "Bash(yarn:*)"
+            "Bash(shred:*)"
+            "Bash(dd:*)"
+            "Bash(mkfs:*)"
+            "Bash(fdisk:*)"
+            "Bash(parted:*)"
+            "Bash(reboot:*)"
+            "Bash(shutdown:*)"
+            "Bash(poweroff:*)"
+            "Bash(halt:*)"
+            "Bash(mount:*)"
+            "Bash(umount:*)"
+          ];
+        };
+        enabledPlugins = lib.genAttrs
+          (map (n: "${n}@claude-plugins-official") [ "pyright-lsp" "typescript-lsp" "rust-analyzer-lsp" ])
+          (_: true);
       };
-    }
-  '';
+    };
+  };
 }
