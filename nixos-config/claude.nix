@@ -15,6 +15,7 @@ rec {
     effortLevel = "high";
     alwaysThinkingEnabled = true;
     promptSuggestionEnabled = false;
+    spinnerVerbs = { mode = "replace"; verbs = []; };
   };
 
   module = { pkgs, lib, ... }: {
