@@ -1,23 +1,28 @@
 { persist, claude-plugins-official, agent-capabilities }:
 
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
-{
+let
+  pluginSources = {
+    commit-commands = "${claude-plugins-official}/plugins/commit-commands";
+    code-simplifier = "${claude-plugins-official}/plugins/code-simplifier";
+    frontend-design = "${claude-plugins-official}/plugins/frontend-design";
+    audio-transcription = "${agent-capabilities}/audio_transcription";
+    pdf-conversion = "${agent-capabilities}/pdf_conversion";
+    website-mirroring = "${agent-capabilities}/website_mirroring";
+  };
+in {
   programs.claude-code = {
     enable = true;
     package = pkgs.claude-code;
 
     plugins.persist = persist.plugin.${pkgs.stdenv.hostPlatform.system};
-
-    # Official plugins
-    plugins.commit-commands.src = "${claude-plugins-official}/plugins/commit-commands";
-    plugins.code-simplifier.src = "${claude-plugins-official}/plugins/code-simplifier";
-    plugins.frontend-design.src = "${claude-plugins-official}/plugins/frontend-design";
-
-    # Agent capabilities
-    plugins.audio-transcription.src = "${agent-capabilities}/audio_transcription";
-    plugins.pdf-conversion.src = "${agent-capabilities}/pdf_conversion";
-    plugins.website-mirroring.src = "${agent-capabilities}/website_mirroring";
+    plugins.commit-commands.src = pluginSources.commit-commands;
+    plugins.code-simplifier.src = pluginSources.code-simplifier;
+    plugins.frontend-design.src = pluginSources.frontend-design;
+    plugins.audio-transcription.src = pluginSources.audio-transcription;
+    plugins.pdf-conversion.src = pluginSources.pdf-conversion;
+    plugins.website-mirroring.src = pluginSources.website-mirroring;
 
     settings = {
       env = {
@@ -173,4 +178,54 @@
       effortLevel = "medium";
     };
   };
+
+  # Generate cave.nix for coding-cave, with plugin store paths resolved
+  xdg.configFile."coding-cave/cave.nix".text = ''
+    {
+      inputs = {
+        persist = "github:christian-oudard/persist";
+      };
+
+      config = { pkgs, persist, ... }: {
+        claude = {
+          plugins = [
+            persist
+            { src = "${pluginSources.commit-commands}"; }
+            { src = "${pluginSources.code-simplifier}"; }
+            { src = "${pluginSources.frontend-design}"; }
+            { src = "${pluginSources.audio-transcription}"; }
+            { src = "${pluginSources.pdf-conversion}"; }
+            { src = "${pluginSources.website-mirroring}"; }
+          ];
+          settings = {
+            model = "opus";
+            alwaysThinkingEnabled = true;
+            promptSuggestionEnabled = false;
+            effortLevel = "high";
+          };
+        };
+
+        files = {
+          ".config/direnv/direnvrc" = "source ''${pkgs.nix-direnv}/share/nix-direnv/direnvrc";
+        };
+
+        packages = with pkgs; [
+          # General
+          tree eza nano direnv nix-direnv zsh neovim diff-so-fancy
+          # Python
+          python3 python3Packages.pytest uv
+          # Haskell
+          ghc cabal-install stack
+          # JS/TypeScript
+          nodejs typescript
+          # Rust
+          cargo rustc rustfmt clippy
+        ];
+
+        env = {
+          EDITOR = "nvim";
+        };
+      };
+    }
+  '';
 }
