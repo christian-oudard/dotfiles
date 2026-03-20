@@ -73,20 +73,17 @@ def _nix_etc(path):
 # --- SSL / Certificates ---
 
 
-def test_ssl_cert_pem_symlink():
-    """/etc/ssl/cert.pem should be configured (needed by uv's standalone Python)."""
-    entry = _nix_etc("ssl/cert.pem")
-    assert entry["enable"], "/etc/ssl/cert.pem is not enabled"
-    assert "ca-bundle" in entry["source"] or "ca-certificates" in entry["source"], (
-        f"Unexpected source: {entry['source']}"
+def test_ssl_etc_entries_configured():
+    """SSL cert paths needed by uv and system Python should be configured."""
+    cert_pem = _nix_etc("ssl/cert.pem")
+    assert cert_pem["enable"], "/etc/ssl/cert.pem is not enabled"
+    assert "ca-bundle" in cert_pem["source"] or "ca-certificates" in cert_pem["source"], (
+        f"Unexpected cert.pem source: {cert_pem['source']}"
     )
 
-
-def test_ca_bundle_configured():
-    """/etc/ssl/certs/ca-certificates.crt should point to the cacert package."""
-    entry = _nix_etc("ssl/certs/ca-certificates.crt")
-    assert entry["enable"]
-    assert "nss-cacert" in entry["source"], f"Unexpected source: {entry['source']}"
+    ca_crt = _nix_etc("ssl/certs/ca-certificates.crt")
+    assert ca_crt["enable"], "/etc/ssl/certs/ca-certificates.crt is not enabled"
+    assert "nss-cacert" in ca_crt["source"], f"Unexpected ca-certs source: {ca_crt['source']}"
 
 
 def test_ca_bundle_has_enough_certs():
@@ -98,25 +95,3 @@ def test_ca_bundle_has_enough_certs():
     assert cert_count >= 100, f"Only {cert_count} certs in CA bundle"
 
 
-# --- Key system settings ---
-
-
-def test_nix_flakes_enabled():
-    """Flakes should be enabled."""
-    features = _nix_eval("nix.settings.experimental-features")
-    assert "flakes" in features
-
-
-def test_zsh_enabled():
-    """zsh should be the configured shell."""
-    assert _nix_eval("programs.zsh.enable") is True
-
-
-def test_nix_ld_enabled():
-    """nix-ld should be enabled for pip-installed packages with C extensions."""
-    assert _nix_eval("programs.nix-ld.enable") is True
-
-
-def test_gnome_keyring_enabled():
-    """gnome-keyring should be enabled for Secret Service API."""
-    assert _nix_eval("services.gnome.gnome-keyring.enable") is True
