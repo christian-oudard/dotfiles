@@ -1,0 +1,11 @@
+#!/bin/bash
+nix_files=$(git diff --cached --name-only --diff-filter=ACM -- '*.nix')
+[ -z "$nix_files" ] && exit 0
+if ! command -v nixfmt >/dev/null 2>&1; then
+  echo "nixfmt not found, skipping format check"
+  exit 0
+fi
+if ! echo "$nix_files" | xargs nixfmt --check 2>/dev/null; then
+  echo "Nix files need formatting. Run: nixfmt <files>"
+  exit 1
+fi
