@@ -5,6 +5,5 @@ if ! command -v nixfmt >/dev/null 2>&1; then
   echo "nixfmt not found, skipping format check"
   exit 0
 fi
-if ! echo "$nix_files" | xargs nixfmt --check; then
-  exit 1
-fi
+echo "$nix_files" | xargs nixfmt
+echo "$nix_files" | xargs git add
