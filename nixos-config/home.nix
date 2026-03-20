@@ -92,6 +92,8 @@ in {
     nodejs
     jq
     typescript-language-server
+    nil
+    nixfmt
     rustup
     elan
     google-cloud-sdk

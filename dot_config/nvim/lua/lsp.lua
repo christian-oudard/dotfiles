@@ -36,6 +36,16 @@ vim.lsp.config('ts_ls', {
 })
 vim.lsp.enable('ts_ls')
 
+vim.lsp.config('nil_ls', {
+    on_attach = on_attach,
+    settings = {
+        ['nil'] = {
+            formatting = { command = { 'nixfmt' } },
+        },
+    },
+})
+vim.lsp.enable('nil_ls')
+
 vim.diagnostic.config({
   virtual_text = true,
   signs = true,
