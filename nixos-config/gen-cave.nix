@@ -27,7 +27,7 @@ in
 
         packages = with pkgs; [
           # General
-          tree eza nano direnv nix-direnv zsh neovim diff-so-fancy
+          tree eza nano direnv nix-direnv zsh neovim diff-so-fancy nil nixfmt
           # Python
           python3 python3Packages.pytest uv
           # Haskell
