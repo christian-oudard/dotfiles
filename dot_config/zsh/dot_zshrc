@@ -152,12 +152,12 @@ if [[ -f $ZSH_PRIVATE ]]; then
     source $ZSH_PRIVATE
 fi
 
-# Emit OSC 7 so tmux knows the logical PWD (preserves symlink paths in splits).
-function _osc7_cwd {
-  printf '\e]7;file://%s%s\e\\' "${HOST}" "${PWD}"
+# Tell tmux our logical PWD so splits preserve symlink paths.
+function _tmux_pwd {
+  [[ -n "$TMUX" ]] && tmux set -p @pwd "$PWD"
 }
-add-zsh-hook chpwd _osc7_cwd
-_osc7_cwd
+add-zsh-hook chpwd _tmux_pwd
+_tmux_pwd
 
 # direnv, per-directory configuration during cd. https://direnv.net/
 if command -v direnv &>/dev/null; then
