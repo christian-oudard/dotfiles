@@ -9,7 +9,7 @@ in {
     args = { inherit persist claude-plugins-official agent-capabilities; };
   in [
     (import ./claude.nix args).module
-    (import ./cave.nix args)
+    (import ./gen-cave.nix args)
   ];
   home.username = username;
   home.homeDirectory = homeDir;
