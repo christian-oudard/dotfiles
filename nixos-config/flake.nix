@@ -15,6 +15,10 @@
       url = "github:christian-oudard/nix-claude";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     persist = {
       url = "github:christian-oudard/persist";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -39,6 +43,7 @@
       nixpkgs,
       home-manager,
       claude-code,
+      disko,
       nix-claude,
       persist,
       claude-plugins-official,
@@ -92,7 +97,10 @@
     {
       nixosConfigurations.dedekind = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [ ./hosts/dedekind/configuration.nix ] ++ commonModules;
+        modules = [
+          disko.nixosModules.disko
+          ./hosts/dedekind/configuration.nix
+        ] ++ commonModules;
       };
 
       nixosConfigurations.cantor = nixpkgs.lib.nixosSystem {
