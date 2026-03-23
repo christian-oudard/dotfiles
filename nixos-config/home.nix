@@ -55,7 +55,6 @@ in
     restic
     rclone
     rsync
-    syncthing
 
     # Sway desktop (config via chezmoi)
     sway

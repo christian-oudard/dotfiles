@@ -102,6 +102,16 @@
     };
   };
 
+  # Syncthing
+  services.syncthing = {
+    enable = true;
+    user = "christian";
+    dataDir = "/home/christian";
+    configDir = "/home/christian/.config/syncthing";
+    databaseDir = "/home/christian/.local/state/syncthing";
+    openDefaultPorts = true; # TCP 22000 + UDP 22000/21027
+  };
+
   # Docker
   virtualisation.docker.enable = true;
 
