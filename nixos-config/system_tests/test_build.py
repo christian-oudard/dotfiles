@@ -7,50 +7,11 @@ Run with: uvx pytest test_build.py
 """
 
 import json
-import os
-import shutil
 import subprocess
-import tempfile
 from pathlib import Path
 
 NIXOS_DIR = Path(__file__).resolve().parent.parent
-
-
-def _resolve_flake_dir():
-    """Return a flake directory that nix can evaluate.
-
-    In the coding cave, nix can't read the overlayfs gitdir alternates
-    directly. Fall back to extracting via git archive into a temp dir.
-    """
-    # Try direct path first
-    r = subprocess.run(
-        ["nix", "eval", f"{NIXOS_DIR}#nixosConfigurations.cantor.config.system.stateVersion", "--raw"],
-        capture_output=True, text=True,
-    )
-    if r.returncode == 0:
-        return str(NIXOS_DIR), None
-
-    # Fall back: extract nixos-config/ from git into a temp dir
-    repo_root = NIXOS_DIR.parent
-    tmpdir = tempfile.mkdtemp(prefix="nixos-check-")
-    subprocess.run(
-        ["git", "archive", "HEAD", "nixos-config/"],
-        capture_output=True, cwd=repo_root,
-    ).stdout
-    subprocess.run(
-        f"git -C {repo_root} archive HEAD nixos-config/ | tar -x -C {tmpdir}",
-        shell=True, check=True,
-    )
-    return os.path.join(tmpdir, "nixos-config"), tmpdir
-
-
-FLAKE_DIR, _TMPDIR = _resolve_flake_dir()
-FLAKE_ATTR = f"{FLAKE_DIR}#nixosConfigurations.cantor.config"
-
-
-def teardown_module():
-    if _TMPDIR:
-        shutil.rmtree(_TMPDIR, ignore_errors=True)
+FLAKE_ATTR = f"{NIXOS_DIR}#nixosConfigurations.cantor.config"
 
 
 def _nix_eval(attr, *, raw=False):
