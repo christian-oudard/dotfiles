@@ -77,6 +77,13 @@
   # Lid close behavior: lock screen instead of suspend
   services.logind.settings.Login.HandleLidSwitch = "lock";
 
+  # Graphics (needed for Steam / gaming)
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
+
+  # Steam
+  programs.steam.enable = true;
+
   # Sway
   programs.sway = {
     enable = true;
