@@ -3,11 +3,11 @@
     "agent-capabilities": {
       "flake": false,
       "locked": {
-        "lastModified": 1773845153,
-        "narHash": "sha256-hpPPvkXKkoih23An5YoMrTiD/BtUKNn9nsAHQOnOHps=",
+        "lastModified": 1774395935,
+        "narHash": "sha256-ZdTMS+GHl5SB+r1QHoF8V++7bolV+Zlev0wqw7El0Rg=",
         "ref": "refs/heads/main",
-        "rev": "6a0a56a9b5c1e1b7fe64cf22199cf9699cbaf2ca",
-        "revCount": 41,
+        "rev": "c0f1ce27ef47b27c6e52f1464167c4fd569018bb",
+        "revCount": 44,
         "type": "git",
         "url": "ssh://git@github.com/christian-oudard/agent-capabilities"
       },
@@ -24,11 +24,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773961521,
-        "narHash": "sha256-enhjd1AcHHU+3RCRdSWVQj6TIqRXkJUbQSFVXzC6xLo=",
+        "lastModified": 1774106245,
+        "narHash": "sha256-gB3XhG900wWKDa/dbqgK0wFGRf8u9PQhqN/SvnTZlIM=",
         "owner": "sadjow",
         "repo": "claude-code-nix",
-        "rev": "1519be1f77ed017ae4a88916ac54529cef885573",
+        "rev": "0b01bf3b7cb403ef11f502183b6de55e2aaccf88",
         "type": "github"
       },
       "original": {
@@ -40,11 +40,11 @@
     "claude-plugins-official": {
       "flake": false,
       "locked": {
-        "lastModified": 1773963096,
-        "narHash": "sha256-qa4XnSHuyyxpaZMHzf2QZKvW53xStibsFj8KaU3Gc+k=",
+        "lastModified": 1774395822,
+        "narHash": "sha256-xi27VfB/HN/G85WxxYuoX9XpMbPdyBWiLvWO+OZmen4=",
         "owner": "anthropics",
         "repo": "claude-plugins-official",
-        "rev": "8908a582f80d1396b2af65949a0cd001fe8aacca",
+        "rev": "b10b583de281385442474e836644534b938b2678",
         "type": "github"
       },
       "original": {
@@ -98,11 +98,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773962693,
-        "narHash": "sha256-nf9pgktDE4E2TCavUT1vh3Nd/tfKixL1BK6P32Zp3hI=",
+        "lastModified": 1774379316,
+        "narHash": "sha256-0nGNxWDUH2Hzlj/R3Zf4FEK6fsFNB/dvewuboSRZqiI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "9d3c1d636e7b8ab10f357cd9bee653cd400437de",
+        "rev": "1eb0549a1ab3fe3f5acf86668249be15fa0e64f7",
         "type": "github"
       },
       "original": {
@@ -118,11 +118,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773460270,
-        "narHash": "sha256-vAHhXXI5voo2rOOtni75bz/L55uWd8QTxfvm+yoPHNE=",
+        "lastModified": 1773966426,
+        "narHash": "sha256-2MzFavA5jf1zkR72HPE4+YFfAxVU7lvbuQlUDZXLDVk=",
         "owner": "christian-oudard",
         "repo": "nix-claude",
-        "rev": "943150ad3916a8b393799f39d2c39d1576fc1a94",
+        "rev": "c8f961cba677b9f2f91b766fe68a88289177515d",
         "type": "github"
       },
       "original": {
@@ -133,11 +133,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1773821835,
-        "narHash": "sha256-TJ3lSQtW0E2JrznGVm8hOQGVpXjJyXY2guAxku2O9A4=",
+        "lastModified": 1774106199,
+        "narHash": "sha256-US5Tda2sKmjrg2lNHQL3jRQ6p96cgfWh3J1QBliQ8Ws=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b40629efe5d6ec48dd1efba650c797ddbd39ace0",
+        "rev": "6c9a78c09ff4d6c21d0319114873508a6ec01655",
         "type": "github"
       },
       "original": {
@@ -154,11 +154,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773965421,
-        "narHash": "sha256-t9/M8cwZj6qUccrWzYR/JLkddy9fNzmLnLsGMOCtcXc=",
+        "lastModified": 1773967004,
+        "narHash": "sha256-8MaICOjIsjX2jQxwmD9sSt7Q9mdLUA+oixkxYK6AcpM=",
         "owner": "christian-oudard",
         "repo": "persist",
-        "rev": "67fa88fdfaf283baddbc6a02d37c1af8754f9c8a",
+        "rev": "9130cf6a31db64242185e41fc8edbd19c181bfad",
         "type": "github"
       },
       "original": {
