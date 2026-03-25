@@ -1,7 +1,7 @@
 # Zsh settings for interactive shells.
 
 # Auto-start tmux on Wayland.
-if [[ -n $WAYLAND_DISPLAY ]] && [[ -z $TMUX ]] && [[ -z $NO_TMUX ]]; then
+if [[ -n $WAYLAND_DISPLAY ]] && [[ -z $TMUX ]] && [[ -z $NO_TMUX ]] && (( $+commands[tmux] )); then
     exec env tmux new-session -A -s 0
 fi
 
@@ -153,11 +153,13 @@ if [[ -f $ZSH_PRIVATE ]]; then
 fi
 
 # Tell tmux our logical PWD so splits preserve symlink paths.
-function _tmux_pwd {
-  [[ -n "$TMUX" ]] && tmux set -p @pwd "$PWD"
-}
-add-zsh-hook chpwd _tmux_pwd
-_tmux_pwd
+if (( $+commands[tmux] )); then
+  function _tmux_pwd {
+    [[ -n "$TMUX" ]] && tmux set -p @pwd "$PWD"
+  }
+  add-zsh-hook chpwd _tmux_pwd
+  _tmux_pwd
+fi
 
 # direnv, per-directory configuration during cd. https://direnv.net/
 if command -v direnv &>/dev/null; then
