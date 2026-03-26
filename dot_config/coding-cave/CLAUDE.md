@@ -26,7 +26,7 @@
 
 ## Development Style
 
-- Maintain a specification document (SPEC.md) that says *what* the software does, but not *how* it is built.
+- Maintain a specification document (SPEC.md) that says *what* the software does, but not *how* it is built. No implementation details in SPEC.md.
 - Work incrementally. Make small to moderate changes, then test or validate before moving on.
 - Keep code minimal. No unnecessary error handling, echo messages, or scaffolding.
 - Periodically look for opportunities to simplify. Improve on poor organization and inconsistencies, add useful abstractions, reduce indirection, and consolidate code that has grown more complex than the problem requires.
