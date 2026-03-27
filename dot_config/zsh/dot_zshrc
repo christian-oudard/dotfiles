@@ -123,6 +123,26 @@ alias vim='nvim'
 alias cal='cal --monday --year --week'
 alias fast='fast --upload --single-line'
 
+# Supply chain protection: delay nixpkgs updates by 14 days.
+# When running `nix flake update`, nixpkgs is pinned to a commit at least
+# NIX_SUPPLY_CHAIN_DELAY_DAYS old, giving time for compromises to be detected.
+# All other nix commands pass through unchanged.
+NIX_SUPPLY_CHAIN_DELAY_DAYS=14
+nix() {
+    if [[ "$1" == "flake" && ( "$2" == "update" || "$2" == "lock" ) ]]; then
+        local cutoff_date=$(date -d "$NIX_SUPPLY_CHAIN_DELAY_DAYS days ago" -Iseconds)
+        local commit
+        commit=$(curl -sf "https://api.github.com/repos/NixOS/nixpkgs/commits?sha=nixos-unstable&until=$cutoff_date&per_page=1" | jq -r '.[0].sha')
+        if [[ -n "$commit" && "$commit" != "null" ]]; then
+            echo "supply-chain-delay: pinning nixpkgs to ${NIX_SUPPLY_CHAIN_DELAY_DAYS}-day-old commit ${commit:0:12}" >&2
+            command nix "$@" --override-input nixpkgs "github:NixOS/nixpkgs/$commit"
+            return
+        fi
+        echo "supply-chain-delay: WARNING: could not fetch delayed commit, proceeding without delay" >&2
+    fi
+    command nix "$@"
+}
+
 # When not in a pipe, run sudo -v to refresh timeout.
 sudo() {
     if [[ -t 0 ]]; then
