@@ -109,6 +109,7 @@ in
     rustup
     elan
     google-cloud-sdk
+    sqlite
   ];
 
   programs.home-manager.enable = true;
