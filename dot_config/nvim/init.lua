@@ -159,7 +159,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
 vim.api.nvim_create_autocmd('FileType', {
   group = indentation_group,
-  pattern = { 'lua', 'ruby', 'haskell', 'cabal', 'yaml', 'json', 'html', 'javascript', 'typescript', 'css', 'javascriptreact' },
+  pattern = { 'lua', 'nix', 'ruby', 'haskell', 'cabal', 'yaml', 'json', 'html', 'javascript', 'typescript', 'css', 'javascriptreact' },
   callback = function()
     vim.opt_local.softtabstop = 2
     vim.opt_local.shiftwidth = 2

@@ -143,6 +143,7 @@ in
       trouble-nvim
       telescope-nvim
       bufferline-nvim
+      vim-nix
       lean-nvim
     ];
   };
