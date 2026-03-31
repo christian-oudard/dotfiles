@@ -81,6 +81,8 @@ Unfree packages are allowed globally via `dot_config/nixpkgs/config.nix`.
 - `hosts/dedekind/configuration.nix` - system config (greetd, XKB, minimal packages)
 - `hosts/dedekind/disk-config.nix` - disko config for LUKS/LVM partitioning
 - `home.nix` - home-manager config (packages only, dotfiles via chezmoi)
+- `claude.nix` - Claude Code settings (model, permissions, hooks, plugins) shared between host and cave
+- `gen-cave.nix` - generates `~/.config/coding-cave/cave.nix` (the cave sandbox config) from `claude.nix`
 
 ### Testing Changes (without sudo)
 
