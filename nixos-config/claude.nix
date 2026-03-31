@@ -25,12 +25,12 @@ rec {
     };
     hooks = {
       Stop = [
+        # Send a terminal bell when a Claude agent finishes a task.
         {
-          # Send a terminal bell when a Claude agent finishes a task.
           hooks = [
             {
               type = "command";
-              command = "printf '\\a' > /dev/tty";
+              command = "printf '\\a' > /proc/$PPID/fd/1";
             }
           ];
         }
