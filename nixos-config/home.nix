@@ -110,6 +110,9 @@ in
     elan
     google-cloud-sdk
     sqlite
+
+    # Miscellaneous
+    unzip
   ];
 
   programs.home-manager.enable = true;
