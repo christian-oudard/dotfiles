@@ -1,0 +1,64 @@
+[[rules]]
+host = "api.anthropic.com"
+path = "*"
+[[rules.inject]]
+action = "set_header"
+name = "Authorization"
+value-file = "~/.config/crinj/secrets/claude-oauth-token"
+value-prefix = "Bearer "
+
+[[rules]]
+host = "huggingface.co"
+path = "*"
+[[rules.inject]]
+action = "set_header"
+name = "Authorization"
+value-file = "~/.config/crinj/secrets/huggingface.key"
+value-prefix = "Bearer "
+
+[[rules]]
+host = "api.stlouisfed.org"
+path = "*"
+[[rules.inject]]
+action = "set_query_param"
+name = "api_key"
+value-file = "~/.config/crinj/secrets/fred.key"
+
+[[rules]]
+host = "api.ycharts.com"
+path = "*"
+[[rules.inject]]
+action = "set_header"
+name = "X-YCHARTSAUTHORIZATION"
+value-file = "~/.config/crinj/secrets/ycharts.key"
+
+[[rules]]
+host = "data.nasdaq.com"
+path = "*"
+[[rules.inject]]
+action = "set_header"
+name = "x-api-token"
+value-file = "~/.nasdaq/data_link_apikey"
+
+[[rules]]
+host = "api.schwabapi.com"
+path = "*"
+[[rules.inject]]
+action = "set_header"
+name = "Authorization"
+value-file = "~/.cache/rhs/schwab_token.json"
+json-path = "token.access_token"
+value-prefix = "Bearer "
+
+[[rules]]
+host = "api.modal.com"
+[[rules.inject]]
+action = "set_header"
+name = "x-modal-token-id"
+value-file = "~/.config/modal/modal.toml"
+value-path = "christian-oudard.token_id"
+[[rules.inject]]
+action = "set_header"
+name = "x-modal-token-secret"
+value-file = "~/.config/modal/modal.toml"
+value-path = "christian-oudard.token_secret"
