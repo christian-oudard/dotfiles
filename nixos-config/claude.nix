@@ -23,19 +23,7 @@ rec {
       mode = "replace";
       verbs = [ "Working" ];
     };
-    hooks = {
-      Stop = [
-        # Send a terminal bell when a Claude agent finishes a task.
-        {
-          hooks = [
-            {
-              type = "command";
-              command = "printf '\\a' > /proc/$PPID/fd/1";
-            }
-          ];
-        }
-      ];
-    };
+    hooks = {};
   };
 
   module =

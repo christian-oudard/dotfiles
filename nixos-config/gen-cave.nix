@@ -41,7 +41,10 @@ in
           ".config/direnv/direnvrc" = "source ''${pkgs.nix-direnv}/share/nix-direnv/direnvrc";
         };
 
-        env = { EDITOR = "nvim"; };
+        env = {
+          EDITOR = "nvim";
+          PERSIST_BELL_CMD = "printf '\\a' > /proc/$PPID/fd/1";
+        };
       };
     }
   '';
