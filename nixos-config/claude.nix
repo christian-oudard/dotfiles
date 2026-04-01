@@ -45,9 +45,9 @@ rec {
         enable = true;
         package = pkgs.claude-code;
 
-        plugins = lib.mapAttrs (_: src: { inherit src; }) pluginSources // {
-          persist = persist.plugin.${pkgs.stdenv.hostPlatform.system};
-        };
+        plugins = (map (src: { inherit src; }) (lib.attrValues pluginSources)) ++ [
+          persist
+        ];
 
         settings = settings // {
           env = {
