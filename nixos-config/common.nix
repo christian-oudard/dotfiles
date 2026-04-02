@@ -77,6 +77,18 @@
   # Lid close behavior: lock screen instead of suspend
   services.logind.settings.Login.HandleLidSwitch = "lock";
 
+  # Power button: short press hibernates, long press (5s) powers off
+  services.logind.settings.Login.HandlePowerKey = "hibernate";
+  services.logind.settings.Login.HandlePowerKeyLongPress = "poweroff";
+  powerManagement.enable = true;
+
+  # Weekly nix garbage collection: prune generations older than 30 days
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
   # Graphics (needed for Steam / gaming)
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
