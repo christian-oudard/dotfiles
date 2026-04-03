@@ -1,24 +1,19 @@
 [[host]]
 domain = "api.anthropic.com"
-source = "~/.config/crinj/secrets/claude-oauth-token"
+source = "claude-oauth-token"
 header = "Authorization"
 format = "Bearer {}"
 
 [[host]]
 domain = "huggingface.co"
-source = "~/.config/crinj/secrets/huggingface.key"
+source = "huggingface.key"
 header = "Authorization"
 format = "Bearer {}"
 
 [[host]]
 domain = "api.stlouisfed.org"
-source = "~/.config/crinj/secrets/fred.key"
+source = "fred.key"
 query-param = "api_key"
-
-[[host]]
-domain = "api.ycharts.com"
-source = "~/.config/crinj/secrets/ycharts.key"
-header = "X-YCHARTSAUTHORIZATION"
 
 [[host]]
 domain = "data.nasdaq.com"
