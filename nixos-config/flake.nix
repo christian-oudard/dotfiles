@@ -85,7 +85,7 @@
           home-manager.useUserPackages = true;
           home-manager.users.christian = {
             imports = [
-              nix-claude.homeManagerModules.default
+              nix-claude.homeModules.default
               (import ./home.nix {
                 username = "christian";
                 inherit persist claude-plugins-official agent-capabilities;
@@ -97,16 +97,18 @@
     in
     {
       nixosConfigurations.dedekind = nixpkgs.lib.nixosSystem {
-        inherit system;
         modules = [
+          { nixpkgs.hostPlatform = system; }
           disko.nixosModules.disko
           ./hosts/dedekind/configuration.nix
         ] ++ commonModules;
       };
 
       nixosConfigurations.cantor = nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [ ./hosts/cantor/configuration.nix ] ++ commonModules;
+        modules = [
+          { nixpkgs.hostPlatform = system; }
+          ./hosts/cantor/configuration.nix
+        ] ++ commonModules;
       };
     };
 }
