@@ -71,7 +71,7 @@ function width {
   echo $(( COLUMNS - 24 ))
 }
 function user_host {
-  if [[ "$USER" != "christian" || "$HOST" != "cantor" ]]; then
+  if [[ -n "$SSH_CONNECTION" || "$USER" != "$LOGNAME" ]]; then
     echo "%n@%m"
   fi
 }
