@@ -91,7 +91,7 @@ autoload -Uz \
   compinit \
   add-zsh-hook \
   up-line-or-beginning-search down-line-or-beginning-search
-compinit
+compinit -C
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' completer _expand_alias _complete _ignored
 
