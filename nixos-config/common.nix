@@ -43,6 +43,7 @@
       "networkmanager"
       "audio"
       "docker"
+      "kvm"
     ];
     shell = pkgs.zsh;
   };

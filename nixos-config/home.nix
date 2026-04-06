@@ -89,6 +89,7 @@ in
     ripgrep
     tree
     wget
+    unzip
 
     # Programming
     git
@@ -110,9 +111,8 @@ in
     elan
     google-cloud-sdk
     sqlite
-
-    # Miscellaneous
-    unzip
+    qemu
+    cloud-utils
   ];
 
   programs.home-manager.enable = true;
