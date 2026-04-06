@@ -13,10 +13,18 @@ in
   xdg.configFile."coding-cave/cave.nix".text = ''
     {
       inputs = {
-        persist = "github:christian-oudard/persist";
+        persist = { url = "github:christian-oudard/persist"; flake = false; };
       };
 
       config = { pkgs, persist, ... }: {
+        packages = with pkgs; [
+          tree eza nano direnv nix-direnv zsh neovim diff-so-fancy
+          python3 python3Packages.pytest uv
+          ghc cabal-install stack
+          nodejs typescript
+          cargo rustc rustfmt clippy
+        ];
+
         claude = {
           plugins = [
             persist
@@ -33,22 +41,7 @@ in
           ".config/direnv/direnvrc" = "source ''${pkgs.nix-direnv}/share/nix-direnv/direnvrc";
         };
 
-        packages = with pkgs; [
-          # General
-          tree eza nano direnv nix-direnv zsh neovim diff-so-fancy
-          # Python
-          python3 python3Packages.pytest uv
-          # Haskell
-          ghc cabal-install stack
-          # JS/TypeScript
-          nodejs typescript
-          # Rust
-          cargo rustc rustfmt clippy
-        ];
-
-        env = {
-          EDITOR = "nvim";
-        };
+        env = { EDITOR = "nvim"; };
       };
     }
   '';
