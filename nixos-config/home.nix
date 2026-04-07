@@ -108,11 +108,8 @@ in
     nil
     nixfmt
     rustup
-    elan
     google-cloud-sdk
     sqlite
-    qemu
-    cloud-utils
   ];
 
   programs.home-manager.enable = true;

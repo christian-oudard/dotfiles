@@ -137,12 +137,12 @@
   programs.zsh.enable = true;
   programs.bash.enable = true;
 
-  # nix-ld for running pip-installed packages with C extensions
+  # nix-ld for running pip-installed packages with C extensions.
+  # Project-specific libs (e.g. CUDA) belong in per-project devShells, not here.
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     stdenv.cc.cc.lib
     portaudio
-    cudaPackages.libcublas
   ];
 
   # Create /bin/bash symlink for scripts with hardcoded shebangs
@@ -154,12 +154,6 @@
   # doesn't create. Symlink it to the NixOS CA bundle so SSL works in uv venvs.
   environment.etc."ssl/cert.pem".source = "/etc/ssl/certs/ca-bundle.crt";
 
-  # Playwright (NixOS-wrapped Chromium for crawl4ai)
-  environment.sessionVariables = {
-    PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
-    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
-  };
-
   # System packages (minimal - user packages in home-manager)
   environment.systemPackages = with pkgs; [
     git
@@ -168,7 +162,6 @@
     wireguard-tools
     gcc
     pkg-config
-    playwright-driver
   ];
 
   # Fonts
