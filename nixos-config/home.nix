@@ -122,13 +122,16 @@ in
     nix-direnv.enable = true;
   };
 
+  # init.lua is managed by chezmoi. home-manager needs to generate some vim config, which is put
+  # into hm-generated.lua, and imported from init.lua.
+  xdg.configFile."nvim/init.lua".enable = lib.mkForce false;
+  xdg.configFile."nvim/lua/hm-generated.lua".text = config.programs.neovim.initLua;
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
-    # init.lua is managed by chezmoi, not home-manager.
-    # Only use nix for plugin installs; don't add config attributes to plugins.
     plugins = with pkgs.vimPlugins; [
       gruvbox-nvim
       vim-commentary

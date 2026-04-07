@@ -1,3 +1,6 @@
+-- Wrapper setup from home-manager (package.path, python3_host_prog, etc.)
+require('hm-generated')
+
 -- Plugin setup
 require('lsp')
 require('nvim-web-devicons').setup{}
