@@ -84,6 +84,10 @@
           home-manager.backupFileExtension = "hm-backup";
           home-manager.useUserPackages = true;
           home-manager.users.christian = {
+            # Disable HM's built-in claude-code module — its `plugins` option
+            # conflicts with nix-claude's (home-manager#8934).
+            # Re-enable once the types are reconciled upstream.
+            disabledModules = [ "programs/claude-code.nix" ];
             imports = [
               nix-claude.homeModules.default
               (import ./home.nix {
@@ -101,14 +105,16 @@
           { nixpkgs.hostPlatform = system; }
           disko.nixosModules.disko
           ./hosts/dedekind/configuration.nix
-        ] ++ commonModules;
+        ]
+        ++ commonModules;
       };
 
       nixosConfigurations.cantor = nixpkgs.lib.nixosSystem {
         modules = [
           { nixpkgs.hostPlatform = system; }
           ./hosts/cantor/configuration.nix
-        ] ++ commonModules;
+        ]
+        ++ commonModules;
       };
     };
 }
