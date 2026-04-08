@@ -17,7 +17,7 @@ in
       };
 
       config = { pkgs, persist, ... }: {
-        packages = with pkgs; [
+        home.packages = with pkgs; [
           which tree eza nano direnv nix-direnv zsh neovim diff-so-fancy
           python3 python3Packages.pytest uv
           ghc cabal-install stack
@@ -25,23 +25,20 @@ in
           cargo rustc rustfmt clippy
         ];
 
-        claude = {
-          plugins = [
-            persist
-    ${lib.concatMapStringsSep "\n" (src: "        { src = \"${src}\"; }") (
-      lib.attrValues claude.pluginSources
-    )}
+        coding-cave.claude-code = {
+          bundles = [
+            (import persist { inherit pkgs; })
+    ${lib.concatMapStringsSep "\n" (src: "        { src = \"${src}\"; }") claude.pluginPaths}
           ];
-          settings = ${
-            builtins.replaceStrings [ "\n" ] [ "\n      " ] (lib.generators.toPretty { } claude.settings)
+          extraSettings = ${
+            builtins.replaceStrings [ "\n" ] [ "\n          " ] (lib.generators.toPretty { } claude.settings)
           };
         };
 
-        files = {
-          ".config/direnv/direnvrc" = "source ''${pkgs.nix-direnv}/share/nix-direnv/direnvrc";
-        };
+        home.file.".config/direnv/direnvrc".text =
+          "source ''${pkgs.nix-direnv}/share/nix-direnv/direnvrc";
 
-        env = {
+        home.sessionVariables = {
           EDITOR = "nvim";
           PERSIST_BELL_CMD = "printf '\\a' > /proc/$PPID/fd/1";
         };

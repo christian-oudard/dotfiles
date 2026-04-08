@@ -4,16 +4,9 @@
   agent-capabilities,
 }:
 
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-
-let
-  persistBundle = import persist { inherit pkgs; };
-
+rec {
+  # Static plugin paths (persist is added in the module because it needs pkgs).
+  # Also consumed by gen-cave.nix to emit the cave's cave.nix.
   pluginPaths = [
     "${claude-plugins-official}/plugins/commit-commands"
     "${claude-plugins-official}/plugins/code-simplifier"
@@ -24,170 +17,185 @@ let
     "${agent-capabilities}/audio_transcription"
     "${agent-capabilities}/pdf_conversion"
     "${agent-capabilities}/website_mirroring"
-    persistBundle.src
   ];
-in
-{
-  home.packages = [ persistBundle.package ];
 
-  programs.claude-code = {
-    enable = true;
-    package = pkgs.claude-code;
-    plugins = pluginPaths;
-
-    settings = {
-      model = "opus";
-      effortLevel = "high";
-      alwaysThinkingEnabled = true;
-      promptSuggestionEnabled = false;
-      spinnerVerbs = {
-        mode = "replace";
-        verbs = [ "Working" ];
-      };
-      hooks = persistBundle.settings.hooks;
-      env = {
-        TMPPREFIX = "/tmp/claude/zsh";
-        CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY = "1";
-        CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1";
-      };
-      permissions = {
-        allow = [
-          "Write(/tmp/claude/**)"
-          "Edit(/tmp/claude/**)"
-          "Bash(rg:*)"
-          "Bash(ls:*)"
-          "Bash(fd:*)"
-          "Bash(find:*)"
-          "Bash(tree:*)"
-          "Bash(file:*)"
-          "Bash(stat:*)"
-          "Bash(realpath:*)"
-          "Bash(dirname:*)"
-          "Bash(basename:*)"
-          "Bash(mkdir:*)"
-          "Bash(diff:*)"
-          "Bash(sort:*)"
-          "Bash(uniq:*)"
-          "Bash(wc:*)"
-          "Bash(date:*)"
-          "Bash(which:*)"
-          "Bash(whereis:*)"
-          "Bash(type:*)"
-          "Bash(env:*)"
-          "Bash(pwd:*)"
-          "Bash(id:*)"
-          "Bash(whoami:*)"
-          "Bash(uname:*)"
-          "Bash(git:status:*)"
-          "Bash(git:log:*)"
-          "Bash(git:diff:*)"
-          "Bash(git:branch:)"
-          "Bash(git:branch:-a:*)"
-          "Bash(git:branch:-r:*)"
-          "Bash(git:branch:--list:*)"
-          "Bash(git:branch:-v:*)"
-          "Bash(git:show:*)"
-          "Bash(git:blame:*)"
-          "Bash(git:rev-parse:*)"
-          "Bash(git:ls-files:*)"
-          "Bash(git:ls-tree:*)"
-          "Bash(git:cat-file:*)"
-          "Bash(git:config --get:*)"
-          "Bash(git:config --list:*)"
-          "Bash(git:remote -v:*)"
-          "Bash(git:remote get-url:*)"
-          "Bash(git:remote show:*)"
-          "WebSearch"
-          "WebFetch(domain:localhost)"
-          "WebFetch(domain:api.anthropic.com)"
-          "WebFetch(domain:www.anthropic.com)"
-          "WebFetch(domain:docs.anthropic.com)"
-          "WebFetch(domain:code.claude.com)"
-          "WebFetch(domain:mcp.context7.com)"
-          "WebFetch(domain:en.wikipedia.org)"
-          "WebFetch(domain:github.com)"
-          "WebFetch(domain:raw.githubusercontent.com)"
-          "WebFetch(domain:api.github.com)"
-          "WebFetch(domain:gist.github.com)"
-          "WebFetch(domain:codeload.githubusercontent.com)"
-          "WebFetch(domain:release-assets.githubusercontent.com)"
-          "WebFetch(domain:wiki.archlinux.org)"
-          "WebFetch(domain:search.nixos.org)"
-          "WebFetch(domain:channels.nixos.org)"
-          "WebFetch(domain:docs.python.org)"
-          "WebFetch(domain:pypi.org)"
-          "WebFetch(domain:files.pythonhosted.org)"
-          "WebFetch(domain:doc.rust-lang.org)"
-          "WebFetch(domain:docs.rs)"
-          "WebFetch(domain:crates.io)"
-          "WebFetch(domain:lib.rs)"
-          "WebFetch(domain:leanprover.github.io)"
-          "WebFetch(domain:leanprover-community.github.io)"
-          "WebFetch(domain:lean-lang.org)"
-          "WebFetch(domain:reservoir.lean-lang.org)"
-          "WebFetch(domain:release.lean-lang.org)"
-          "WebFetch(domain:haskell.org)"
-          "WebFetch(domain:hackage.haskell.org)"
-          "WebFetch(domain:hoogle.haskell.org)"
-          "WebFetch(domain:go.dev)"
-          "WebFetch(domain:pkg.go.dev)"
-          "WebFetch(domain:golang.org)"
-          "WebFetch(domain:nodejs.org)"
-          "WebFetch(domain:pnpm.io)"
-          "WebFetch(domain:registry.npmjs.org)"
-          "WebFetch(domain:developer.mozilla.org)"
-          "WebFetch(domain:typescriptlang.org)"
-          "WebFetch(domain:man7.org)"
-          "WebFetch(domain:data1.fullyjustified.net)"
-          "WebFetch(domain:relay.fullyjustified.net)"
-          "mcp__context7__resolve-library-id"
-          "mcp__context7__query-docs"
-          "mcp__c4ai-sse__md"
-          "mcp__c4ai-sse__html"
-          "mcp__c4ai-sse__screenshot"
-          "mcp__c4ai-sse__pdf"
-          "mcp__c4ai-sse__execute_js"
-          "mcp__c4ai-sse__crawl"
-          "mcp__c4ai-sse__ask"
-        ];
-        deny = [
-          "Read(~/.keys/**)"
-          "Read(~/.ssh/**)"
-          "Read(~/.gnupg/**)"
-          "Bash(ag:*)"
-          "Bash(curl:*)"
-          "Bash(wget:*)"
-          "Bash(nc:*)"
-          "Bash(netcat:*)"
-          "Bash(ncat:*)"
-          "Bash(socat:*)"
-          "Bash(ssh:*)"
-          "Bash(scp:*)"
-          "Bash(rsync:*)"
-          "Bash(ftp:*)"
-          "Bash(sftp:*)"
-          "Bash(sudo:*)"
-          "Bash(su:*)"
-          "Bash(doas:*)"
-          "Bash(pkexec:*)"
-          "Bash(pip:*)"
-          "Bash(pip3:*)"
-          "Bash(npm:*)"
-          "Bash(npx:*)"
-          "Bash(yarn:*)"
-          "Bash(shred:*)"
-          "Bash(dd:*)"
-          "Bash(mkfs:*)"
-          "Bash(fdisk:*)"
-          "Bash(parted:*)"
-          "Bash(reboot:*)"
-          "Bash(shutdown:*)"
-          "Bash(poweroff:*)"
-          "Bash(halt:*)"
-          "Bash(mount:*)"
-          "Bash(umount:*)"
-        ];
-      };
+  # Settings shared between host and cave. Hooks are supplied per-context:
+  # the host module adds persist's hooks directly; the cave picks them up
+  # via the coding-cave.claude-code bundle merge.
+  settings = {
+    model = "opus";
+    effortLevel = "high";
+    alwaysThinkingEnabled = true;
+    promptSuggestionEnabled = false;
+    spinnerVerbs = {
+      mode = "replace";
+      verbs = [ "Working" ];
+    };
+    env = {
+      TMPPREFIX = "/tmp/claude/zsh";
+      CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY = "1";
+      CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1";
+    };
+    permissions = {
+      allow = [
+        "Write(/tmp/claude/**)"
+        "Edit(/tmp/claude/**)"
+        "Bash(rg:*)"
+        "Bash(ls:*)"
+        "Bash(fd:*)"
+        "Bash(find:*)"
+        "Bash(tree:*)"
+        "Bash(file:*)"
+        "Bash(stat:*)"
+        "Bash(realpath:*)"
+        "Bash(dirname:*)"
+        "Bash(basename:*)"
+        "Bash(mkdir:*)"
+        "Bash(diff:*)"
+        "Bash(sort:*)"
+        "Bash(uniq:*)"
+        "Bash(wc:*)"
+        "Bash(date:*)"
+        "Bash(which:*)"
+        "Bash(whereis:*)"
+        "Bash(type:*)"
+        "Bash(env:*)"
+        "Bash(pwd:*)"
+        "Bash(id:*)"
+        "Bash(whoami:*)"
+        "Bash(uname:*)"
+        "Bash(git:status:*)"
+        "Bash(git:log:*)"
+        "Bash(git:diff:*)"
+        "Bash(git:branch:)"
+        "Bash(git:branch:-a:*)"
+        "Bash(git:branch:-r:*)"
+        "Bash(git:branch:--list:*)"
+        "Bash(git:branch:-v:*)"
+        "Bash(git:show:*)"
+        "Bash(git:blame:*)"
+        "Bash(git:rev-parse:*)"
+        "Bash(git:ls-files:*)"
+        "Bash(git:ls-tree:*)"
+        "Bash(git:cat-file:*)"
+        "Bash(git:config --get:*)"
+        "Bash(git:config --list:*)"
+        "Bash(git:remote -v:*)"
+        "Bash(git:remote get-url:*)"
+        "Bash(git:remote show:*)"
+        "WebSearch"
+        "WebFetch(domain:localhost)"
+        "WebFetch(domain:api.anthropic.com)"
+        "WebFetch(domain:www.anthropic.com)"
+        "WebFetch(domain:docs.anthropic.com)"
+        "WebFetch(domain:code.claude.com)"
+        "WebFetch(domain:mcp.context7.com)"
+        "WebFetch(domain:en.wikipedia.org)"
+        "WebFetch(domain:github.com)"
+        "WebFetch(domain:raw.githubusercontent.com)"
+        "WebFetch(domain:api.github.com)"
+        "WebFetch(domain:gist.github.com)"
+        "WebFetch(domain:codeload.githubusercontent.com)"
+        "WebFetch(domain:release-assets.githubusercontent.com)"
+        "WebFetch(domain:wiki.archlinux.org)"
+        "WebFetch(domain:search.nixos.org)"
+        "WebFetch(domain:channels.nixos.org)"
+        "WebFetch(domain:docs.python.org)"
+        "WebFetch(domain:pypi.org)"
+        "WebFetch(domain:files.pythonhosted.org)"
+        "WebFetch(domain:doc.rust-lang.org)"
+        "WebFetch(domain:docs.rs)"
+        "WebFetch(domain:crates.io)"
+        "WebFetch(domain:lib.rs)"
+        "WebFetch(domain:leanprover.github.io)"
+        "WebFetch(domain:leanprover-community.github.io)"
+        "WebFetch(domain:lean-lang.org)"
+        "WebFetch(domain:reservoir.lean-lang.org)"
+        "WebFetch(domain:release.lean-lang.org)"
+        "WebFetch(domain:haskell.org)"
+        "WebFetch(domain:hackage.haskell.org)"
+        "WebFetch(domain:hoogle.haskell.org)"
+        "WebFetch(domain:go.dev)"
+        "WebFetch(domain:pkg.go.dev)"
+        "WebFetch(domain:golang.org)"
+        "WebFetch(domain:nodejs.org)"
+        "WebFetch(domain:pnpm.io)"
+        "WebFetch(domain:registry.npmjs.org)"
+        "WebFetch(domain:developer.mozilla.org)"
+        "WebFetch(domain:typescriptlang.org)"
+        "WebFetch(domain:man7.org)"
+        "WebFetch(domain:data1.fullyjustified.net)"
+        "WebFetch(domain:relay.fullyjustified.net)"
+        "mcp__context7__resolve-library-id"
+        "mcp__context7__query-docs"
+        "mcp__c4ai-sse__md"
+        "mcp__c4ai-sse__html"
+        "mcp__c4ai-sse__screenshot"
+        "mcp__c4ai-sse__pdf"
+        "mcp__c4ai-sse__execute_js"
+        "mcp__c4ai-sse__crawl"
+        "mcp__c4ai-sse__ask"
+      ];
+      deny = [
+        "Read(~/.keys/**)"
+        "Read(~/.ssh/**)"
+        "Read(~/.gnupg/**)"
+        "Bash(ag:*)"
+        "Bash(curl:*)"
+        "Bash(wget:*)"
+        "Bash(nc:*)"
+        "Bash(netcat:*)"
+        "Bash(ncat:*)"
+        "Bash(socat:*)"
+        "Bash(ssh:*)"
+        "Bash(scp:*)"
+        "Bash(rsync:*)"
+        "Bash(ftp:*)"
+        "Bash(sftp:*)"
+        "Bash(sudo:*)"
+        "Bash(su:*)"
+        "Bash(doas:*)"
+        "Bash(pkexec:*)"
+        "Bash(pip:*)"
+        "Bash(pip3:*)"
+        "Bash(npm:*)"
+        "Bash(npx:*)"
+        "Bash(yarn:*)"
+        "Bash(shred:*)"
+        "Bash(dd:*)"
+        "Bash(mkfs:*)"
+        "Bash(fdisk:*)"
+        "Bash(parted:*)"
+        "Bash(reboot:*)"
+        "Bash(shutdown:*)"
+        "Bash(poweroff:*)"
+        "Bash(halt:*)"
+        "Bash(mount:*)"
+        "Bash(umount:*)"
+      ];
     };
   };
+
+  module =
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
+    let
+      persistBundle = import persist { inherit pkgs; };
+    in
+    {
+      home.packages = [ persistBundle.package ];
+
+      programs.claude-code = {
+        enable = true;
+        package = pkgs.claude-code;
+        plugins = pluginPaths ++ [ persistBundle.src ];
+        settings = settings // {
+          hooks = persistBundle.settings.hooks;
+        };
+      };
+    };
 }
