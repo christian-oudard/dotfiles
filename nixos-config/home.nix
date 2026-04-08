@@ -76,6 +76,7 @@ in
     wev
     brave
     signal-desktop
+    karere
     zoom-us
 
     # Terminal utilities
