@@ -111,26 +111,6 @@
         "type": "github"
       }
     },
-    "nix-claude": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1775231698,
-        "narHash": "sha256-FofXhMy09B6BnaqyZ88rbvaoioipi4i2dhtctSUM8TM=",
-        "owner": "christian-oudard",
-        "repo": "nix-claude",
-        "rev": "0e1146a46d2ebc01979ac69a89ba246b2129f62e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "christian-oudard",
-        "repo": "nix-claude",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1775036866,
@@ -174,7 +154,6 @@
         "claude-plugins-official": "claude-plugins-official",
         "disko": "disko",
         "home-manager": "home-manager",
-        "nix-claude": "nix-claude",
         "nixpkgs": "nixpkgs",
         "persist": "persist",
         "whisper-dictation-src": "whisper-dictation-src"

@@ -21,7 +21,7 @@ in
       args = { inherit persist claude-plugins-official agent-capabilities; };
     in
     [
-      (import ./claude.nix args).module
+      (import ./claude.nix args)
       (import ./gen-cave.nix args)
     ];
   home.username = username;

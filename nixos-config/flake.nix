@@ -11,10 +11,6 @@
       url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-claude = {
-      url = "github:christian-oudard/nix-claude";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,7 +40,6 @@
       home-manager,
       claude-code,
       disko,
-      nix-claude,
       persist,
       claude-plugins-official,
       agent-capabilities,
@@ -84,12 +79,7 @@
           home-manager.backupFileExtension = "hm-backup";
           home-manager.useUserPackages = true;
           home-manager.users.christian = {
-            # Disable HM's built-in claude-code module — its `plugins` option
-            # conflicts with nix-claude's (home-manager#8934).
-            # Re-enable once the types are reconciled upstream.
-            disabledModules = [ "programs/claude-code.nix" ];
             imports = [
-              nix-claude.homeModules.default
               (import ./home.nix {
                 username = "christian";
                 inherit persist claude-plugins-official agent-capabilities;
