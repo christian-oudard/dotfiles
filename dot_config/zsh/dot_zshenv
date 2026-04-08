@@ -16,8 +16,10 @@ export \
     GOPATH=$HOME/.local/share/go \
     PDFCONVERT_OUTPUT_DIR="$HOME/files/library/pdfconvert_documents/" \
 
-# Prepend nix-ld libs, preserving any inherited LD_LIBRARY_PATH, such as from direnv or nix-shell.
-export LD_LIBRARY_PATH="$NIX_LD_LIBRARY_PATH${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+# Prepend nix-ld libs, preserving any inherited LD_LIBRARY_PATH (direnv, nix-shell).
+# typeset -U dedupes so nested zsh doesn't re-prepend on each invocation.
+typeset -TUx LD_LIBRARY_PATH ld_library_path
+ld_library_path=( ${(s.:.)NIX_LD_LIBRARY_PATH} $ld_library_path )
 
 # Executable search path.
 typeset -U path PATH

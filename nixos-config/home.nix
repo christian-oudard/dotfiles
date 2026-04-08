@@ -88,6 +88,7 @@ in
     ngrok
     ripgrep
     tree
+    ttyd
     wget
     unzip
 
