@@ -19,9 +19,8 @@ rec {
     "${agent-capabilities}/website_mirroring"
   ];
 
-  # Settings shared between host and cave. Hooks are supplied per-context:
-  # the host module adds persist's hooks directly; the cave picks them up
-  # via the coding-cave.claude-code bundle merge.
+  # Settings shared between host and cave. Hooks live inside persist's
+  # plugin directory (persist/hooks/hooks.json), so nothing to splice here.
   settings = {
     model = "opus";
     effortLevel = "high";
@@ -183,19 +182,17 @@ rec {
       lib,
       ...
     }:
-    let
-      persistBundle = import persist { inherit pkgs; };
-    in
     {
-      home.packages = [ persistBundle.package ];
+      # Also make persist available in the user's shell PATH so that
+      # `persist stop` works from a normal terminal (outside Claude).
+      # Claude's own Bash tool picks up bin/persist from the plugin dir.
+      home.packages = [ (pkgs.callPackage (persist + "/package.nix") { }) ];
 
       programs.claude-code = {
         enable = true;
         package = pkgs.claude-code;
-        plugins = pluginPaths ++ [ persistBundle.src ];
-        settings = settings // {
-          hooks = persistBundle.settings.hooks;
-        };
+        plugins = pluginPaths ++ [ (import persist { inherit pkgs; }) ];
+        inherit settings;
       };
     };
 }

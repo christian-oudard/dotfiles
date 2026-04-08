@@ -26,9 +26,9 @@ in
         ];
 
         coding-cave.claude-code = {
-          bundles = [
+          plugins = [
             (import persist { inherit pkgs; })
-    ${lib.concatMapStringsSep "\n" (src: "        { src = \"${src}\"; }") claude.pluginPaths}
+    ${lib.concatMapStringsSep "\n" (src: "        \"${src}\"") claude.pluginPaths}
           ];
           extraSettings = ${
             builtins.replaceStrings [ "\n" ] [ "\n          " ] (lib.generators.toPretty { } claude.settings)
