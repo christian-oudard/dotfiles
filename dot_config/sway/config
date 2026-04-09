@@ -218,7 +218,9 @@ bindsym Print exec env GRIM_DEFAULT_DIR=$HOME/screenshots grim -g "$(slurp)"
 # Toggle dictation (Assistant key on some keyboards, Favorites/star on others).
 bindsym XF86Assistant exec whisper-dictation-toggle
 bindsym XF86Favorites exec whisper-dictation-toggle
+# Repeat dictation (share screen key or hangup phone key).
 bindcode 455 exec whisper-dictation-repeat
+bindsym XF86HangupPhone exec whisper-dictation-repeat
 
 # Start gnome-keyring secrets daemon (secrets only, not ssh — we use ssh-agent).
 exec eval $(gnome-keyring-daemon --components=secrets)
