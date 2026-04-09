@@ -95,6 +95,7 @@ in
 
     # Programming
     git
+    jujutsu
     gh
     socat
     bubblewrap
