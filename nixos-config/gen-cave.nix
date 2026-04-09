@@ -23,6 +23,7 @@ in
           ghc cabal-install stack
           nodejs typescript
           cargo rustc rustfmt clippy
+          chromium
         ];
 
         coding-cave.claude-code = {
@@ -41,6 +42,8 @@ in
         home.sessionVariables = {
           EDITOR = "nvim";
           PERSIST_BELL_CMD = "printf '\\a' > /proc/$PPID/fd/1";
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
+          CHROMIUM_PATH = "''${pkgs.chromium}/bin/chromium";
         };
       };
     }
