@@ -18,7 +18,7 @@ in
 
       config = { pkgs, persist, ... }: {
         home.packages = with pkgs; [
-          which tree eza nano direnv nix-direnv zsh neovim diff-so-fancy
+          which tree eza nano direnv nix-direnv zsh neovim
           python3 python3Packages.pytest uv
           ghc cabal-install stack
           nodejs typescript

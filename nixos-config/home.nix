@@ -56,6 +56,26 @@ in
     rclone
     rsync
 
+    # Programming
+    jujutsu
+    gh
+    socat
+    bubblewrap
+    libseccomp
+    python3
+    uv
+    whisper-dictation
+    ruff
+    pyright
+    nodejs
+    jq
+    typescript-language-server
+    nil
+    nixfmt
+    rustup
+    google-cloud-sdk
+    sqlite
+
     # Sway desktop (config via chezmoi)
     sway
     foot
@@ -80,7 +100,6 @@ in
     zoom-us
 
     # Terminal utilities
-    diff-so-fancy
     dust
     fd
     fzf
@@ -92,27 +111,6 @@ in
     ttyd
     wget
     unzip
-
-    # Programming
-    git
-    jujutsu
-    gh
-    socat
-    bubblewrap
-    libseccomp
-    python3
-    uv
-    whisper-dictation
-    ruff
-    pyright
-    nodejs
-    jq
-    typescript-language-server
-    nil
-    nixfmt
-    rustup
-    google-cloud-sdk
-    sqlite
   ];
 
   programs.home-manager.enable = true;

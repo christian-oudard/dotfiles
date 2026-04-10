@@ -123,6 +123,12 @@ alias vim='nvim'
 alias cal='cal --monday --year --week'
 alias fast='fast --upload --single-line'
 
+# Pretend Git isn't installed.
+git() {
+  echo "zsh: command not found: git" >&2
+  return 127
+}
+
 # When not in a pipe, run sudo -v to refresh timeout.
 sudo() {
     if [[ -t 0 ]]; then
