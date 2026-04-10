@@ -62,10 +62,10 @@ function cave_status {
     echo "(cave${CODING_CAVE_SESSION_INDEX}) "
   fi
 }
-function git_branch {
-  local branch
-  branch=$(git symbolic-ref --short HEAD 2>/dev/null) || return
-  echo "($branch) "
+function jj_bookmark {
+  local info
+  info=$(jj log --no-graph -r 'latest(::@ & bookmarks())' -T 'bookmarks' 2>/dev/null) || return
+  echo "($info) "
 }
 function width {
   echo $(( COLUMNS - 24 ))
@@ -84,7 +84,7 @@ function basic_prompt {
 }
 PROMPT='%F{237}$(hline)'$'\n''%K{237}$(basic_prompt)%f%k '
 PROMPT2='%K{237}%F{4}%_>%f%k '
-RPROMPT='%F{5}$(last_exit_code)$(git_branch)$(cave_status)$(nix_shell_status)$(venv_status)%$(width)<…<%~%<<%f'
+RPROMPT='%F{5}$(last_exit_code)$(jj_bookmark)$(cave_status)$(nix_shell_status)$(venv_status)%$(width)<…<%~%<<%f'
 
 # Plugins.
 autoload -Uz \
