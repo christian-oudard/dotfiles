@@ -1,12 +1,35 @@
+# Anthropic
 [[host]]
 domain = "api.anthropic.com"
 source = "claude-oauth-token"
 header = "Authorization"
 format = "Bearer {}"
 
+# Modal
+[[host]]
+domain = "api.modal.com"
+source = "~/.config/modal/modal.toml"
+[[host.rule]]
+source-path = "christian-oudard.token_id"
+header = "x-modal-token-id"
+[[host.rule]]
+source-path = "christian-oudard.token_secret"
+header = "x-modal-token-secret"
+
+# Hugging Face
 [[host]]
 domain = "huggingface.co"
 source = "huggingface.key"
+header = "Authorization"
+format = "Bearer {}"
+
+# Finance
+
+[[host]]
+domain = "35.194.69.156"
+ports = [8443]
+no-check-certificate = true
+source = "price_service_api_key"
 header = "Authorization"
 format = "Bearer {}"
 
@@ -26,13 +49,3 @@ source = "~/.cache/rhs/schwab_token.json"
 source-path = "token.access_token"
 header = "Authorization"
 format = "Bearer {}"
-
-[[host]]
-domain = "api.modal.com"
-source = "~/.config/modal/modal.toml"
-[[host.rule]]
-source-path = "christian-oudard.token_id"
-header = "x-modal-token-id"
-[[host.rule]]
-source-path = "christian-oudard.token_secret"
-header = "x-modal-token-secret"
