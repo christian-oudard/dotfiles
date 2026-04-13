@@ -36,5 +36,3 @@ header = "x-modal-token-id"
 [[host.rule]]
 source-path = "christian-oudard.token_secret"
 header = "x-modal-token-secret"
-
-
