@@ -1,7 +1,7 @@
 ## Communication
 
 - I'm often voice typing, please ignore and account for any text-to-speech mistakes.
-- When showing commands for the user to run, prefix with a dollar sign, e.g. `$ sudo nixos-rebuild switch`.
+- When showing commands for the user to run, prefix with a dollar sign, e.g. `$ sudo nixos-rebuild switch`. Use the `\` shell operator to wrap long shell inputs to less than 80 characters, to preserve copy-paste ability.
 
 ## Git
 
@@ -30,7 +30,7 @@
 - Work incrementally. Make small to moderate changes, then test or validate before moving on.
 - Keep code minimal. No unnecessary error handling, echo messages, or scaffolding.
 - Periodically look for opportunities to simplify. Improve on poor organization and inconsistencies, add useful abstractions, reduce indirection, and consolidate code that has grown more complex than the problem requires.
-- Fail Loudly. If there is a chance of something failing, let it fail, do not suppress crucial errors. Do not keep backward compatibility unless asked to.
+- Fail Loudly. Do not catch exceptions unless really necessary. Let it fail, do not suppress crucial errors. Do not keep backward compatibility unless asked to. Do not fallback, or work-around.
 - Don't Repeat Yourself (DRY). If you are doing the same thing multiple times, refactor it into something repeatable.
 - You Ain't Gonna Need It (YAGNI). Only build what is required now, do not overbuild by speculating what will be required in the future.
 
