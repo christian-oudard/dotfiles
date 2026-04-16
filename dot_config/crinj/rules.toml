@@ -1,50 +1,62 @@
-# Anthropic
+# Anthropic, block all telemetry
 [[host]]
 domain = "api.anthropic.com"
+access = """
+block *
+allow /v1/*
+"""
+[[host.inject]]
 source = "claude-oauth-token"
 header = "Authorization"
 format = "Bearer {}"
+[[host]]
+domain = "http-intake.logs*.datadoghq.com"
+access = "block *"
 
 # Modal
 [[host]]
 domain = "api.modal.com"
 source = "~/.config/modal/modal.toml"
-[[host.rule]]
+[[host.inject]]
 source-path = "christian-oudard.token_id"
 header = "x-modal-token-id"
-[[host.rule]]
+[[host.inject]]
 source-path = "christian-oudard.token_secret"
 header = "x-modal-token-secret"
 
 # Hugging Face
 [[host]]
 domain = "huggingface.co"
+[[host.inject]]
 source = "huggingface.key"
 header = "Authorization"
 format = "Bearer {}"
 
 # Finance
-
 [[host]]
 domain = "35.194.69.156"
-ports = [8443]
 no-check-certificate = true
+[[host.inject]]
+ports = [8443]
 source = "price_service_api_key"
 header = "Authorization"
 format = "Bearer {}"
 
 [[host]]
 domain = "api.stlouisfed.org"
+[[host.inject]]
 source = "fred.key"
 query-param = "api_key"
 
 [[host]]
 domain = "data.nasdaq.com"
+[[host.inject]]
 source = "~/.nasdaq/data_link_apikey"
 header = "x-api-token"
 
 [[host]]
 domain = "api.schwabapi.com"
+[[host.inject]]
 source = "~/.cache/rhs/schwab_token.json"
 source-path = "token.access_token"
 header = "Authorization"
