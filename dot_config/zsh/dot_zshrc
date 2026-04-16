@@ -64,7 +64,7 @@ function cave_status {
 }
 function jj_bookmark {
   local info
-  info=$(jj log --no-graph -r 'latest(::@ & bookmarks())' -T 'bookmarks' 2>/dev/null) || return
+  info=$(jj log --no-graph -r 'latest(::@ & bookmarks())' -T 'local_bookmarks' 2>/dev/null) || return
   echo "($info) "
 }
 function width {
