@@ -9,6 +9,11 @@
 - Don't make multiple commits in a row doing the same thing. Instead, amend.
 - Only amend commits that have not been pushed. Do not amend commits that have been shared with others.
 - Never credit "Claude Code" as a co-author in commit messages.
+- Commit subject describes the user-visible change, not the mechanism. Body describes what changed in the code. Use imperative mood.
+
+Bad subject: "Set max-old-space-size to 4096 in Node startup script"
+Good: "Fix out-of-memory crashes during large CSV exports"
+Body: "Increase Node heap limit to 4096MB in startup script"
 
 ## Responsibility and Agency
 
@@ -33,6 +38,10 @@
 - Fail Loudly. Do not catch exceptions unless really necessary. Let it fail, do not suppress crucial errors. Do not keep backward compatibility unless asked to. Do not fallback, or work-around.
 - Don't Repeat Yourself (DRY). If you are doing the same thing multiple times, refactor it into something repeatable.
 - You Ain't Gonna Need It (YAGNI). Only build what is required now, do not overbuild by speculating what will be required in the future.
+
+## Research Before Code
+
+Before writing code, search for existing solutions. Applications usually have a config option for what you need. WebSearch for the app's config format and the specific problem. Prefer config changes over env vars over wrapper scripts over patches.
 
 ## Testing
 

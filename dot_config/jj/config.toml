@@ -6,3 +6,6 @@ email = "ChristianOudard@pm.me"
 behavior = "own"
 backend = "gpg"
 key = "4A2836BB6C6386BC61A27E4E21F7F2C0152F8B5F"
+
+[revset-aliases]
+'immutable_heads()' = "trunk()"
