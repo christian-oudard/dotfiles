@@ -116,6 +116,7 @@ ZZ	quit
 
 #env
 LESS = --RAW-CONTROL-CHARS 
+LESS += --quit-if-one-screen 
 LESS += --ignore-case 
 # Set colors.
 LESS += --use-color 
