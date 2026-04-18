@@ -7,5 +7,9 @@ behavior = "own"
 backend = "gpg"
 key = "4A2836BB6C6386BC61A27E4E21F7F2C0152F8B5F"
 
+[colors]
+"diff added token" = { underline = false }
+"diff removed token" = { underline = false }
+
 [revset-aliases]
 'immutable_heads()' = "trunk()"
