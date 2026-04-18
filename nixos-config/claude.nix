@@ -23,7 +23,7 @@ rec {
   # plugin directory (persist/hooks/hooks.json), so nothing to splice here.
   settings = {
     model = "opus";
-    effortLevel = "high";
+    effortLevel = "xhigh";
     alwaysThinkingEnabled = true;
     promptSuggestionEnabled = false;
     spinnerVerbs = {
