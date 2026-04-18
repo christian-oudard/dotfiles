@@ -64,8 +64,9 @@ function cave_status {
 }
 function jj_bookmark {
   local info
-  info=$(jj log --no-graph -r 'latest(::@ & bookmarks())' -T 'local_bookmarks' 2>/dev/null) || return
-  echo "($info) "
+  info=$(jj log --no-graph -r 'latest(::@ & (bookmarks() | remote_bookmarks()))' \
+    -T 'if(local_bookmarks, local_bookmarks, remote_bookmarks)' 2>/dev/null) || return
+  [[ -n "$info" ]] && echo "($info) "
 }
 function width {
   echo $(( COLUMNS - 24 ))
