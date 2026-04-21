@@ -9,6 +9,8 @@
 [pull]
     ff = only
 	rebase = true
+[log]
+	date = local
 [protocol "file"]
 	allow = always
 [filter "lfs"]
