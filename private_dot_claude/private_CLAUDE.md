@@ -5,7 +5,7 @@
 
 ## Git
 
-- When you have finished a significant chunk of work, commit your changes.
+- When you have finished a task, commit your changes.
 - Don't make multiple commits in a row doing the same thing. Instead, amend.
 - Only amend commits that have not been pushed. Do not amend commits that have been shared with others.
 - Never credit "Claude Code" as a co-author in commit messages.
@@ -27,7 +27,8 @@ Body: "Increase Node heap limit to 4096MB in startup script"
 ## Tools and Environment
 
 - Prefer Nix packages over language-level package managers where practical.
-- Do not use `pip` for Python packages, instead use `uv`. Do not use npm, u
+- Do not use `pip` for Python packages, instead use `uv`. Do not use `npm`, use `pnpm`.
+- Do not attempt to directly edit files in any `.claude` folder, it will be blocked. Instead, write a script to do the edit and execute it.
 
 ## Development Style
 
