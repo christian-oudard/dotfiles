@@ -222,6 +222,9 @@ bindsym XF86Favorites exec whisper-dictation-toggle
 bindcode 455 exec whisper-dictation-repeat
 bindsym XF86HangupPhone exec whisper-dictation-repeat
 
+# App-specific window rules.
+for_window [app_id="zoom"] floating enable
+
 # Start gnome-keyring secrets daemon (secrets only, not ssh — we use ssh-agent).
 exec eval $(gnome-keyring-daemon --components=secrets)
 
