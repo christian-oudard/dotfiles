@@ -98,6 +98,8 @@ in
     signal-desktop
     karere
     zoom-us
+    steam
+    steam-run
 
     # Terminal utilities
     dust

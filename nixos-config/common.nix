@@ -67,6 +67,9 @@
   };
   security.rtkit.enable = true;
 
+  # Bluetooth
+  hardware.bluetooth.enable = true;
+
   # Lid close behavior: lock screen instead of suspend
   services.logind.settings.Login.HandleLidSwitch = "lock";
 
@@ -82,12 +85,9 @@
     options = "--delete-older-than 30d";
   };
 
-  # Graphics (needed for Steam / gaming)
+  # Graphics.
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
-
-  # Steam
-  programs.steam.enable = true;
 
   # Sway
   programs.sway = {
