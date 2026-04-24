@@ -61,3 +61,11 @@ source = "~/.cache/rhs/schwab_token.json"
 source-path = "token.access_token"
 header = "Authorization"
 format = "Bearer {}"
+
+[[host]]
+domain = "main.yhlsoft.com"
+[[host.inject]]
+source-sqlite = "~/.cache/rhs/account_data.sqlite"
+source-sqlite-query = "SELECT json_extract(data, '$._yhlsoft_user') FROM cache WHERE key = 'cookie'"
+header = "Cookie"
+format = "_yhlsoft_user={}"
