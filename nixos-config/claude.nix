@@ -26,6 +26,7 @@ rec {
     effortLevel = "xhigh";
     alwaysThinkingEnabled = true;
     promptSuggestionEnabled = false;
+    tui = "fullscreen";
     spinnerVerbs = {
       mode = "replace";
       verbs = [ "Working" ];
@@ -192,7 +193,13 @@ rec {
         enable = true;
         package = pkgs.claude-code;
         plugins = pluginPaths ++ [ (import persist { inherit pkgs; }) ];
-        inherit settings;
       };
+
+      home.activation.claudeSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        ${pkgs.jq}/bin/jq . \
+          ${pkgs.writeText "claude-settings.json" (builtins.toJSON settings)} \
+          > "$HOME/.claude/settings.json"
+        chmod 644 "$HOME/.claude/settings.json"
+      '';
     };
 }

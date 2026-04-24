@@ -66,6 +66,6 @@ format = "Bearer {}"
 domain = "main.yhlsoft.com"
 [[host.inject]]
 source-sqlite = "~/.cache/rhs/account_data.sqlite"
-source-sqlite-query = "SELECT json_extract(data, '$._yhlsoft_user') FROM cache WHERE key = 'cookie'"
+source-sqlite-query = "SELECT data FROM cache WHERE key = 'cookie'"
 header = "Cookie"
 format = "_yhlsoft_user={}"
