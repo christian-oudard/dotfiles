@@ -62,11 +62,16 @@ function cave_status {
     echo "(cave${CODING_CAVE_SESSION_INDEX}) "
   fi
 }
-function jj_bookmark {
+function vcs_head {
   local info
   info=$(jj log --no-graph -r 'latest(::@ & (bookmarks() | remote_bookmarks()))' \
-    -T 'if(local_bookmarks, local_bookmarks, remote_bookmarks)' 2>/dev/null) || return
-  [[ -n "$info" ]] && echo "($info) "
+    -T 'if(local_bookmarks, local_bookmarks, remote_bookmarks)' 2>/dev/null)
+  if [[ -n "$info" ]]; then
+    echo "($info) "
+    return
+  fi
+  info=$(git symbolic-ref --short HEAD 2>/dev/null) || return
+  echo "($info) "
 }
 function width {
   echo $(( COLUMNS - 24 ))
@@ -85,7 +90,7 @@ function basic_prompt {
 }
 PROMPT='%F{237}$(hline)'$'\n''%K{237}$(basic_prompt)%f%k '
 PROMPT2='%K{237}%F{4}%_>%f%k '
-RPROMPT='%F{5}$(last_exit_code)$(jj_bookmark)$(cave_status)$(nix_shell_status)$(venv_status)%$(width)<…<%~%<<%f'
+RPROMPT='%F{5}$(last_exit_code)$(vcs_head)$(cave_status)$(nix_shell_status)$(venv_status)%$(width)<…<%~%<<%f'
 
 # Plugins.
 autoload -Uz \
@@ -125,10 +130,10 @@ alias cal='cal --monday --year --week'
 alias fast='fast --upload --single-line'
 
 # Pretend Git isn't installed.
-git() {
-  echo "zsh: command not found: git" >&2
-  return 127
-}
+# git() {
+#   echo "zsh: command not found: git" >&2
+#   return 127
+# }
 
 # When not in a pipe, run sudo -v to refresh timeout.
 sudo() {
