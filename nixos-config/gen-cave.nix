@@ -41,7 +41,7 @@ in
 
         home.sessionVariables = {
           EDITOR = "nvim";
-          PERSIST_BELL_CMD = "printf '\\a' > /proc/$PPID/fd/1";
+          PERSIST_BELL_CMD = "printf '\\a' > /proc/1/fd/1";
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
           CHROMIUM_PATH = "''${pkgs.chromium}/bin/chromium";
         };

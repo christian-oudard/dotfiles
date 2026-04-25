@@ -195,6 +195,8 @@ rec {
         plugins = pluginPaths ++ [ (import persist { inherit pkgs; }) ];
       };
 
+      home.sessionVariables.PERSIST_BELL_CMD = "printf '\\a' > /proc/$PPID/fd/1";
+
       home.activation.claudeSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         ${pkgs.jq}/bin/jq . \
           ${pkgs.writeText "claude-settings.json" (builtins.toJSON settings)} \
