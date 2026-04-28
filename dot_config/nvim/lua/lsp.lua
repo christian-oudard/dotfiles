@@ -16,35 +16,37 @@ local on_attach = function(client, bufnr)
 end
 
 
-vim.lsp.config('pyright', {
-    on_attach = on_attach,
-})
-vim.lsp.enable('pyright')
+-- Configure all LSPs, but only enable each once a buffer of its filetype is
+-- opened *and* its binary is on PATH. This lets rust-analyzer come from a
+-- per-project `nix develop` shell or rustup without erroring elsewhere.
+local servers = {
+    pyright       = { filetypes = {'python'},     cmd = 'pyright-langserver',
+                      config = { on_attach = on_attach } },
+    ruff          = { filetypes = {'python'},     cmd = 'ruff',
+                      config = { on_attach = on_attach } },
+    ts_ls         = { filetypes = {'javascript','javascriptreact','typescript','typescriptreact'},
+                      cmd = 'typescript-language-server',
+                      config = { on_attach = on_attach } },
+    rust_analyzer = { filetypes = {'rust'},       cmd = 'rust-analyzer',
+                      config = { on_attach = on_attach } },
+    nil_ls        = { filetypes = {'nix'},        cmd = 'nil',
+                      config = {
+                          on_attach = on_attach,
+                          settings = { ['nil'] = { formatting = { command = { 'nixfmt' } } } },
+                      } },
+}
 
-vim.lsp.config('rust_analyzer', {
-    on_attach = on_attach,
-})
-vim.lsp.enable('rust_analyzer')
-
-vim.lsp.config('ruff', {
-    on_attach = on_attach,
-})
-vim.lsp.enable('ruff')
-
-vim.lsp.config('ts_ls', {
-    on_attach = on_attach,
-})
-vim.lsp.enable('ts_ls')
-
-vim.lsp.config('nil_ls', {
-    on_attach = on_attach,
-    settings = {
-        ['nil'] = {
-            formatting = { command = { 'nixfmt' } },
-        },
-    },
-})
-vim.lsp.enable('nil_ls')
+for name, spec in pairs(servers) do
+    vim.lsp.config(name, spec.config)
+    vim.api.nvim_create_autocmd('FileType', {
+        pattern = spec.filetypes,
+        callback = function()
+            if vim.fn.executable(spec.cmd) == 1 then
+                vim.lsp.enable(name)
+            end
+        end,
+    })
+end
 
 vim.diagnostic.config({
   virtual_text = true,
