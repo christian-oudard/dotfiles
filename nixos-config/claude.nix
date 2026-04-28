@@ -11,13 +11,54 @@ rec {
     "${claude-plugins-official}/plugins/commit-commands"
     "${claude-plugins-official}/plugins/code-simplifier"
     "${claude-plugins-official}/plugins/frontend-design"
-    "${claude-plugins-official}/plugins/pyright-lsp"
-    "${claude-plugins-official}/plugins/typescript-lsp"
-    "${claude-plugins-official}/plugins/rust-analyzer-lsp"
     "${agent-capabilities}/audio_transcription"
     "${agent-capabilities}/pdf_conversion"
     "${agent-capabilities}/website_mirroring"
   ];
+
+  # LSP servers consumed by programs.claude-code.lspServers (host) and emitted
+  # into cave.nix by gen-cave.nix. The home-manager module synthesizes a
+  # plugin dir with .lsp.json and registers it via --plugin-dir.
+  # The upstream *-lsp plugins from claude-plugins-official are dropped:
+  # they're README-only stubs and the marketplace.json lspServers key is
+  # not propagated at install time (anthropics/claude-code#16219).
+  lspServers = {
+    pyright = {
+      command = "pyright-langserver";
+      args = [ "--stdio" ];
+      extensionToLanguage = {
+        ".py" = "python";
+        ".pyi" = "python";
+      };
+    };
+    rust-analyzer = {
+      command = "rust-analyzer";
+      extensionToLanguage = {
+        ".rs" = "rust";
+      };
+    };
+    typescript = {
+      command = "typescript-language-server";
+      args = [ "--stdio" ];
+      extensionToLanguage = {
+        ".ts" = "typescript";
+        ".tsx" = "typescriptreact";
+        ".js" = "javascript";
+        ".jsx" = "javascriptreact";
+        ".mts" = "typescript";
+        ".cts" = "typescript";
+        ".mjs" = "javascript";
+        ".cjs" = "javascript";
+      };
+    };
+    lean = {
+      command = "lean";
+      args = [ "--server" ];
+      extensionToLanguage = {
+        ".lean" = "lean";
+      };
+    };
+  };
 
   # Settings shared between host and cave. Hooks live inside persist's
   # plugin directory (persist/hooks/hooks.json), so nothing to splice here.
@@ -193,6 +234,7 @@ rec {
         enable = true;
         package = pkgs.claude-code;
         plugins = pluginPaths ++ [ (import persist { inherit pkgs; }) ];
+        inherit lspServers;
       };
 
       home.sessionVariables.PERSIST_BELL_CMD = "printf '\\a' > /proc/$PPID/fd/1";

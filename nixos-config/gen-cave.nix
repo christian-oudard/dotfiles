@@ -19,12 +19,16 @@ in
       config = { pkgs, persist, ... }: {
         home.packages = with pkgs; [
           which tree eza nano direnv nix-direnv zsh neovim
-          python3 python3Packages.pytest uv
+          python3 python3Packages.pytest uv pyright ruff
           ghc cabal-install stack
-          nodejs typescript
+          nodejs typescript typescript-language-server
           cargo rustc rustfmt clippy
           chromium
         ];
+
+        programs.claude-code.lspServers = ${
+          builtins.replaceStrings [ "\n" ] [ "\n        " ] (lib.generators.toPretty { } claude.lspServers)
+        };
 
         coding-cave.claude-code = {
           plugins = [
