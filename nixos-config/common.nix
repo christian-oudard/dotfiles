@@ -78,6 +78,15 @@
   services.logind.settings.Login.HandlePowerKeyLongPress = "poweroff";
   powerManagement.enable = true;
 
+  # Auto-hibernate on critically low battery (kernel cuts power around 3-4%)
+  services.upower = {
+    enable = true;
+    percentageLow = 15;
+    percentageCritical = 8;
+    percentageAction = 5;
+    criticalPowerAction = "Hibernate";
+  };
+
   # Weekly nix garbage collection: prune generations older than 30 days
   nix.gc = {
     automatic = true;
