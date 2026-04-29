@@ -21,8 +21,8 @@ in
       args = { inherit persist claude-plugins-official agent-capabilities; };
     in
     [
-      (import ./claude.nix args).module
-      (import ./gen-cave.nix args)
+      ./modules/neovim.nix
+      (import ./modules/claude.nix args).module
     ];
   home.username = username;
   home.homeDirectory = homeDir;
@@ -122,32 +122,4 @@ in
     nix-direnv.enable = true;
   };
 
-  # init.lua is managed by chezmoi. home-manager needs to generate some vim config, which is put
-  # into hm-generated.lua, and imported from init.lua.
-  xdg.configFile."nvim/init.lua".enable = lib.mkForce false;
-  xdg.configFile."nvim/lua/hm-generated.lua".text = config.programs.neovim.initLua;
-
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-    plugins = with pkgs.vimPlugins; [
-      gruvbox-nvim
-      vim-commentary
-      vim-surround
-      vim-fugitive
-      ultisnips
-      vim-auto-save
-      nvim-lspconfig
-      vim-python-pep8-indent
-      plenary-nvim
-      nvim-web-devicons
-      trouble-nvim
-      telescope-nvim
-      bufferline-nvim
-      vim-nix
-      lean-nvim
-    ];
-  };
 }

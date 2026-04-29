@@ -5,8 +5,7 @@
 }:
 
 rec {
-  # Static plugin paths (persist is added in the module because it needs pkgs).
-  # Also consumed by gen-cave.nix to emit the cave's cave.nix.
+  # Static plugin paths (persist is added in each module because it needs pkgs).
   pluginPaths = [
     "${claude-plugins-official}/plugins/commit-commands"
     "${claude-plugins-official}/plugins/code-simplifier"
@@ -16,12 +15,12 @@ rec {
     "${agent-capabilities}/website_mirroring"
   ];
 
-  # LSP servers consumed by programs.claude-code.lspServers (host) and emitted
-  # into cave.nix by gen-cave.nix. The home-manager module synthesizes a
-  # plugin dir with .lsp.json and registers it via --plugin-dir.
-  # The upstream *-lsp plugins from claude-plugins-official are dropped:
-  # they're README-only stubs and the marketplace.json lspServers key is
-  # not propagated at install time (anthropics/claude-code#16219).
+  # LSP servers consumed by programs.claude-code.lspServers. The
+  # home-manager module synthesizes a plugin dir with .lsp.json and
+  # registers it via --plugin-dir. The upstream *-lsp plugins from
+  # claude-plugins-official are dropped: they're README-only stubs and the
+  # marketplace.json lspServers key is not propagated at install time
+  # (anthropics/claude-code#16219).
   lspServers = {
     pyright = {
       command = "pyright-langserver";
@@ -60,8 +59,8 @@ rec {
     };
   };
 
-  # Settings shared between host and cave. Hooks live inside persist's
-  # plugin directory (persist/hooks/hooks.json), so nothing to splice here.
+  # Hooks live inside persist's plugin directory (persist/hooks/hooks.json),
+  # so nothing to splice here.
   settings = {
     model = "opus";
     effortLevel = "xhigh";
@@ -217,6 +216,13 @@ rec {
     };
   };
 
+  # Helper: assembles the full plugin list, including persist (which needs
+  # `pkgs` to evaluate its package).
+  pluginsFor = pkgs: pluginPaths ++ [ (import persist { inherit pkgs; }) ];
+
+  # Home-manager module that wires the data above through programs.claude-code
+  # and writes an editable settings.json on activation. Other consumers can
+  # ignore this and read pluginsFor / lspServers / settings directly.
   module =
     {
       config,
@@ -225,15 +231,15 @@ rec {
       ...
     }:
     {
-      # Also make persist available in the user's shell PATH so that
-      # `persist stop` works from a normal terminal (outside Claude).
-      # Claude's own Bash tool picks up bin/persist from the plugin dir.
+      # Make persist available in the user's shell PATH so that `persist
+      # stop` works from a normal terminal (outside Claude). Claude's own
+      # Bash tool picks up bin/persist from the plugin dir.
       home.packages = [ (pkgs.callPackage (persist + "/package.nix") { }) ];
 
       programs.claude-code = {
         enable = true;
         package = pkgs.claude-code;
-        plugins = pluginPaths ++ [ (import persist { inherit pkgs; }) ];
+        plugins = pluginsFor pkgs;
         inherit lspServers;
       };
 

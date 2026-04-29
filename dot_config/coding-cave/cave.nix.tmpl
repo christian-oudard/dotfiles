@@ -1,0 +1,83 @@
+{
+  inputs = {
+    persist = {
+      url = "github:christian-oudard/persist";
+      flake = false;
+    };
+    claude-plugins-official = {
+      url = "github:anthropics/claude-plugins-official";
+      flake = false;
+    };
+    agent-capabilities = {
+      url = "git+ssh://git@github.com/christian-oudard/agent-capabilities";
+      flake = false;
+    };
+    # Each subtree below gets copied into the nix store and exposed to the
+    # cave. Keep these scoped to dotfiles directories that don't contain
+    # secrets — the rest of the dotfiles tree (age-encrypted files, .keys/,
+    # etc.) stays out of the cave.
+    cave-modules = {
+      url = "path:{{ .chezmoi.sourceDir }}/nixos-config/modules";
+      flake = false;
+    };
+    nvim-config = {
+      url = "path:{{ .chezmoi.sourceDir }}/dot_config/nvim";
+      flake = false;
+    };
+  };
+
+  config =
+    {
+      pkgs,
+      persist,
+      claude-plugins-official,
+      agent-capabilities,
+      cave-modules,
+      nvim-config,
+      ...
+    }:
+    let
+      claude = import "${cave-modules}/claude.nix" {
+        inherit persist claude-plugins-official agent-capabilities;
+      };
+    in
+    {
+      imports = [ "${cave-modules}/neovim.nix" ];
+
+      # claude.nix exposes plugin paths, lsp servers, and settings as plain
+      # data; wire them through coding-cave's deep-merge layer so cave-system
+      # defaults (model, statusline, marketplace, ...) compose cleanly.
+      coding-cave.claude-code = {
+        plugins = claude.pluginsFor pkgs;
+        extraSettings = claude.settings;
+      };
+      programs.claude-code.lspServers = claude.lspServers;
+
+      # /proc/1 is the cave's supervisor PID; $PPID would point at whatever
+      # transient process triggered the bell.
+      home.sessionVariables.PERSIST_BELL_CMD = "printf '\\a' > /proc/1/fd/1";
+
+      # Per-language toolchains live in each project's dev shell, not here.
+      home.packages = with pkgs; [
+        which
+        tree
+        eza
+        nano
+        direnv
+        nix-direnv
+        zsh
+      ];
+
+      # neovim.nix supplies programs.neovim and writes hm-generated.lua
+      # under nvim/lua/. recursive=true makes ~/.config/nvim a real
+      # directory of symlinks rather than a single symlink to the store
+      # path, leaving room for hm-generated.lua to be written alongside.
+      xdg.configFile."nvim" = {
+        source = nvim-config;
+        recursive = true;
+      };
+
+      home.file.".config/direnv/direnvrc".text =
+        "source ${pkgs.nix-direnv}/share/nix-direnv/direnvrc";
+    };
+}
