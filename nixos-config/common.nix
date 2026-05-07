@@ -44,6 +44,7 @@
       "audio"
       "docker"
       "kvm"
+      "dialout"
     ];
     shell = pkgs.zsh;
   };
@@ -69,6 +70,11 @@
 
   # Bluetooth
   hardware.bluetooth.enable = true;
+
+  # Flipper Zero serial access (CDC ACM)
+  services.udev.extraRules = ''
+    SUBSYSTEM=="tty", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5740", MODE="0660", GROUP="dialout"
+  '';
 
   # Lid close behavior: lock screen instead of suspend
   services.logind.settings.Login.HandleLidSwitch = "lock";
