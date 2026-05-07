@@ -66,7 +66,7 @@ rec {
     effortLevel = "xhigh";
     alwaysThinkingEnabled = true;
     promptSuggestionEnabled = false;
-    tui = "fullscreen";
+    tui = "default";
     spinnerVerbs = {
       mode = "replace";
       verbs = [ "Working" ];
