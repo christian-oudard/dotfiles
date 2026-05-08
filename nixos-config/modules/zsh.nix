@@ -18,6 +18,11 @@
     envExtra = builtins.readFile "${zsh-config}/dot_zshenv";
     initContent = builtins.readFile "${zsh-config}/dot_zshrc";
     loginExtra = builtins.readFile "${zsh-config}/dot_zlogin";
+    # Files in /nix/store/*/share/zsh are owned by host root, which the
+    # cave's user namespace surfaces as "nobody". compinit's default check
+    # ("owned by root or you") fails on that and prompts for confirmation.
+    # -C skips the check; the host-side .zshrc keeps its own compinit -C.
+    completionInit = "autoload -U compinit && compinit -C";
   };
 
   xdg.configFile."zsh/history_filter.zsh".source =
