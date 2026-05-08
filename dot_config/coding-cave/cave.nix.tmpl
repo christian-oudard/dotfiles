@@ -24,6 +24,10 @@
       url = "path:{{ .chezmoi.sourceDir }}/dot_config/nvim";
       flake = false;
     };
+    zsh-config = {
+      url = "path:{{ .chezmoi.sourceDir }}/dot_config/zsh";
+      flake = false;
+    };
   };
 
   config =
@@ -34,6 +38,7 @@
       agent-capabilities,
       cave-modules,
       nvim-config,
+      zsh-config,
       ...
     }:
     let
@@ -42,7 +47,12 @@
       };
     in
     {
-      imports = [ "${cave-modules}/neovim.nix" ];
+      imports = [
+        "${cave-modules}/neovim.nix"
+        "${cave-modules}/zsh.nix"
+      ];
+
+      _module.args.zsh-config = zsh-config;
 
       # claude.nix exposes plugin paths, lsp servers, and settings as plain
       # data; wire them through coding-cave's deep-merge layer so cave-system
