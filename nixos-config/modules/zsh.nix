@@ -6,11 +6,10 @@
 #
 # Cave: home-manager is the only config layer, so we use programs.zsh and
 # read the same chezmoi source files (dot_zshenv, dot_zshrc, dot_zlogin)
-# through the zsh-config flake input. dotDir=".config/zsh" matches the
-# host layout so $ZDOTDIR resolves to the same place inside and outside
-# the cave.
+# through the zsh-config flake input. dotDir is set to xdg.configHome/zsh
+# so $ZDOTDIR resolves to the same path inside and outside the cave.
 
-{ config, lib, pkgs, zsh-config, ... }:
+{ config, pkgs, zsh-config, ... }:
 
 {
   programs.zsh = {
@@ -21,7 +20,7 @@
     loginExtra = builtins.readFile "${zsh-config}/dot_zlogin";
   };
 
-  home.file.".config/zsh/history_filter.zsh".source =
+  xdg.configFile."zsh/history_filter.zsh".source =
     "${zsh-config}/history_filter.zsh";
 
   # cav shell reads $SHELL from the cave env to choose the interactive
