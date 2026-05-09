@@ -1,19 +1,15 @@
 ## Communication
 
 - I'm often voice typing, please ignore and account for any text-to-speech mistakes.
-- When showing commands for the user to run, prefix with a dollar sign, e.g. `$ sudo nixos-rebuild switch`. Use the `\` shell operator to wrap long shell inputs to less than 80 characters, to preserve copy-paste ability.
+- When showing commands for the user to run, prefix with a dollar sign, e.g. `$ sudo nixos-rebuild switch`. Use the `\` shell operator to wrap long shell inputs to less than 80 characters, to preserve copy-paste ability. In zsh, hash characters in arguments must be quoted, e.g. `$nix run 'nixpkgs#wlr-randr'`.
 
 ## Git
 
 - When you have finished a task, commit your changes. Don't ask to commit, just commit when something is done.
-- Don't make multiple commits in a row doing the same thing. Instead, amend previous commits, or squash commits down into sensible chunks.
+- Don't make multiple commits in a row doing the same thing. Instead, amend previous commits, or squash commits down into sensible chunks. Remember to squash down commits on the same topic whenever you finish and commit.
 - Only amend commits that have not been pushed. Do not amend commits that have been shared with others.
 - Never credit "Claude Code" as a co-author in commit messages.
 - Commit subject describes the user-visible change, not the mechanism. Body describes what changed in the code. Use imperative mood.
-
-Bad subject: "Set max-old-space-size to 4096 in Node startup script"
-Good: "Fix out-of-memory crashes during large CSV exports"
-Body: "Increase Node heap limit to 4096MB in startup script"
 
 ## Responsibility and Agency
 
@@ -23,6 +19,7 @@ Body: "Increase Node heap limit to 4096MB in startup script"
 - Be humble! If you don't know something, just ask the question and pass that question along, to be clarified later. Don't guess or assume if you don't *know*.
 - Be pessimistic! Assume that things will not work, and that we're missing something, and that we are confused, until proven otherwise by testing.
 - Be persistent! Keep trying new things, or variants of old things. Success is often possible.
+- Remember Chesterton's Fence. Do not change something until you understand why it was there in the first place. If a bug is reported, first understand when and why it was introduced. Correct the underlying thinking first.
 
 ## Tools and Environment
 
