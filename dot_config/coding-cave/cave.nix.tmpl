@@ -1,3 +1,7 @@
+{{- /* Nix rejects path: inputs whose ancestor directories are symlinks
+       (e.g. ~/code -> /some/other/dir). Canonicalize once so all
+       path: URLs below are symlink-free. */ -}}
+{{- $sourceDir := output "realpath" .chezmoi.sourceDir | trim -}}
 {
   inputs = {
     persist = {
@@ -14,18 +18,18 @@
     };
     # Each subtree below gets copied into the nix store and exposed to the
     # cave. Keep these scoped to dotfiles directories that don't contain
-    # secrets — the rest of the dotfiles tree (age-encrypted files, .keys/,
+    # secrets. the rest of the dotfiles tree (age-encrypted files, .keys/,
     # etc.) stays out of the cave.
     cave-modules = {
-      url = "path:{{ .chezmoi.sourceDir }}/nixos-config/modules";
+      url = "path:{{ $sourceDir }}/nixos-config/modules";
       flake = false;
     };
     nvim-config = {
-      url = "path:{{ .chezmoi.sourceDir }}/dot_config/nvim";
+      url = "path:{{ $sourceDir }}/dot_config/nvim";
       flake = false;
     };
     zsh-config = {
-      url = "path:{{ .chezmoi.sourceDir }}/dot_config/zsh";
+      url = "path:{{ $sourceDir }}/dot_config/zsh";
       flake = false;
     };
   };
