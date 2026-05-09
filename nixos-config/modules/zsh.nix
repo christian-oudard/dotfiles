@@ -15,9 +15,9 @@
 {
   programs.zsh = {
     enable = true;
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     envExtra = builtins.readFile "${zsh-config}/dot_zshenv";
-    initExtra = builtins.readFile "${zsh-config}/dot_zshrc";
+    initContent = builtins.readFile "${zsh-config}/dot_zshrc";
     loginExtra = builtins.readFile "${zsh-config}/dot_zlogin";
   };
 
