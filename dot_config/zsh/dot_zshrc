@@ -104,6 +104,11 @@ zstyle ':completion:*' completer _expand_alias _complete _ignored
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
+# Tab completion.
+if (( $+commands[cav] )); then
+  eval "$(cav completion zsh)"
+fi
+
 # Key bindings.
 bindkey -e
 bindkey '^P' up-line-or-beginning-search
