@@ -14,6 +14,9 @@
   # Networking (common settings, hostname set per-host)
   networking.networkmanager.enable = true;
 
+  # Disable IPv6 by default on new connections.
+  networking.networkmanager.settings.connection."ipv6.method" = "disabled";
+
   # Locale and timezone
   time.timeZone = "US/Mountain";
   i18n.defaultLocale = "en_US.UTF-8";
