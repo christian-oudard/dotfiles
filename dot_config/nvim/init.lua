@@ -199,6 +199,23 @@ vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
   end,
 })
 
+-- nvim's detect.conf falls back to filetype=conf for any file whose first
+-- five lines contain '#'. That catches plain prose/notes (e.g. lines
+-- starting with '# Header') and gives them a syntax that highlights
+-- apostrophes as strings. Override the fallback: if the filetype is conf
+-- but the filename lacks a .conf/.cnf extension, treat it as text.
+vim.api.nvim_create_augroup('conf_fallback_to_text', { clear = true })
+vim.api.nvim_create_autocmd('FileType', {
+  group = 'conf_fallback_to_text',
+  pattern = 'conf',
+  callback = function(args)
+    local name = vim.api.nvim_buf_get_name(args.buf)
+    if not name:match('%.conf$') and not name:match('%.cnf$') then
+      vim.bo[args.buf].filetype = 'text'
+    end
+  end,
+})
+
 -- Netrw dvorak mappings
 local function netrw_map()
   local opts = { buffer = true }
