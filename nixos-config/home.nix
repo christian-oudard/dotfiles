@@ -1,5 +1,6 @@
 {
-  username ? "christian",
+  username,
+  homeDir,
   persist,
   claude-plugins-official,
   agent-capabilities,
@@ -12,9 +13,6 @@
   ...
 }:
 
-let
-  homeDir = "/home/${username}";
-in
 {
   imports =
     let

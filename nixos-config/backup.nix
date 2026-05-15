@@ -1,13 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, username, homeDir, ... }:
 
 let
-  user = "christian";
-  homeDir = "/home/${user}";
-  uid = toString config.users.users.${user}.uid;
+  uid = toString config.users.users.${username}.uid;
 in
 {
   services.restic.backups.gcs = {
-    user = user;
+    user = username;
     environmentFile = "${homeDir}/.config/restic/env";
     paths = [ "${homeDir}/files" ];
     extraBackupArgs = [
@@ -36,18 +34,18 @@ in
     description = "Desktop notification for failed backup";
     serviceConfig = {
       Type = "oneshot";
-      User = user;
+      User = username;
       Environment = "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${uid}/bus";
       ExecStart = "${pkgs.libnotify}/bin/notify-send -u critical 'Backup failed' 'restic-backups-gcs.service did not complete. journalctl -u restic-backups-gcs.service'";
     };
   };
 
-  # Let christian start the backup unit without sudo, so `backup` is one keystroke.
+  # Let the user start the backup unit without sudo, so `backup` is one keystroke.
   security.polkit.extraConfig = ''
     polkit.addRule(function(action, subject) {
       if (action.id == "org.freedesktop.systemd1.manage-units" &&
           action.lookup("unit") == "restic-backups-gcs.service" &&
-          subject.user == "${user}") {
+          subject.user == "${username}") {
         return polkit.Result.YES;
       }
     });

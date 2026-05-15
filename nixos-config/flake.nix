@@ -1,5 +1,5 @@
 {
-  description = "Christian's NixOS configuration";
+  description = "Personal NixOS configuration";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -48,6 +48,9 @@
     }:
     let
       system = "x86_64-linux";
+      username = "christian";
+      homeDir = "/home/${username}";
+      specialArgs = { inherit username homeDir; };
       overlay-claude-code = final: prev: {
         claude-code = claude-code.packages.${system}.default;
       };
@@ -78,11 +81,10 @@
           home-manager.useGlobalPkgs = true;
           home-manager.backupFileExtension = "hm-backup";
           home-manager.useUserPackages = true;
-          home-manager.users.christian = {
+          home-manager.users.${username} = {
             imports = [
               (import ./home.nix {
-                username = "christian";
-                inherit persist claude-plugins-official agent-capabilities;
+                inherit username homeDir persist claude-plugins-official agent-capabilities;
               })
             ];
           };
@@ -91,6 +93,7 @@
     in
     {
       nixosConfigurations.dedekind = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
         modules = [
           { nixpkgs.hostPlatform = system; }
           disko.nixosModules.disko
@@ -100,6 +103,7 @@
       };
 
       nixosConfigurations.cantor = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
         modules = [
           { nixpkgs.hostPlatform = system; }
           ./hosts/cantor/configuration.nix

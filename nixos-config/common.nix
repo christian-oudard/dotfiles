@@ -3,6 +3,8 @@
   config,
   lib,
   pkgs,
+  username,
+  homeDir,
   ...
 }:
 
@@ -33,7 +35,7 @@
   };
 
   # User accounts
-  users.users.christian = {
+  users.users.${username} = {
     uid = 1000;
     isNormalUser = true;
     homeMode = "700";
@@ -124,7 +126,7 @@
       };
       initial_session = {
         command = "sway";
-        user = "christian";
+        user = username;
       };
     };
   };
@@ -132,10 +134,10 @@
   # Syncthing
   services.syncthing = {
     enable = true;
-    user = "christian";
-    dataDir = "/home/christian";
-    configDir = "/home/christian/.config/syncthing";
-    databaseDir = "/home/christian/.local/state/syncthing";
+    user = username;
+    dataDir = homeDir;
+    configDir = "${homeDir}/.config/syncthing";
+    databaseDir = "${homeDir}/.local/state/syncthing";
     openDefaultPorts = true; # TCP 22000 + UDP 22000/21027
   };
 
@@ -145,7 +147,7 @@
   # SSH: use absolute path so root (nixos-rebuild) can fetch private flake inputs
   programs.ssh.extraConfig = ''
     Host github.com
-      IdentityFile /home/christian/.ssh/christian_dedekind
+      IdentityFile ${homeDir}/.ssh/christian_dedekind
   '';
 
   # Shells
@@ -198,7 +200,7 @@
 
   # Temp directory for Claude Code sandbox (TMPDIR=/tmp/claude)
   systemd.tmpfiles.rules = [
-    "d /tmp/claude 0755 christian users -"
+    "d /tmp/claude 0755 ${username} users -"
   ];
 
   # Allow unfree packages
