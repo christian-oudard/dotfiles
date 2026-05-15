@@ -5,6 +5,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../common.nix
+    ../../backup.nix
   ];
 
   networking.hostName = "dedekind";

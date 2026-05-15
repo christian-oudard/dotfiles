@@ -58,8 +58,8 @@ Uses age encryption with identity at `~/.keys/age_chezmoi_key.txt`. Encrypted fi
 
 Custom shell functions defined in zshrc:
 
-- **`backup`** — Runs restic backup to USB (if mounted at `/mnt/usb/restic-repo`) then to Google Cloud (`gs:cwo-restic:/`). Excludes defined in `dot_config/restic/excludes.txt`
-- **`restic`** — Wrapper that sets Google Cloud credentials and default repo
+- **`backup`** — zsh function. Triggers `restic-backups-gcs.service` (the same unit the daily timer activates) and tails its journal.
+- **`restic`** — zsh wrapper that sets credentials for ad-hoc restic commands.
 
 Key aliases:
 - `ls`, `i`, `ll`, `la` → eza

@@ -1,0 +1,55 @@
+{ config, pkgs, ... }:
+
+let
+  user = "christian";
+  homeDir = "/home/${user}";
+  uid = toString config.users.users.${user}.uid;
+in
+{
+  services.restic.backups.gcs = {
+    user = user;
+    environmentFile = "${homeDir}/.config/restic/env";
+    paths = [ "${homeDir}/files" ];
+    extraBackupArgs = [
+      "--exclude-file=${homeDir}/.config/restic/excludes.txt"
+    ];
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+      RandomizedDelaySec = "30min";
+    };
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 5"
+      "--keep-monthly 12"
+      "--keep-yearly 5"
+    ];
+  };
+
+  # Fire backup-failed.service if restic-backups-gcs ever transitions to failed.
+  systemd.services.restic-backups-gcs.unitConfig.OnFailure = [ "backup-failed.service" ];
+
+  # Route the failure into the desktop session's DBus so mako shows it.
+  # If the user isn't logged in graphically, /run/user/${uid}/bus is absent and
+  # notify-send fails silently — the journal still records the original failure.
+  systemd.services.backup-failed = {
+    description = "Desktop notification for failed backup";
+    serviceConfig = {
+      Type = "oneshot";
+      User = user;
+      Environment = "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${uid}/bus";
+      ExecStart = "${pkgs.libnotify}/bin/notify-send -u critical 'Backup failed' 'restic-backups-gcs.service did not complete. journalctl -u restic-backups-gcs.service'";
+    };
+  };
+
+  # Let christian start the backup unit without sudo, so `backup` is one keystroke.
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+      if (action.id == "org.freedesktop.systemd1.manage-units" &&
+          action.lookup("unit") == "restic-backups-gcs.service" &&
+          subject.user == "${user}") {
+        return polkit.Result.YES;
+      }
+    });
+  '';
+}

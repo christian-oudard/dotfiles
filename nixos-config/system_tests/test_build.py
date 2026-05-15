@@ -56,3 +56,13 @@ def test_ca_bundle_has_enough_certs():
     assert cert_count >= 100, f"Only {cert_count} certs in CA bundle"
 
 
+def test_restic_runtime_files_present():
+    """The restic backup service references these chezmoi-managed files at runtime;
+    nix can't validate the paths, so guard them here."""
+    restic_dir = NIXOS_DIR.parent / "dot_config" / "restic"
+    for fname in ("excludes.txt", "env.tmpl"):
+        assert (restic_dir / fname).exists(), (
+            f"missing {restic_dir / fname} — restic-backups-gcs.service depends on it"
+        )
+
+
