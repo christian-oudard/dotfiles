@@ -103,26 +103,11 @@ LSP servers installed as packages: pyright, rust-analyzer, ruff, typescript-lang
 
 ## Tests
 
-System tests live in `nixos-config/system_tests/`. Two test files:
+`nixos-config/check_build.sh` runs `nix eval` on every host (syntax + eval check, no package downloads) and `test_build.py`, which guards the SSL CA bundle foot-gun. Run it after any change to `nixos-config/`.
 
-- **`test_build.py`** — Build-time tests. Inspect nix evaluation output, not the live system. Safe to run from the cave or anywhere with flake access. Run after changing `nixos-config/`.
-- **`test_runtime.py`** — Runtime tests. Verify the live deployed system (SSL connectivity, paths, commands). Only reliable on the host after a rebuild.
+Keep the test suite minimal. Do not add tests for routine config changes. Only add a test when there is a specific, non-obvious foot-gun that nix evaluation will not catch on its own.
 
-```bash
-./nixos-config/check_build.sh                  # cave: nix build + build tests
-./nixos-config/update_system.sh                # host: rebuild only
-```
-
-Tests must not require network access beyond basic HTTPS (no API keys, no auth).
-
-## System Configuration Responsibilities
-
-When working in this repo, Claude Code is responsible for:
-
-- **Keep tests green**: Run `uvx pytest nixos-config/system_tests/test_build.py` after any change to `nixos-config/`. Do not commit changes that break build tests.
-- **Add tests for new invariants**: When adding system config (new packages, paths, services), add a corresponding test that verifies the expected behavior.
-- **Test before suggesting rebuilds**: Before telling the user to run `update_system.sh`, verify the nix expression parses (`nix-instantiate --parse`) and that tests still pass.
-- **Validate SSL/TLS**: The nix-built system Python has correct SSL paths, but uv's standalone Python needs `/etc/ssl/cert.pem` (provided via `environment.etc` in common.nix). Do not change `security.pki.useCompatibleBundle` — it drops CAs.
+Known foot-gun: do not change `security.pki.useCompatibleBundle`, it drops CAs and silently breaks uv's standalone Python (which needs `/etc/ssl/cert.pem`).
 
 ## Claude Code Sandbox
 
