@@ -52,3 +52,7 @@ Before writing code, search for existing solutions. Applications usually have a 
 
 - Don't use vertical line box-drawing characters in text or markdown output. This is because they require exact horizontal alignment, which you are bad at.
 - Systematically replace em-dashes ("—") with a period (".") to start a new sentence, or a comma (",") to continue the sentence.
+
+## Privacy (PII)
+
+Do not mention the names or private information of any real person in commit messages or code which is committed to Git. Anything in the Git history should be only fake names. Do not say who requested a change in your commit message. Don't say the name of the author or any clients or other engineers. You may sometimes mention public figures, but only when they are directly relevant to the topic at hand, which is a rare occurrence.
