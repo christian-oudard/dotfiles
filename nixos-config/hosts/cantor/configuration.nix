@@ -12,6 +12,8 @@
   # NVIDIA RTX 4070 Max-Q (Ada Lovelace)
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
+  programs.steam.enable = true;
   hardware.nvidia = {
     modesetting.enable = true;
     open = true;

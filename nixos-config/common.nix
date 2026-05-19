@@ -104,7 +104,6 @@
 
   # Graphics.
   hardware.graphics.enable = true;
-  hardware.graphics.enable32Bit = true;
 
   # Sway
   programs.sway = {
