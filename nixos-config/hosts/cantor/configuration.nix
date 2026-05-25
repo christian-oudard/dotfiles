@@ -14,6 +14,7 @@
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
   programs.steam.enable = true;
+  programs.gamescope.enable = true;
   hardware.nvidia = {
     modesetting.enable = true;
     open = true;
