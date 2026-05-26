@@ -7,16 +7,16 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    claude-code = {
-      url = "github:sadjow/claude-code-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    persist = {
-      url = "github:christian-oudard/persist";
+    claude-code = {
+      url = "github:sadjow/claude-code-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    coding-cave = {
+      url = "git+ssh://git@github.com/christian-oudard/coding-cave";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     claude-plugins-official = {
@@ -26,6 +26,10 @@
     agent-capabilities = {
       url = "git+ssh://git@github.com/christian-oudard/agent-capabilities";
       flake = false;
+    };
+    persist = {
+      url = "github:christian-oudard/persist";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     whisper-dictation-src = {
       url = "github:christian-oudard/whisper_dictation";
@@ -38,11 +42,12 @@
       self,
       nixpkgs,
       home-manager,
-      claude-code,
       disko,
-      persist,
+      claude-code,
+      coding-cave,
       claude-plugins-official,
       agent-capabilities,
+      persist,
       whisper-dictation-src,
       ...
     }:
@@ -71,6 +76,7 @@
       };
       commonModules = [
         home-manager.nixosModules.home-manager
+        coding-cave.nixosModules.codingCave
         {
           nixpkgs.overlays = [
             overlay-claude-code

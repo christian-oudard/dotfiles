@@ -37,6 +37,28 @@
         "type": "github"
       }
     },
+    "claude-code_2": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": [
+          "coding-cave",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777339923,
+        "narHash": "sha256-wDDuUVJG6JJwHjWSUa+qq4Gbo8cG/OtzF87nL0tJ6+o=",
+        "owner": "sadjow",
+        "repo": "claude-code-nix",
+        "rev": "39cddbec1035c58955248f57029f85b6911a6dab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sadjow",
+        "repo": "claude-code-nix",
+        "type": "github"
+      }
+    },
     "claude-plugins-official": {
       "flake": false,
       "locked": {
@@ -50,6 +72,66 @@
       "original": {
         "owner": "anthropics",
         "repo": "claude-plugins-official",
+        "type": "github"
+      }
+    },
+    "coding-cave": {
+      "inputs": {
+        "claude-code": "claude-code_2",
+        "crane": "crane",
+        "crinj": "crinj",
+        "home-manager": "home-manager",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1779800240,
+        "narHash": "sha256-ymfbTtfV1/2IDBcduIksQDofDEgaiKOqluCS/IPWs9s=",
+        "ref": "refs/heads/main",
+        "rev": "bf37e13dee32ed6be384d3ae5126e0b94bd4f3aa",
+        "revCount": 99,
+        "type": "git",
+        "url": "ssh://git@github.com/christian-oudard/coding-cave"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/christian-oudard/coding-cave"
+      }
+    },
+    "crane": {
+      "locked": {
+        "lastModified": 1776635034,
+        "narHash": "sha256-OEOJrT3ZfwbChzODfIH4GzlNTtOFuZFWPtW7jIeR8xU=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "dc7496d8ea6e526b1254b55d09b966e94673750f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
+    "crinj": {
+      "inputs": {
+        "nixpkgs": [
+          "coding-cave",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778624800,
+        "narHash": "sha256-0zqOov0HauJ4OCihW3PcVrjEb6jdJ2zgCSuvWxPiB2Q=",
+        "owner": "christian-oudard",
+        "repo": "crinj",
+        "rev": "8086e691c8d0e21d5e7a76a24f5fb7835b5c1039",
+        "type": "github"
+      },
+      "original": {
+        "owner": "christian-oudard",
+        "repo": "crinj",
         "type": "github"
       }
     },
@@ -91,7 +173,46 @@
         "type": "github"
       }
     },
+    "flake-utils_2": {
+      "inputs": {
+        "systems": "systems_2"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "coding-cave",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1775556024,
+        "narHash": "sha256-j1u/859OVS54rGlsvFqJdwKPEnFYCI+4pyfTiSfv1Xc=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "4bdfeff1d9b7473e6e58f73f5809576e8a69e406",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "home-manager_2": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -152,14 +273,30 @@
         "agent-capabilities": "agent-capabilities",
         "claude-code": "claude-code",
         "claude-plugins-official": "claude-plugins-official",
+        "coding-cave": "coding-cave",
         "disko": "disko",
-        "home-manager": "home-manager",
+        "home-manager": "home-manager_2",
         "nixpkgs": "nixpkgs",
         "persist": "persist",
         "whisper-dictation-src": "whisper-dictation-src"
       }
     },
     "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_2": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
