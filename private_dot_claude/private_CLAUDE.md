@@ -50,10 +50,11 @@ Before writing code, search for existing solutions. Applications usually have a 
 - Unittests should run quickly. Optimize the test procedure, or separate slow tests if they take longer than 30 seconds.
 - Any time you notice that you or the code have made a mistake or gotten confused, that is a good opportunity to learn and write a unittest.
 
-## Formatting
+## Formatting and Writing Style
 
 - Don't use vertical line box-drawing characters in text or markdown output. This is because they require exact horizontal alignment, which you are bad at.
 - Systematically replace em-dashes ("—") with a period (".") to start a new sentence, or a comma (",") to continue the sentence.
+- Don't say "honest" or "honestly", you tend to overuse these words.
 
 ## Privacy (PII)
 
