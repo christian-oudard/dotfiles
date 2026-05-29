@@ -31,9 +31,9 @@
       url = "github:christian-oudard/persist";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    whisper-dictation-src = {
+    whisper-dictation = {
       url = "github:christian-oudard/whisper_dictation";
-      flake = false;
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -48,7 +48,7 @@
       claude-plugins-official,
       agent-capabilities,
       persist,
-      whisper-dictation-src,
+      whisper-dictation,
       ...
     }:
     let
@@ -60,19 +60,7 @@
         claude-code = claude-code.packages.${system}.default;
       };
       overlay-whisper-dictation = final: prev: {
-        whisper-dictation = prev.python3Packages.buildPythonApplication {
-          pname = "whisper-dictation";
-          version = "0.1.0";
-          src = whisper-dictation-src;
-          pyproject = true;
-          build-system = [ prev.python3Packages.setuptools ];
-          dependencies = with prev.python3Packages; [
-            faster-whisper
-            torch
-            sounddevice
-            numpy
-          ];
-        };
+        whisper-dictation = whisper-dictation.packages.${system}.default;
       };
       commonModules = [
         home-manager.nixosModules.home-manager
