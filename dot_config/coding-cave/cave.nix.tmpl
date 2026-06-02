@@ -32,6 +32,10 @@
       url = "path:{{ $sourceDir }}/dot_config/zsh";
       flake = false;
     };
+    claude-md = {
+      url = "path:{{ env "HOME" }}/.claude/CLAUDE.md";
+      flake = false;
+    };
   };
 
   config =
@@ -43,6 +47,7 @@
       cave-modules,
       nvim-config,
       zsh-config,
+      claude-md,
       ...
     }:
     let
@@ -66,6 +71,7 @@
         extraSettings = claude.settings;
       };
       programs.claude-code.lspServers = claude.lspServers;
+      programs.claude-code.context = builtins.readFile claude-md;
 
       # /proc/1 is the cave's supervisor PID; $PPID would point at whatever
       # transient process triggered the bell.
