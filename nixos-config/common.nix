@@ -170,13 +170,13 @@
   # doesn't create. Symlink it to the NixOS CA bundle so SSL works in uv venvs.
   environment.etc."ssl/cert.pem".source = "/etc/ssl/certs/ca-bundle.crt";
 
-  # Make plain `nixos-rebuild` find this flake without --flake. No inputs
-  # block, so no /etc/nixos/flake.lock is generated.
+  # Make plain `nixos-rebuild` find this flake without --flake.
+  # /etc/nixos/flake.lock will be auto-generated; safe to ignore.
   environment.etc."nixos/flake.nix".text = ''
     {
-      outputs = _: {
-        nixosConfigurations =
-          (builtins.getFlake "path:${homeDir}/code/dotfiles/nixos-config").nixosConfigurations;
+      inputs.dotfiles.url = "path:${homeDir}/code/dotfiles/nixos-config";
+      outputs = { dotfiles, ... }: {
+        nixosConfigurations = dotfiles.nixosConfigurations;
       };
     }
   '';
