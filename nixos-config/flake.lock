@@ -46,11 +46,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1777339923,
-        "narHash": "sha256-wDDuUVJG6JJwHjWSUa+qq4Gbo8cG/OtzF87nL0tJ6+o=",
+        "lastModified": 1780369239,
+        "narHash": "sha256-1hpcdHjLYsdBGzOYK/r1l+UvPrtkgt3wVhLF9D5OWmI=",
         "owner": "sadjow",
         "repo": "claude-code-nix",
-        "rev": "39cddbec1035c58955248f57029f85b6911a6dab",
+        "rev": "3cc73775ecceb02a798519a5527f4eb400c8c8e4",
         "type": "github"
       },
       "original": {
@@ -86,11 +86,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779990389,
-        "narHash": "sha256-DdyR/x8XApq1Gw4N+X6OiNrzeFA8MaYQyvu2BIJNzMs=",
+        "lastModified": 1780408699,
+        "narHash": "sha256-9FincEA+AJ8RHIgwHBK1bNCTjrAimh5frV5ldcNqcBc=",
         "ref": "refs/heads/main",
-        "rev": "6875c6aaa32f4e56a59eba758cbec15ada978d11",
-        "revCount": 101,
+        "rev": "24f5a6df92340c869bb42650104a64139fd89b5c",
+        "revCount": 109,
         "type": "git",
         "url": "ssh://git@github.com/christian-oudard/coding-cave"
       },
@@ -101,11 +101,11 @@
     },
     "crane": {
       "locked": {
-        "lastModified": 1776635034,
-        "narHash": "sha256-OEOJrT3ZfwbChzODfIH4GzlNTtOFuZFWPtW7jIeR8xU=",
+        "lastModified": 1780099841,
+        "narHash": "sha256-EVZd2RsbpreRUDSi9rBwPY+ZxoyMaiEBbZxxhljbaS4=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "dc7496d8ea6e526b1254b55d09b966e94673750f",
+        "rev": "0532eb17955225173906d671fb36306bdeb1e2dc",
         "type": "github"
       },
       "original": {
@@ -122,11 +122,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778624800,
-        "narHash": "sha256-0zqOov0HauJ4OCihW3PcVrjEb6jdJ2zgCSuvWxPiB2Q=",
+        "lastModified": 1779988414,
+        "narHash": "sha256-zhXr54kL/PhJzSxG6ArET/MiroCC/lAKAwByxQDSWGg=",
         "owner": "christian-oudard",
         "repo": "crinj",
-        "rev": "8086e691c8d0e21d5e7a76a24f5fb7835b5c1039",
+        "rev": "c3a7699724dc1c8d37b1969880c15323c2b4cb54",
         "type": "github"
       },
       "original": {
@@ -199,11 +199,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775556024,
-        "narHash": "sha256-j1u/859OVS54rGlsvFqJdwKPEnFYCI+4pyfTiSfv1Xc=",
+        "lastModified": 1780370888,
+        "narHash": "sha256-PRJj9RKTEf/sITycujP1c/BrvLJKMYXzcpwTsXNulXQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "4bdfeff1d9b7473e6e58f73f5809576e8a69e406",
+        "rev": "a7a415883195ffbd4dabec8f098f201e6eaaadf8",
         "type": "github"
       },
       "original": {
