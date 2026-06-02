@@ -132,7 +132,7 @@ alias tar='tar --keep-old-files'
 alias veracrypt='veracrypt --text'
 alias vim='nvim'
 alias cal='cal --monday --year --week'
-alias fast='fast --upload --single-line'
+alias cav='cav-debug'
 
 # Pretend Git isn't installed.
 # git() {
@@ -148,16 +148,24 @@ sudo() {
     command sudo "$@"
 }
 
-# Backups run automatically daily via systemd (services.restic.backups.gcs),
-# which reads the same credential file this wrapper sources.
+# Backups.
 restic() {
-    ( set -a; source ~/.config/restic/env; command restic "$@" )
+    RESTIC_REPOSITORY=gs:cwo-restic:/ \
+    RESTIC_PASSWORD_FILE="$HOME/.keys/restic-password" \
+    GOOGLE_PROJECT_ID=restic-377922 \
+    GOOGLE_APPLICATION_CREDENTIALS="$HOME/.keys/restic-service-account-key.json" \
+    command restic "$@"
 }
 
-# Trigger the same systemd service the daily timer uses, then tail its log.
 backup() {
-    systemctl start --no-block restic-backups-gcs.service && \
-    journalctl -fu restic-backups-gcs.service
+    local args=(--exclude-file="$HOME/.config/restic/excludes.txt" "$HOME/files" "$@")
+    local usb_repo=/mnt/usb/restic-repo
+    if [[ -d $usb_repo ]]; then
+        echo "==> Backing up to USB ($usb_repo)"
+        restic --repo="$usb_repo" backup "${args[@]}"
+    fi
+    echo "==> Backing up to Google Cloud (gs:cwo-restic:/)"
+    restic backup "${args[@]}"
 }
 
 # Execute private zshrc.
