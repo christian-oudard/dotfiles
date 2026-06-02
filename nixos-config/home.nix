@@ -95,7 +95,6 @@
     brave
     signal-desktop
     karere
-    zoom-us
 
     # Terminal utilities
     dust
