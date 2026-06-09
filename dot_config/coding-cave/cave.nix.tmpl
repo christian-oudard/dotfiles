@@ -69,6 +69,9 @@
       coding-cave.claude-code = {
         plugins = claude.pluginsFor pkgs;
         extraSettings = claude.settings;
+        # The cave module owns programs.claude-code.skills, so contribute
+        # ours through a bundle rather than setting that option directly.
+        bundles = [ { src = claude.skillsSrc; } ];
       };
       programs.claude-code.lspServers = claude.lspServers;
       programs.claude-code.context = builtins.readFile claude-md;

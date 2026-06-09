@@ -59,6 +59,14 @@ rec {
     };
   };
 
+  # Custom skills, one <name>/SKILL.md per directory under claude/skills/,
+  # surfacing as /<name>. Drop a new skill in there, no nix change needed.
+  # The host passes the directory straight to programs.claude-code.skills;
+  # the cave consumes skillsSrc as a bundle src (which expects a directory
+  # containing skills/).
+  skillsSrc = ./claude;
+  skills = skillsSrc + "/skills";
+
   # Hooks live inside persist's plugin directory (persist/hooks/hooks.json),
   # so nothing to splice here.
   settings = {
@@ -240,7 +248,7 @@ rec {
         enable = true;
         package = pkgs.claude-code;
         plugins = pluginsFor pkgs;
-        inherit lspServers;
+        inherit lspServers skills;
       };
 
       home.sessionVariables.PERSIST_BELL_CMD = "printf '\\a' > /proc/$PPID/fd/1";
