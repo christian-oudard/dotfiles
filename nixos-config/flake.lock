@@ -24,11 +24,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780369239,
-        "narHash": "sha256-1hpcdHjLYsdBGzOYK/r1l+UvPrtkgt3wVhLF9D5OWmI=",
+        "lastModified": 1780957729,
+        "narHash": "sha256-Z4oBmSU00hsjnHWDK080Bpij5lIQGBebMMoYeHC8enY=",
         "owner": "sadjow",
         "repo": "claude-code-nix",
-        "rev": "3cc73775ecceb02a798519a5527f4eb400c8c8e4",
+        "rev": "59e10450c92bad9a327b067b85d418255e6e62f0",
         "type": "github"
       },
       "original": {
@@ -86,11 +86,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780408699,
-        "narHash": "sha256-9FincEA+AJ8RHIgwHBK1bNCTjrAimh5frV5ldcNqcBc=",
+        "lastModified": 1780969538,
+        "narHash": "sha256-Cg/3Ckcloz0jrrEZ/QgDY9raQwooHhQgssx0MxThvYI=",
         "ref": "refs/heads/main",
-        "rev": "24f5a6df92340c869bb42650104a64139fd89b5c",
-        "revCount": 109,
+        "rev": "638fd6da5807ed574e5165062c785e91a9c00852",
+        "revCount": 118,
         "type": "git",
         "url": "ssh://git@github.com/christian-oudard/coding-cave"
       },
