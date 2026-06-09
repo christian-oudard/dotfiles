@@ -171,15 +171,11 @@
   environment.etc."ssl/cert.pem".source = "/etc/ssl/certs/ca-bundle.crt";
 
   # Make plain `nixos-rebuild` find this flake without --flake.
-  # /etc/nixos/flake.lock will be auto-generated; safe to ignore.
-  environment.etc."nixos/flake.nix".text = ''
-    {
-      inputs.dotfiles.url = "path:${homeDir}/code/dotfiles/nixos-config";
-      outputs = { dotfiles, ... }: {
-        nixosConfigurations = dotfiles.nixosConfigurations;
-      };
-    }
-  '';
+  # Out-of-store symlink: nixos-rebuild resolves /etc/nixos/flake.nix and
+  # uses its directory as the flake, so it must point at the real repo file.
+  # A wrapper flake written via .text lands in the store and resolves to
+  # /nix/store, which is not a flake.
+  environment.etc."nixos/flake.nix".source = "${homeDir}/code/dotfiles/nixos-config/flake.nix";
 
   # System packages (minimal - user packages in home-manager)
   environment.systemPackages = with pkgs; [
