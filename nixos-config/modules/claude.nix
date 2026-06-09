@@ -67,8 +67,9 @@ rec {
   skillsSrc = ./claude;
   skills = skillsSrc + "/skills";
 
-  # Hooks live inside persist's plugin directory (persist/hooks/hooks.json),
-  # so nothing to splice here.
+  # The Stop bell hook lives in persist's plugin directory
+  # (persist/hooks/hooks.json). The question/permission bell hooks are added
+  # per-consumer via bellHooks, since the bell command is environment-specific.
   settings = {
     model = "fable";
     effortLevel = "high";
@@ -228,6 +229,27 @@ rec {
   # `pkgs` to evaluate its package).
   pluginsFor = pkgs: pluginPaths ++ [ (import persist { inherit pkgs; }) ];
 
+  # Bell triggers for "agent needs you" moments: the turn ending (Stop), a
+  # question (AskUserQuestion), or a permission prompt. The Notification
+  # matcher is the notification_type, scoped to permission_prompt so the 60s
+  # idle_prompt does not ring. Stop also fires on iterations that a persist
+  # loop re-injects, so the bell rings at each loop boundary. The bell
+  # command differs per environment (host uses /proc/$PPID, the cave uses
+  # cav-host), so it is passed in.
+  bellHooks = bellCmd: {
+    Stop = [{
+      hooks = [{ type = "command"; command = bellCmd; }];
+    }];
+    PreToolUse = [{
+      matcher = "AskUserQuestion";
+      hooks = [{ type = "command"; command = bellCmd; }];
+    }];
+    Notification = [{
+      matcher = "permission_prompt";
+      hooks = [{ type = "command"; command = bellCmd; }];
+    }];
+  };
+
   # Home-manager module that wires the data above through programs.claude-code
   # and writes an editable settings.json on activation. Other consumers can
   # ignore this and read pluginsFor / lspServers / settings directly.
@@ -238,6 +260,12 @@ rec {
       lib,
       ...
     }:
+    let
+      # /proc/$PPID/fd/1 is the terminal that launched Claude. On the host
+      # PID 1 is systemd, so $PPID is used (unlike the cave, where PID 1 is
+      # the supervisor whose stdout is the terminal).
+      bellCmd = "printf '\\a' > /proc/$PPID/fd/1";
+    in
     {
       # Make persist available in the user's shell PATH so that `persist
       # stop` works from a normal terminal (outside Claude). Claude's own
@@ -251,11 +279,10 @@ rec {
         inherit lspServers skills;
       };
 
-      home.sessionVariables.PERSIST_BELL_CMD = "printf '\\a' > /proc/$PPID/fd/1";
-
       home.activation.claudeSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         ${pkgs.jq}/bin/jq . \
-          ${pkgs.writeText "claude-settings.json" (builtins.toJSON settings)} \
+          ${pkgs.writeText "claude-settings.json"
+            (builtins.toJSON (settings // { hooks = bellHooks bellCmd; }))} \
           > "$HOME/.claude/settings.json"
         chmod 644 "$HOME/.claude/settings.json"
       '';

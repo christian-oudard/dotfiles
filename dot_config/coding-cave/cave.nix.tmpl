@@ -54,6 +54,10 @@
       claude = import "${cave-modules}/claude.nix" {
         inherit persist claude-plugins-official agent-capabilities;
       };
+      # cav-host (on the cave PATH) writes BEL to the supervisor's terminal;
+      # $PPID would point at whatever transient process triggered the bell,
+      # so the host-side command is not usable here.
+      bellCmd = "cav-host bell";
     in
     {
       imports = [
@@ -72,13 +76,10 @@
         # The cave module owns programs.claude-code.skills, so contribute
         # ours through a bundle rather than setting that option directly.
         bundles = [ { src = claude.skillsSrc; } ];
+        hooks = claude.bellHooks bellCmd;
       };
       programs.claude-code.lspServers = claude.lspServers;
       programs.claude-code.context = builtins.readFile claude-md;
-
-      # /proc/1 is the cave's supervisor PID; $PPID would point at whatever
-      # transient process triggered the bell.
-      home.sessionVariables.PERSIST_BELL_CMD = "printf '\\a' > /proc/1/fd/1";
 
       # Per-language toolchains live in each project's dev shell, not here.
       home.packages = with pkgs; [
