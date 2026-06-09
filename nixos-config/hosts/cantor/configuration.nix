@@ -1,10 +1,16 @@
 # NixOS system configuration for cantor
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
     ./hardware-configuration.nix
     ../../common.nix
+    ../../backup.nix
   ];
 
   networking.hostName = "cantor";

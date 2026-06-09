@@ -58,8 +58,10 @@ Uses age encryption with identity at `~/.keys/age_chezmoi_key.txt`. Encrypted fi
 
 Custom shell functions defined in zshrc:
 
-- **`backup`** — zsh function. Triggers `restic-backups-gcs.service` (the same unit the daily timer activates) and tails its journal.
-- **`restic`** — zsh wrapper that sets credentials for ad-hoc restic commands.
+- **`backup`** — zsh function. Backs up `~/files` to the USB repo (`/mnt/usb/restic-repo`) if mounted, then to Google Cloud (`gs:cwo-restic:/`).
+- **`restic`** — zsh wrapper that sets GCS credentials for ad-hoc restic commands.
+
+Automatic daily backups run via the `restic-backups-gcs` systemd timer (`nixos-config/backup.nix`, imported by both hosts).
 
 Key aliases:
 - `ls`, `i`, `ll`, `la` → eza
@@ -78,8 +80,10 @@ Unfree packages are allowed globally via `dot_config/nixpkgs/config.nix`.
 
 - `flake.nix` - inputs and module composition
 - `flake.lock` - pinned versions (commit this for reproducibility)
-- `hosts/dedekind/configuration.nix` - system config (greetd, XKB, minimal packages)
-- `hosts/dedekind/disk-config.nix` - disko config for LUKS/LVM partitioning
+- `hosts/<host>/configuration.nix` - per-host system config (hosts: `cantor`, `dedekind`)
+- `hosts/<host>/disk-config.nix` - disko config for LUKS/LVM partitioning
+- `common.nix` - system config shared by all hosts (greetd, XKB, minimal packages)
+- `backup.nix` - daily restic backups to GCS via systemd timer
 - `home.nix` - home-manager config (packages only, dotfiles via chezmoi)
 - `claude.nix` - Claude Code settings (model, permissions, hooks, plugins) shared between host and cave
 - `gen-cave.nix` - generates `~/.config/coding-cave/cave.nix` (the cave sandbox config) from `claude.nix`
@@ -94,7 +98,8 @@ New files must be `git add`ed before nix can see them.
 
 ### Activating Changes
 
-After making changes, run `./nixos-config/update_system.sh`
+After making changes, run `sudo nixos-rebuild switch` (works from anywhere,
+`/etc/nixos/flake.nix` is symlinked to this repo).
 
 ### Neovim Setup
 
