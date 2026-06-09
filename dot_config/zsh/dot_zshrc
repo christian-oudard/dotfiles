@@ -115,9 +115,6 @@ bindkey '^P' up-line-or-beginning-search
 bindkey '^N' down-line-or-beginning-search
 
 # Aliases.
-if command -v nix-shell &>/dev/null; then
-    alias nix-shell='nix-shell --command zsh'
-fi
 alias ls='eza'
 alias i='eza'
 alias ll='eza -l'
@@ -132,7 +129,12 @@ alias tar='tar --keep-old-files'
 alias veracrypt='veracrypt --text'
 alias vim='nvim'
 alias cal='cal --monday --year --week'
-alias cav='cav-debug'
+if command -v nix-shell &>/dev/null; then
+  alias nix-shell='nix-shell --command zsh'
+fi
+if command -v cav-debug &>/dev/null; then
+  alias cav='cav-debug'
+fi
 
 # Pretend Git isn't installed.
 # git() {
