@@ -70,8 +70,8 @@ rec {
   # Hooks live inside persist's plugin directory (persist/hooks/hooks.json),
   # so nothing to splice here.
   settings = {
-    model = "opus";
-    effortLevel = "xhigh";
+    model = "fable";
+    effortLevel = "high";
     alwaysThinkingEnabled = true;
     promptSuggestionEnabled = false;
     tui = "default";
