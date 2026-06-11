@@ -67,9 +67,8 @@ rec {
   skillsSrc = ./claude;
   skills = skillsSrc + "/skills";
 
-  # The Stop bell hook lives in persist's plugin directory
-  # (persist/hooks/hooks.json). The question/permission bell hooks are added
-  # per-consumer via bellHooks, since the bell command is environment-specific.
+  # Bell hooks are added per-consumer via bellHooks, since the bell command
+  # is environment-specific.
   settings = {
     model = "fable";
     effortLevel = "high";
@@ -232,13 +231,18 @@ rec {
   # Bell triggers for "agent needs you" moments: the turn ending (Stop), a
   # question (AskUserQuestion), or a permission prompt. The Notification
   # matcher is the notification_type, scoped to permission_prompt so the 60s
-  # idle_prompt does not ring. Stop also fires on iterations that a persist
-  # loop re-injects, so the bell rings at each loop boundary. The bell
-  # command differs per environment (host uses /proc/$PPID, the cave uses
-  # cav-host), so it is passed in.
-  bellHooks = bellCmd: {
+  # idle_prompt does not ring. The bell command differs per environment
+  # (host uses /proc/$PPID, the cave uses cav-host), so it is passed in.
+  bellHooks = bellCmd:
+    let
+      # Stop also fires on iterations that a persist loop re-injects, so
+      # stay silent while `persist status` reports an active session.
+      # persist ends a session with a final summarize turn, so the loop's
+      # last stop still rings.
+      stopCmd = "persist status > /dev/null 2>&1 || ${bellCmd}";
+    in {
     Stop = [{
-      hooks = [{ type = "command"; command = bellCmd; }];
+      hooks = [{ type = "command"; command = stopCmd; }];
     }];
     PreToolUse = [{
       matcher = "AskUserQuestion";
