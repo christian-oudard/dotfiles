@@ -73,6 +73,14 @@
   # Bluetooth
   hardware.bluetooth.enable = true;
 
+  # Printing: CUPS with driverless IPP, network discovery via mDNS
+  services.printing.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
   # Flipper Zero serial access (CDC ACM)
   services.udev.extraRules = ''
     SUBSYSTEM=="tty", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5740", MODE="0660", GROUP="dialout"
