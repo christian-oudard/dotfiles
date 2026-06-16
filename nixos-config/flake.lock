@@ -86,11 +86,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780969538,
-        "narHash": "sha256-Cg/3Ckcloz0jrrEZ/QgDY9raQwooHhQgssx0MxThvYI=",
+        "lastModified": 1781629695,
+        "narHash": "sha256-GJcBDz2/bSGVAcLR2RguujSMMDnjNVhOzz21AHP8QvM=",
         "ref": "refs/heads/main",
-        "rev": "638fd6da5807ed574e5165062c785e91a9c00852",
-        "revCount": 118,
+        "rev": "468cfe7399fc891668b992518bc25aaca0ac854d",
+        "revCount": 129,
         "type": "git",
         "url": "ssh://git@github.com/christian-oudard/coding-cave"
       },
@@ -268,56 +268,6 @@
         "type": "github"
       }
     },
-    "pyproject-build-systems": {
-      "inputs": {
-        "nixpkgs": [
-          "whisper-dictation",
-          "nixpkgs"
-        ],
-        "pyproject-nix": [
-          "whisper-dictation",
-          "pyproject-nix"
-        ],
-        "uv2nix": [
-          "whisper-dictation",
-          "uv2nix"
-        ]
-      },
-      "locked": {
-        "lastModified": 1779676664,
-        "narHash": "sha256-MbXylBTkWqVm8/VYjoULtMoVRgWBN1gSHbeRKsOsPlU=",
-        "owner": "pyproject-nix",
-        "repo": "build-system-pkgs",
-        "rev": "7bff980f37fc24e09dbc986643719900c139bf12",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pyproject-nix",
-        "repo": "build-system-pkgs",
-        "type": "github"
-      }
-    },
-    "pyproject-nix": {
-      "inputs": {
-        "nixpkgs": [
-          "whisper-dictation",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1778901413,
-        "narHash": "sha256-GSKXTAnFqRAMlZkJrIPcQMYf+lpMr66K3i60mB9STvc=",
-        "owner": "pyproject-nix",
-        "repo": "pyproject.nix",
-        "rev": "a228447c3e179d477c1b6246ef3efa8cfe3c469a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pyproject-nix",
-        "repo": "pyproject.nix",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "agent-capabilities": "agent-capabilities",
@@ -361,46 +311,18 @@
         "type": "github"
       }
     },
-    "uv2nix": {
-      "inputs": {
-        "nixpkgs": [
-          "whisper-dictation",
-          "nixpkgs"
-        ],
-        "pyproject-nix": [
-          "whisper-dictation",
-          "pyproject-nix"
-        ]
-      },
-      "locked": {
-        "lastModified": 1779411315,
-        "narHash": "sha256-IMFlxeyClau51KplhhSRGhdGTvD/knShHdybP1UOTuk=",
-        "owner": "pyproject-nix",
-        "repo": "uv2nix",
-        "rev": "fdf2a76275d7a9c27deb5d2f2ab33526ac9052ff",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pyproject-nix",
-        "repo": "uv2nix",
-        "type": "github"
-      }
-    },
     "whisper-dictation": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "pyproject-build-systems": "pyproject-build-systems",
-        "pyproject-nix": "pyproject-nix",
-        "uv2nix": "uv2nix"
+        ]
       },
       "locked": {
-        "lastModified": 1780105058,
-        "narHash": "sha256-i6Uc8Y6I859JF1rnLRzMUAVuuKxeIoqNJwt9hvkhPcY=",
+        "lastModified": 1780424826,
+        "narHash": "sha256-Ei62NF/SWEJncTwwOkjLDOY4nx0/acEO0d2BbTSUNjc=",
         "owner": "christian-oudard",
         "repo": "whisper_dictation",
-        "rev": "0fb4c2a47e3b96ad165c09b660ba6ef86e6554d1",
+        "rev": "e4dafc0e361fdbc4ffd7c2e64c9e0222715a3043",
         "type": "github"
       },
       "original": {
