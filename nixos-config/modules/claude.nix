@@ -236,10 +236,11 @@ rec {
   bellHooks = bellCmd:
     let
       # Stop also fires on iterations that a persist loop re-injects, so
-      # stay silent while `persist status` reports an active session.
-      # persist ends a session with a final summarize turn, so the loop's
-      # last stop still rings.
-      stopCmd = "persist status > /dev/null 2>&1 || ${bellCmd}";
+      # stay silent while `persist active` reports a live session. persist
+      # ends a session with a final summarize turn, so the loop's last stop
+      # still rings; `persist active` also treats an expired-but-uncleaned
+      # session as inactive, so a stale state file does not mute the bell.
+      stopCmd = "persist active || ${bellCmd}";
     in {
     Stop = [{
       hooks = [{ type = "command"; command = stopCmd; }];
