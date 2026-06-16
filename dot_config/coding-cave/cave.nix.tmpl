@@ -90,6 +90,17 @@
         direnv
         nix-direnv
         zsh
+
+        # Terminal utilities (parity with host home.nix, minus network and
+        # GUI tools). fd, file, and diff are also referenced in claude.nix's
+        # permission allow-list, so they must be on PATH.
+        diffutils
+        dust
+        fd
+        file
+        fzf
+        htop
+        unzip
       ];
 
       # neovim.nix supplies programs.neovim and writes hm-generated.lua
