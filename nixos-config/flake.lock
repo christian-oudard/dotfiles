@@ -255,11 +255,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781195016,
-        "narHash": "sha256-dj5myRZOHFN1K9XuUIiWud1j6pbSUhxHThdtMzYhL+c=",
+        "lastModified": 1781625786,
+        "narHash": "sha256-CSM4GcyCwrC1a9fb4b51FCBR3y/tfR1UUUpb3cN3VB0=",
         "owner": "christian-oudard",
         "repo": "persist",
-        "rev": "9c53a881782d15d265e3ffa3fdc7dbee71353d8d",
+        "rev": "af645487a4791d4762b9bcd0e4fc9a06e879f499",
         "type": "github"
       },
       "original": {
