@@ -31,8 +31,8 @@
       url = "github:christian-oudard/persist";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    whisper-dictation = {
-      url = "github:christian-oudard/whisper_dictation";
+    diktat = {
+      url = "github:christian-oudard/diktat";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -48,7 +48,7 @@
       claude-plugins-official,
       agent-capabilities,
       persist,
-      whisper-dictation,
+      diktat,
       ...
     }:
     let
@@ -59,8 +59,8 @@
       overlay-claude-code = final: prev: {
         claude-code = claude-code.packages.${system}.default;
       };
-      overlay-whisper-dictation = final: prev: {
-        whisper-dictation = whisper-dictation.packages.${system}.default;
+      overlay-diktat = final: prev: {
+        diktat = diktat.packages.${system}.default;
       };
       commonModules = [
         home-manager.nixosModules.home-manager
@@ -68,7 +68,7 @@
         {
           nixpkgs.overlays = [
             overlay-claude-code
-            overlay-whisper-dictation
+            overlay-diktat
           ];
         }
         {
@@ -78,7 +78,13 @@
           home-manager.users.${username} = {
             imports = [
               (import ./home.nix {
-                inherit username homeDir persist claude-plugins-official agent-capabilities;
+                inherit
+                  username
+                  homeDir
+                  persist
+                  claude-plugins-official
+                  agent-capabilities
+                  ;
               })
             ];
           };

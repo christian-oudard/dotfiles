@@ -86,11 +86,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781629695,
-        "narHash": "sha256-GJcBDz2/bSGVAcLR2RguujSMMDnjNVhOzz21AHP8QvM=",
+        "lastModified": 1781632193,
+        "narHash": "sha256-CEqv+OQ2UzAHximpolnu1Nfc8/6WoqQoa9+7nNiR5l8=",
         "ref": "refs/heads/main",
-        "rev": "468cfe7399fc891668b992518bc25aaca0ac854d",
-        "revCount": 129,
+        "rev": "7fa1b968f50cba87251ec30abe52b7aeb3182d19",
+        "revCount": 130,
         "type": "git",
         "url": "ssh://git@github.com/christian-oudard/coding-cave"
       },
@@ -132,6 +132,26 @@
       "original": {
         "owner": "christian-oudard",
         "repo": "crinj",
+        "type": "github"
+      }
+    },
+    "diktat": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1781632549,
+        "narHash": "sha256-3QzfNAkpc0dqaGSuZBpz+QlrbbqwhtJAXQyYKGF7QSk=",
+        "owner": "christian-oudard",
+        "repo": "diktat",
+        "rev": "c3586b578aa87b594c993e0e6408b1469c583803",
+        "type": "github"
+      },
+      "original": {
+        "owner": "christian-oudard",
+        "repo": "diktat",
         "type": "github"
       }
     },
@@ -274,11 +294,11 @@
         "claude-code": "claude-code",
         "claude-plugins-official": "claude-plugins-official",
         "coding-cave": "coding-cave",
+        "diktat": "diktat",
         "disko": "disko",
         "home-manager": "home-manager_2",
         "nixpkgs": "nixpkgs",
-        "persist": "persist",
-        "whisper-dictation": "whisper-dictation"
+        "persist": "persist"
       }
     },
     "systems": {
@@ -308,26 +328,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "whisper-dictation": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1780424826,
-        "narHash": "sha256-Ei62NF/SWEJncTwwOkjLDOY4nx0/acEO0d2BbTSUNjc=",
-        "owner": "christian-oudard",
-        "repo": "whisper_dictation",
-        "rev": "e4dafc0e361fdbc4ffd7c2e64c9e0222715a3043",
-        "type": "github"
-      },
-      "original": {
-        "owner": "christian-oudard",
-        "repo": "whisper_dictation",
         "type": "github"
       }
     }

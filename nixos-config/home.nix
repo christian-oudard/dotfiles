@@ -62,7 +62,7 @@
     libseccomp
     python3
     uv
-    whisper-dictation
+    diktat
     ruff
     pyright
     nodejs

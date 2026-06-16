@@ -33,7 +33,7 @@ reboot
 Update a single input:
 
 ```bash
-nix flake update whisper-dictation-src
+nix flake update diktat
 ```
 
 Or update all inputs at once:
