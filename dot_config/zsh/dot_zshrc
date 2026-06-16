@@ -105,7 +105,7 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
 # Tab completion.
-if (( $+commands[cav] )); then
+if [[ -x $commands[cav] ]]; then
   eval "$(cav completion zsh)"
 fi
 
