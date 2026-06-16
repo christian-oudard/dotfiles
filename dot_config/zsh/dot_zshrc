@@ -134,6 +134,7 @@ if command -v nix-shell &>/dev/null; then
 fi
 if command -v cav-debug &>/dev/null; then
   alias cav='cav-debug'
+  compdef cav-debug=cav
 fi
 
 # Pretend Git isn't installed.
