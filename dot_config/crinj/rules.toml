@@ -4,11 +4,12 @@ domain = "api.anthropic.com"
 access = """
 block *
 allow /v1/*
+allow /api/oauth/*
 """
-[[host.inject]]
-source = "claude-oauth-token"
-header = "Authorization"
-format = "Bearer {}"
+[host.oauth]
+token-host = "platform.claude.com"
+token-path = "/v1/oauth/token"
+
 [[host]]
 domain = "http-intake.logs*.datadoghq.com"
 access = "block *"
