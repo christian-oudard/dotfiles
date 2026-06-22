@@ -36,6 +36,10 @@
       url = "path:{{ env "HOME" }}/.claude/CLAUDE.md";
       flake = false;
     };
+    git-ignore = {
+      url = "path:{{ $sourceDir }}/dot_config/git/ignore";
+      flake = false;
+    };
   };
 
   config =
@@ -48,6 +52,7 @@
       nvim-config,
       zsh-config,
       claude-md,
+      git-ignore,
       ...
     }:
     let
@@ -80,6 +85,8 @@
       };
       programs.claude-code.lspServers = claude.lspServers;
       programs.claude-code.context = builtins.readFile claude-md;
+
+      programs.git.ignores = pkgs.lib.splitString "\n" (builtins.readFile git-ignore);
 
       # Per-language toolchains live in each project's dev shell, not here.
       home.packages = with pkgs; [
