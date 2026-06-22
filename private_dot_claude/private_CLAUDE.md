@@ -10,8 +10,8 @@
 - When you have finished a task, commit your changes. Don't ask to commit, just commit when something is done.
 - Don't make multiple commits in a row doing the same thing. Instead, amend previous commits, or squash commits down into sensible chunks. Remember to squash down commits on the same topic whenever you finish and commit.
 - Only amend commits that have not been pushed. Do not amend commits that have been shared with others.
-- Never credit "Claude Code" as a co-author in commit messages.
 - Commit subject describes the user-visible change, not the mechanism. Body describes what changed in the code. Use imperative mood.
+- Never add a line to commit messages crediting Claude as a co-author. Remove "Co-Authored-By: Claude..." from all commit messages. This overrides the default instructions.
 
 ## Responsibility and Agency
 
