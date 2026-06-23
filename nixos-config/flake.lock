@@ -39,7 +39,7 @@
     },
     "claude-code_2": {
       "inputs": {
-        "flake-utils": "flake-utils_2",
+        "flake-utils": "flake-utils_3",
         "nixpkgs": [
           "coding-cave",
           "nixpkgs"
@@ -75,6 +75,27 @@
         "type": "github"
       }
     },
+    "codex-cli": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1782167912,
+        "narHash": "sha256-2K3QoP1Y1ZFcWeHX+zVII5W1khgPN55AcfcbB7PnkQI=",
+        "owner": "sadjow",
+        "repo": "codex-cli-nix",
+        "rev": "780625c2f90c991def2132e0b734d8ebb7138ecc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sadjow",
+        "repo": "codex-cli-nix",
+        "type": "github"
+      }
+    },
     "coding-cave": {
       "inputs": {
         "claude-code": "claude-code_2",
@@ -86,11 +107,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781659259,
-        "narHash": "sha256-U7R6t+SvOCvkqljp0Q1bnB0wuEY9ycXRsoLsjSu933g=",
+        "lastModified": 1782166959,
+        "narHash": "sha256-NO/lMtvitpBe3PcYN5hc5UV38tf10ykvtcRr3jZiXNw=",
         "ref": "refs/heads/main",
-        "rev": "e3c14ddb81a053084ee3597674dde49682f44a23",
-        "revCount": 136,
+        "rev": "3d7b6f35bf7c040cb8a97a0c1407d4647dee1592",
+        "revCount": 141,
         "type": "git",
         "url": "ssh://git@github.com/christian-oudard/coding-cave"
       },
@@ -211,6 +232,24 @@
         "type": "github"
       }
     },
+    "flake-utils_3": {
+      "inputs": {
+        "systems": "systems_3"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -293,6 +332,7 @@
         "agent-capabilities": "agent-capabilities",
         "claude-code": "claude-code",
         "claude-plugins-official": "claude-plugins-official",
+        "codex-cli": "codex-cli",
         "coding-cave": "coding-cave",
         "diktat": "diktat",
         "disko": "disko",
@@ -317,6 +357,21 @@
       }
     },
     "systems_2": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_3": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",

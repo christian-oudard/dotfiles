@@ -15,6 +15,10 @@
       url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    codex-cli = {
+      url = "github:sadjow/codex-cli-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     coding-cave = {
       url = "git+ssh://git@github.com/christian-oudard/coding-cave";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,6 +48,7 @@
       home-manager,
       disko,
       claude-code,
+      codex-cli,
       coding-cave,
       claude-plugins-official,
       agent-capabilities,
@@ -59,6 +64,9 @@
       overlay-claude-code = final: prev: {
         claude-code = claude-code.packages.${system}.default;
       };
+      overlay-codex-cli = final: prev: {
+        codex-cli = codex-cli.packages.${system}.default;
+      };
       overlay-diktat = final: prev: {
         diktat = diktat.packages.${system}.default;
       };
@@ -68,6 +76,7 @@
         {
           nixpkgs.overlays = [
             overlay-claude-code
+            overlay-codex-cli
             overlay-diktat
           ];
         }

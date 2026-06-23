@@ -57,6 +57,7 @@
     # Programming
     jujutsu
     gh
+    codex-cli
     socat
     bubblewrap
     libseccomp
