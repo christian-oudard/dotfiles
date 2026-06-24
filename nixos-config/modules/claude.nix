@@ -224,9 +224,12 @@ rec {
     };
   };
 
-  # Helper: assembles the full plugin list, including persist (which needs
-  # `pkgs` to evaluate its package).
-  pluginsFor = pkgs: pluginPaths ++ [ (import persist { inherit pkgs; }) ];
+  # persist's derivation is both the plugin directory and the CLI. Listing it
+  # as a plugin both registers it and (via the home.packages line below) puts
+  # bin/persist on the login PATH, so the stop bell's bare `persist active`
+  # resolves in a hook (hooks get a PATH without plugin bins).
+  persistPkg = pkgs: import persist { inherit pkgs; };
+  pluginsFor = pkgs: pluginPaths ++ [ (persistPkg pkgs) ];
 
   # Bell triggers for "agent needs you" moments: the turn ending (Stop), a
   # question (AskUserQuestion), or a permission prompt. The Notification
@@ -266,16 +269,14 @@ rec {
       ...
     }:
     let
-      # /proc/$PPID/fd/1 is the terminal that launched Claude. On the host
-      # PID 1 is systemd, so $PPID is used (unlike the cave, where PID 1 is
-      # the supervisor whose stdout is the terminal).
+      # Ring the terminal that launched Claude. PID 1 is systemd, so the
+      # terminal is $PPID's stdout.
       bellCmd = "printf '\\a' > /proc/$PPID/fd/1";
     in
     {
-      # Make persist available in the user's shell PATH so that `persist
-      # stop` works from a normal terminal (outside Claude). Claude's own
-      # Bash tool picks up bin/persist from the plugin dir.
-      home.packages = [ (pkgs.callPackage (persist + "/package.nix") { }) ];
+      # Install plugins shipped as packages (persist); path-string plugins
+      # have no package to install, so filter them out.
+      home.packages = builtins.filter lib.isDerivation (pluginsFor pkgs);
 
       programs.claude-code = {
         enable = true;
