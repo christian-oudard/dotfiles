@@ -36,6 +36,12 @@ rec {
         ".rs" = "rust";
       };
     };
+    gopls = {
+      command = "gopls";
+      extensionToLanguage = {
+        ".go" = "go";
+      };
+    };
     typescript = {
       command = "typescript-language-server";
       args = [ "--stdio" ];

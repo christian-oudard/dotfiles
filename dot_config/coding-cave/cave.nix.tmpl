@@ -88,7 +88,17 @@
 
       programs.git.ignores = pkgs.lib.splitString "\n" (builtins.readFile git-ignore);
 
-      # Per-language toolchains live in each project's dev shell, not here.
+      # rust-analyzer resolves std/core/alloc from the stdlib source, which
+      # nixpkgs rustc's sysroot omits. cav injects home.sessionVariables into
+      # the agent namespace (env.json -> bwrap --setenv), so the LSP server
+      # picks this up without relying on shell sourcing.
+      home.sessionVariables.RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
+
+      # General build toolchains live in each project's dev shell, not here.
+      # The exception is the LSP toolchains at the end of this list: the
+      # agent's LSP tool launches language servers (and the toolchains they
+      # shell out to) from the base cave shell, which has no direnv, so they
+      # must be on the base PATH.
       home.packages = with pkgs; [
         which
         tree
@@ -108,6 +118,12 @@
         fzf
         htop
         unzip
+
+        # LSP servers + their toolchains (consumed by
+        # programs.claude-code.lspServers above).
+        rust-analyzer cargo rustc rustfmt clippy
+        gopls go
+        pyright python3
       ];
 
       # neovim.nix supplies programs.neovim and writes hm-generated.lua
