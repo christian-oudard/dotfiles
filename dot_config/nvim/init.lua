@@ -199,6 +199,29 @@ vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
   end,
 })
 
+-- nvim+foot have an incremental-redraw bug that smears/duplicates glyphs on
+-- soft-wrapped lines when 'list' is on. It is not a character-width issue
+-- (all our listchars and punctuation measure 1 cell under ambiwidth=single).
+-- 'list' and soft-'wrap' are wanted in opposite contexts, so keep them apart:
+-- prose gets word-wrapping without markers, code gets margin markers without
+-- soft-wrap (long lines scroll horizontally). Either alone never smears.
+local prose_filetypes = { '', 'text', 'markdown', 'gitcommit', 'asciidoc', 'rst' }
+vim.api.nvim_create_augroup('list_wrap_policy', { clear = true })
+vim.api.nvim_create_autocmd({ 'BufWinEnter', 'FileType' }, {
+  group = 'list_wrap_policy',
+  callback = function()
+    if vim.bo.buftype ~= '' then return end -- leave plugin/special buffers alone
+    if vim.tbl_contains(prose_filetypes, vim.bo.filetype) then
+      vim.opt_local.wrap = true
+      vim.opt_local.linebreak = true
+      vim.opt_local.list = false
+    else
+      vim.opt_local.wrap = false
+      vim.opt_local.list = true
+    end
+  end,
+})
+
 -- nvim's detect.conf falls back to filetype=conf for any file whose first
 -- five lines contain '#'. That catches plain prose/notes (e.g. lines
 -- starting with '# Header') and gives them a syntax that highlights
