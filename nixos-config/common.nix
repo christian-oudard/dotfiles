@@ -11,6 +11,7 @@
 {
   # Boot
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Networking (common settings, hostname set per-host)
@@ -103,11 +104,19 @@
     criticalPowerAction = "Hibernate";
   };
 
-  # Weekly nix garbage collection: prune generations older than 30 days
+  # Daily nix garbage collection: prune generations older than 14 days
   nix.gc = {
     automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
+    dates = "daily";
+    options = "--delete-older-than 14d";
+  };
+
+  # Deduplicate the store, and let the daemon GC under disk pressure during
+  # builds so the root partition never fills up between scheduled runs.
+  nix.optimise.automatic = true;
+  nix.settings = {
+    min-free = 5 * 1024 * 1024 * 1024; # start freeing when < 5G free
+    max-free = 20 * 1024 * 1024 * 1024; # free up to 20G
   };
 
   # Graphics.
