@@ -27,10 +27,6 @@
       url = "github:anthropics/claude-plugins-official";
       flake = false;
     };
-    agent-capabilities = {
-      url = "git+ssh://git@github.com/christian-oudard/agent-capabilities";
-      flake = false;
-    };
     persist = {
       url = "github:christian-oudard/persist";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -51,7 +47,6 @@
       codex-cli,
       coding-cave,
       claude-plugins-official,
-      agent-capabilities,
       persist,
       diktat,
       ...
@@ -92,7 +87,6 @@
                   homeDir
                   persist
                   claude-plugins-official
-                  agent-capabilities
                   ;
               })
             ];

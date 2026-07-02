@@ -1,7 +1,6 @@
 {
   persist,
   claude-plugins-official,
-  agent-capabilities,
 }:
 
 rec {
@@ -10,9 +9,6 @@ rec {
     "${claude-plugins-official}/plugins/commit-commands"
     "${claude-plugins-official}/plugins/code-simplifier"
     "${claude-plugins-official}/plugins/frontend-design"
-    "${agent-capabilities}/audio_transcription"
-    "${agent-capabilities}/pdf_conversion"
-    "${agent-capabilities}/website_mirroring"
   ];
 
   # LSP servers consumed by programs.claude-code.lspServers. The

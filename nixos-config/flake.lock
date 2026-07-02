@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "agent-capabilities": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1774452566,
-        "narHash": "sha256-a/0O0Z8wyjRLa9Icvqf5zFj+jD97sa8n7oUM63vbpbU=",
-        "ref": "refs/heads/main",
-        "rev": "37191271381431e4b6685f1236aa41a3977b6a3a",
-        "revCount": 47,
-        "type": "git",
-        "url": "ssh://git@github.com/christian-oudard/agent-capabilities"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/christian-oudard/agent-capabilities"
-      }
-    },
     "claude-code": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -329,7 +313,6 @@
     },
     "root": {
       "inputs": {
-        "agent-capabilities": "agent-capabilities",
         "claude-code": "claude-code",
         "claude-plugins-official": "claude-plugins-official",
         "codex-cli": "codex-cli",

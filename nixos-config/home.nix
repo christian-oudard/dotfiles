@@ -3,7 +3,6 @@
   homeDir,
   persist,
   claude-plugins-official,
-  agent-capabilities,
 }:
 
 {
@@ -16,7 +15,7 @@
 {
   imports =
     let
-      args = { inherit persist claude-plugins-official agent-capabilities; };
+      args = { inherit persist claude-plugins-official; };
     in
     [
       ./modules/neovim.nix
