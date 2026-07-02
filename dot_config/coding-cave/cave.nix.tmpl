@@ -137,5 +137,10 @@
 
       home.file.".config/direnv/direnvrc".text =
         "source ${pkgs.nix-direnv}/share/nix-direnv/direnvrc";
+
+      # Override coding-cave's default statusline (mkDefault) to compose the
+      # model class and context% (from Claude Code's JSON) onto the byline
+      # and persist segments. executable stays true from cave-system.
+      home.file.".claude/statusline.sh".source = cave-modules + "/statusline.sh";
     };
 }
