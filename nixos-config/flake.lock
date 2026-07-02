@@ -91,11 +91,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783018824,
-        "narHash": "sha256-kYkSeYa8btMnzmOyQoAr/vezQLqeTIKz7l1Haw2voH0=",
+        "lastModified": 1783025294,
+        "narHash": "sha256-dtL5L318oha+MujeeACfAy23IjsvcekHuqaiMLZobac=",
         "ref": "refs/heads/main",
-        "rev": "3d926e12695c9f1f205f7dc3e1503b849f954be8",
-        "revCount": 161,
+        "rev": "f3da89c5476ac48ff3c6e479f2461b5e1f4efb7b",
+        "revCount": 163,
         "type": "git",
         "url": "ssh://git@github.com/christian-oudard/coding-cave"
       },
