@@ -1,0 +1,9 @@
+#!/bin/sh
+# Force plain qwerty (XKB group 0) while a game runs, then restore dvorak.
+# Wine detects the layout from group 0 at startup, so dvorak WASD would
+# otherwise map to the wrong keys. Use as a Steam launch option:
+#   qwerty-game %command%
+restore() { swaymsg 'input "type:keyboard" xkb_variant "dvorak,"' >/dev/null; }
+trap restore EXIT INT TERM
+swaymsg 'input "type:keyboard" xkb_variant ""' >/dev/null
+"$@"
