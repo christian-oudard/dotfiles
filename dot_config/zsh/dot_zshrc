@@ -57,11 +57,6 @@ function nix_shell_status {
     echo "(nix) "
   fi
 }
-function cave_status {
-  if [[ -n "$CODING_CAVE_VERSION" ]]; then
-    echo "(cave${CODING_CAVE_SESSION_INDEX}) "
-  fi
-}
 function vcs_head {
   local info
   info=$(jj log --no-graph -r 'latest(::@ & (bookmarks() | remote_bookmarks()))' \
@@ -77,7 +72,8 @@ function width {
   echo $(( COLUMNS - 24 ))
 }
 function user_host {
-  if [[ -n "$SSH_CONNECTION" || "$USER" != "$LOGNAME" ]]; then
+  if [[ -n "$SSH_CONNECTION" || "$USER" != "$LOGNAME" \
+        || ("$HOST" != "cantor" && "$HOST" != "dedekind") ]]; then
     echo "%n@%m"
   fi
 }
@@ -90,7 +86,7 @@ function basic_prompt {
 }
 PROMPT='%F{237}$(hline)'$'\n''%K{237}$(basic_prompt)%f%k '
 PROMPT2='%K{237}%F{4}%_>%f%k '
-RPROMPT='%F{5}$(last_exit_code)$(vcs_head)$(cave_status)$(nix_shell_status)$(venv_status)%$(width)<…<%~%<<%f'
+RPROMPT='%F{5}$(last_exit_code)$(vcs_head)$(nix_shell_status)$(venv_status)%$(width)<…<%~%<<%f'
 
 # Plugins.
 autoload -Uz \
