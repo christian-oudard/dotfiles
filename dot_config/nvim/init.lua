@@ -76,17 +76,17 @@ vim.opt.signcolumn = 'yes'
 vim.opt.mouse = ''
 vim.opt.comments = '://,b:#,:%,n:>,fb:-,fb:•'
 
--- vim-auto-save
-vim.g.auto_save = 1
+-- Auto-save on the host, but not in a coding cave.
+local in_cave = vim.env.CODING_CAVE_VERSION ~= nil
+vim.g.auto_save = in_cave and 0 or 1  -- vim-auto-save plugin
+vim.opt.autowrite = not in_cave
+vim.opt.autowriteall = not in_cave
 
 -- File handling
 vim.opt.backup = false
 vim.opt.swapfile = false
 vim.opt.writebackup = false
 vim.opt.autoread = false
-local in_cave = vim.env.CODING_CAVE_VERSION ~= nil
-vim.opt.autowrite = not in_cave
-vim.opt.autowriteall = not in_cave
 
 -- Persistent undo
 vim.opt.undofile = true
