@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783124463,
-        "narHash": "sha256-rIawyN3+D9uqGmoYpTLZ2D6PYEp8xPykto8Uu+ER830=",
+        "lastModified": 1784074506,
+        "narHash": "sha256-yYvzj9DESxJQUcddQ/wPefamf4DGW/tyJhApUjPlN0M=",
         "owner": "sadjow",
         "repo": "claude-code-nix",
-        "rev": "9b05ec91a00ee8edea17b9279d55a5c1f084d754",
+        "rev": "1bb3066b2114f325fe1b9d23c239b2146481deef",
         "type": "github"
       },
       "original": {
@@ -30,11 +30,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780369239,
-        "narHash": "sha256-1hpcdHjLYsdBGzOYK/r1l+UvPrtkgt3wVhLF9D5OWmI=",
+        "lastModified": 1784074506,
+        "narHash": "sha256-yYvzj9DESxJQUcddQ/wPefamf4DGW/tyJhApUjPlN0M=",
         "owner": "sadjow",
         "repo": "claude-code-nix",
-        "rev": "3cc73775ecceb02a798519a5527f4eb400c8c8e4",
+        "rev": "1bb3066b2114f325fe1b9d23c239b2146481deef",
         "type": "github"
       },
       "original": {
@@ -91,11 +91,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783219545,
-        "narHash": "sha256-8jvxjcYE/rLHR1aXVFaCdcmw38Fipe25M5LgUvhEsTk=",
+        "lastModified": 1784129782,
+        "narHash": "sha256-sdwd7tMcfxhOJWNwgAb4Du9qraDTgk6DV6hlT/CAKxY=",
         "ref": "refs/heads/main",
-        "rev": "11d9c6517127f2914df5f2ae231790b9ceb77e11",
-        "revCount": 168,
+        "rev": "3728a1f8d59a13c0e31e7ccfd683aa359bdd941a",
+        "revCount": 173,
         "type": "git",
         "url": "ssh://git@github.com/christian-oudard/coding-cave"
       },
@@ -127,11 +127,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782841984,
-        "narHash": "sha256-K+egAtNMsKUYn5eNkj8L3UhJ8ATJdhPn7uD4k7/Vnoc=",
+        "lastModified": 1784050646,
+        "narHash": "sha256-EIzZyGinpNJLmOWx6wERxZrTPTZ60knzVuEV2irfAKU=",
         "owner": "christian-oudard",
         "repo": "crinj",
-        "rev": "5fba79547695867c7c3cf4922b5593570c04114c",
+        "rev": "a5ba044b37adbe9e217f1cb037def80ebe3f9e37",
         "type": "github"
       },
       "original": {
@@ -298,11 +298,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783018119,
-        "narHash": "sha256-Va/t9Pt3l3SudBY7P9B0CHDnv39VGDAuS+sXG0kwQ1o=",
+        "lastModified": 1784129564,
+        "narHash": "sha256-8qnvdeivmv9rAl+F8nvOZoqWXPWbOfyRVXY99TAApII=",
         "owner": "christian-oudard",
         "repo": "persist",
-        "rev": "10e8f591c8eba1d11cb8e71d7b5f10cdfd619ada",
+        "rev": "bbcc80c58382f916e1beddb8873175394bb2aeec",
         "type": "github"
       },
       "original": {
