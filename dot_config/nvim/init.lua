@@ -84,8 +84,9 @@ vim.opt.backup = false
 vim.opt.swapfile = false
 vim.opt.writebackup = false
 vim.opt.autoread = false
-vim.opt.autowrite = true
-vim.opt.autowriteall = true
+local in_cave = vim.env.CODING_CAVE_VERSION ~= nil
+vim.opt.autowrite = not in_cave
+vim.opt.autowriteall = not in_cave
 
 -- Persistent undo
 vim.opt.undofile = true
