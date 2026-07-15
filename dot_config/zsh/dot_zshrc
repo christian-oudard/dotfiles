@@ -78,6 +78,7 @@ function user_host {
   fi
 }
 function basic_prompt {
+  # Use a red-colored prompt if I am root.
   if [[ $EUID -eq 0 ]]; then
     echo "%F{1}$(user_host)#"
   else
