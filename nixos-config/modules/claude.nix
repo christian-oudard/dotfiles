@@ -88,7 +88,6 @@ rec {
     };
     permissions = {
       allow = [
-        "Write(/tmp/claude/**)"
         "Edit(/tmp/claude/**)"
         "Bash(rg:*)"
         "Bash(ls:*)"
@@ -238,7 +237,8 @@ rec {
   # matcher is the notification_type, scoped to permission_prompt so the 60s
   # idle_prompt does not ring. The bell command differs per environment
   # (host uses /proc/$PPID, the cave uses cav-host), so it is passed in.
-  bellHooks = bellCmd:
+  bellHooks =
+    bellCmd:
     let
       # Stop also fires on iterations that a persist loop re-injects, so
       # stay silent while `persist active` reports a live session. persist
@@ -246,19 +246,41 @@ rec {
       # still rings; `persist active` also treats an expired-but-uncleaned
       # session as inactive, so a stale state file does not mute the bell.
       stopCmd = "persist active || ${bellCmd}";
-    in {
-    Stop = [{
-      hooks = [{ type = "command"; command = stopCmd; }];
-    }];
-    PreToolUse = [{
-      matcher = "AskUserQuestion";
-      hooks = [{ type = "command"; command = bellCmd; }];
-    }];
-    Notification = [{
-      matcher = "permission_prompt";
-      hooks = [{ type = "command"; command = bellCmd; }];
-    }];
-  };
+    in
+    {
+      Stop = [
+        {
+          hooks = [
+            {
+              type = "command";
+              command = stopCmd;
+            }
+          ];
+        }
+      ];
+      PreToolUse = [
+        {
+          matcher = "AskUserQuestion";
+          hooks = [
+            {
+              type = "command";
+              command = bellCmd;
+            }
+          ];
+        }
+      ];
+      Notification = [
+        {
+          matcher = "permission_prompt";
+          hooks = [
+            {
+              type = "command";
+              command = bellCmd;
+            }
+          ];
+        }
+      ];
+    };
 
   # Home-manager module that wires the data above through programs.claude-code
   # and writes an editable settings.json on activation. Other consumers can
@@ -289,8 +311,9 @@ rec {
 
       home.activation.claudeSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         ${pkgs.jq}/bin/jq . \
-          ${pkgs.writeText "claude-settings.json"
-            (builtins.toJSON (settings // { hooks = bellHooks bellCmd; }))} \
+          ${
+            pkgs.writeText "claude-settings.json" (builtins.toJSON (settings // { hooks = bellHooks bellCmd; }))
+          } \
           > "$HOME/.claude/settings.json"
         chmod 644 "$HOME/.claude/settings.json"
       '';
