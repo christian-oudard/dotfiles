@@ -72,7 +72,7 @@ rec {
   # Bell hooks are added per-consumer via bellHooks, since the bell command
   # is environment-specific.
   settings = {
-    model = "fable";
+    model = "opus";
     effortLevel = "high";
     alwaysThinkingEnabled = true;
     promptSuggestionEnabled = false;
