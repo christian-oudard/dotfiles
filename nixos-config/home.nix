@@ -95,6 +95,7 @@
     brave
     signal-desktop
     karere
+    vesktop
 
     # Terminal utilities
     dust
