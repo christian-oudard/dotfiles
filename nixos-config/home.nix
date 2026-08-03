@@ -113,6 +113,23 @@
 
   programs.home-manager.enable = true;
 
+  # Dictation daemon. It holds the speech model in RAM for the whole session so
+  # the first toggle records with no load delay, and it never exits on its own.
+  # Sway starts it, since that is where WAYLAND_DISPLAY and SWAYSOCK come from.
+  # ExecStart pins a store path, so a diktat upgrade changes this unit and
+  # home-manager's sd-switch restarts it during activation.
+  systemd.user.services.diktat = {
+    Unit.Description = "diktat dictation daemon";
+    Service = {
+      ExecStart = "${pkgs.diktat}/bin/diktat-daemon";
+      Restart = "on-failure";
+      RestartSec = 2;
+      # Settles at about 680 MB in use, peaking near 735 MB on a full-length
+      # utterance. This is a backstop against a runaway, not a working limit.
+      MemoryMax = "1500M";
+    };
+  };
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;

@@ -215,6 +215,13 @@ bindsym XF86MonBrightnessDown exec brightnessctl -e set 5%-
 # Use PrtSc button to take a screenshot with `grim`.
 bindsym Print exec env GRIM_DEFAULT_DIR=$HOME/screenshots grim -g "$(slurp)"
 
+# Start the dictation daemon, which stays resident for the whole session.
+# Restart rather than start, so it picks up this session's WAYLAND_DISPLAY.
+# exec_always rather than exec, so `swaymsg reload` picks up a new build
+# without logging out; plain exec only runs at session start.
+exec_always systemctl --user import-environment WAYLAND_DISPLAY SWAYSOCK && \
+    systemctl --user restart diktat.service
+
 # Toggle dictation (Assistant key on some keyboards, Favorites/star on others).
 bindsym XF86Assistant exec diktat-toggle
 bindsym XF86Favorites exec diktat-toggle
