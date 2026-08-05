@@ -96,6 +96,7 @@
     signal-desktop
     karere
     vesktop
+    obsidian
 
     # Terminal utilities
     dust
