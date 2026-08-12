@@ -17,6 +17,9 @@
   # Networking (common settings, hostname set per-host)
   networking.networkmanager.enable = true;
 
+  # Tailscale mesh VPN. Join the tailnet with `sudo tailscale up`.
+  services.tailscale.enable = true;
+
   # Locale and timezone
   time.timeZone = "US/Mountain";
   i18n.defaultLocale = "en_US.UTF-8";
