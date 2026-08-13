@@ -29,11 +29,6 @@ local servers = {
                       config = { on_attach = on_attach } },
     rust_analyzer = { filetypes = {'rust'},       cmd = 'rust-analyzer',
                       config = { on_attach = on_attach } },
-    nil_ls        = { filetypes = {'nix'},        cmd = 'nil',
-                      config = {
-                          on_attach = on_attach,
-                          settings = { ['nil'] = { formatting = { command = { 'nixfmt' } } } },
-                      } },
 }
 
 for name, spec in pairs(servers) do
