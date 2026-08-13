@@ -68,6 +68,7 @@
     nodejs
     jq
     typescript-language-server
+    nil
     nixfmt
     rustup
     google-cloud-sdk

@@ -59,6 +59,12 @@ rec {
         ".lean" = "lean";
       };
     };
+    nil = {
+      command = "nil";
+      extensionToLanguage = {
+        ".nix" = "nix";
+      };
+    };
   };
 
   # Custom skills, one <name>/SKILL.md per directory under claude/skills/,
