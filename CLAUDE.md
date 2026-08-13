@@ -85,8 +85,14 @@ Unfree packages are allowed globally via `dot_config/nixpkgs/config.nix`.
 - `common.nix` - system config shared by all hosts (greetd, XKB, minimal packages)
 - `backup.nix` - daily restic backups to GCS via systemd timer
 - `home.nix` - home-manager config (packages only, dotfiles via chezmoi)
-- `claude.nix` - Claude Code settings (model, permissions, hooks, plugins) shared between host and cave
-- `gen-cave.nix` - generates `~/.config/coding-cave/cave.nix` (the cave sandbox config) from `claude.nix`
+- `modules/claude.nix` - Claude Code settings (model, permissions, hooks, plugins, LSP servers) shared between host and cave
+- `modules/claude/skills/<name>/SKILL.md` - custom skills, surfacing as `/<name>` (no nix change needed to add one)
+- `modules/neovim.nix` - neovim module, imported by `home.nix` on the host and by the cave
+- `modules/zsh.nix` - cave-only zsh module (on the host, chezmoi installs the zsh config directly)
+
+The cave sandbox config (`~/.config/coding-cave/cave.nix`) comes from the
+`coding-cave` flake input, which pulls these modules back in via its own
+`dotfiles` input.
 
 ### Testing Changes (without sudo)
 
@@ -103,12 +109,14 @@ After making changes, run `sudo nixos-rebuild switch` (works from anywhere,
 
 ### Neovim Setup
 
-Plugins managed via `programs.neovim.plugins` in `nixos-config/home.nix`. Config files in chezmoi dotfiles repo.
-LSP servers installed as packages: pyright, rust-analyzer, ruff, typescript-language-server
+Plugins managed via `programs.neovim.plugins` in `nixos-config/modules/neovim.nix`. Config files in chezmoi dotfiles repo.
+LSP servers installed as packages: pyright, rust-analyzer, ruff, typescript-language-server.
+Neovim's client-side wiring is in `dot_config/nvim/lua/lsp.lua`; this is separate
+from the LSP servers Claude Code itself uses (`lspServers` in `modules/claude.nix`).
 
 ## Tests
 
-`nixos-config/check_build.sh` runs `nix eval` on every host (syntax + eval check, no package downloads) and `test_build.py`, which guards the SSL CA bundle foot-gun. Run it after any change to `nixos-config/`.
+`nixos-config/check_build.sh` runs `nix eval` on every host (syntax + eval check, no package downloads) and `system_tests/test_build.py`, which guards the SSL CA bundle foot-gun. Run it after any change to `nixos-config/`.
 
 Keep the test suite minimal. Do not add tests for routine config changes. Only add a test when there is a specific, non-obvious foot-gun that nix evaluation will not catch on its own.
 
