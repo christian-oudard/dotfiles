@@ -26,6 +26,7 @@
   home.stateVersion = "24.11";
 
   home.pointerCursor = {
+    enable = true;
     name = "Adwaita";
     package = pkgs.adwaita-icon-theme;
     size = 32;

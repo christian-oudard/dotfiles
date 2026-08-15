@@ -5,11 +5,13 @@
 
 rec {
   # Static plugin paths (persist is added in each module because it needs pkgs).
-  pluginPaths = [
-    "${claude-plugins-official}/plugins/commit-commands"
-    "${claude-plugins-official}/plugins/code-simplifier"
-    "${claude-plugins-official}/plugins/frontend-design"
-  ];
+  # Keyed by plugin name: deriving names from store paths yields unstable
+  # directory names like `bxa1s0m3h4sh-source`.
+  pluginPaths = {
+    commit-commands = "${claude-plugins-official}/plugins/commit-commands";
+    code-simplifier = "${claude-plugins-official}/plugins/code-simplifier";
+    frontend-design = "${claude-plugins-official}/plugins/frontend-design";
+  };
 
   # LSP servers consumed by programs.claude-code.lspServers. The
   # home-manager module synthesizes a plugin dir with .lsp.json and
@@ -236,7 +238,7 @@ rec {
   # bin/persist on the login PATH, so the stop bell's bare `persist active`
   # resolves in a hook (hooks get a PATH without plugin bins).
   persistPkg = pkgs: import persist { inherit pkgs; };
-  pluginsFor = pkgs: pluginPaths ++ [ (persistPkg pkgs) ];
+  pluginsFor = pkgs: pluginPaths // { persist = persistPkg pkgs; };
 
   # Bell triggers for "agent needs you" moments: the turn ending (Stop), a
   # question (AskUserQuestion), or a permission prompt. The Notification
@@ -306,7 +308,7 @@ rec {
     {
       # Install plugins shipped as packages (persist); path-string plugins
       # have no package to install, so filter them out.
-      home.packages = builtins.filter lib.isDerivation (pluginsFor pkgs);
+      home.packages = builtins.filter lib.isDerivation (lib.attrValues (pluginsFor pkgs));
 
       programs.claude-code = {
         enable = true;
