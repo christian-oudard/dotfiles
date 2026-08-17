@@ -148,11 +148,11 @@
         "transcribe-cpp": "transcribe-cpp"
       },
       "locked": {
-        "lastModified": 1786777234,
-        "narHash": "sha256-tZ8pNHOi/XOTGUUW2zQHqKtAsYsK9EpEurb+1JWlO8A=",
+        "lastModified": 1787033180,
+        "narHash": "sha256-6mP9sFthZf716j3n/tgtKudac+AukKCxLtoxiUKzkc0=",
         "owner": "christian-oudard",
         "repo": "diktat",
-        "rev": "60a7ce493f4de694a38bdfa5a99c51ef89b2f676",
+        "rev": "2b42925d9b2766c44111b2173a5374d0e158891d",
         "type": "github"
       },
       "original": {
