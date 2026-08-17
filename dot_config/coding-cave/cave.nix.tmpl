@@ -83,6 +83,11 @@
 
       programs.git.ignores = pkgs.lib.splitString "\n" (builtins.readFile git-ignore);
 
+      # Caves default to UTC so the host's region stays outside the sandbox.
+      # Matches time.timeZone in nixos-config/common.nix, so an agent's clock
+      # and the host's agree.
+      coding-cave.timeZone = "US/Mountain";
+
       # rust-analyzer resolves std/core/alloc from the stdlib source, which
       # nixpkgs rustc's sysroot omits. cav injects home.sessionVariables into
       # the agent namespace (env.json -> bwrap --setenv), so the LSP server
