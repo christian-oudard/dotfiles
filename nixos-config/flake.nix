@@ -62,9 +62,6 @@
       overlay-codex-cli = final: prev: {
         codex-cli = codex-cli.packages.${system}.default;
       };
-      overlay-diktat = final: prev: {
-        diktat = diktat.packages.${system}.default;
-      };
       commonModules = [
         home-manager.nixosModules.home-manager
         coding-cave.nixosModules.codingCave
@@ -72,7 +69,6 @@
           nixpkgs.overlays = [
             overlay-claude-code
             overlay-codex-cli
-            overlay-diktat
           ];
         }
         {
@@ -81,6 +77,9 @@
           home-manager.useUserPackages = true;
           home-manager.users.${username} = {
             imports = [
+              # The dictation daemon: its own flake ships the package and the
+              # systemd unit together.
+              diktat.homeManagerModules.default
               (import ./home.nix {
                 inherit
                   username

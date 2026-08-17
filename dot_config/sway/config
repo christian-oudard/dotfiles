@@ -215,19 +215,21 @@ bindsym XF86MonBrightnessDown exec brightnessctl -e set 5%-
 # Use PrtSc button to take a screenshot with `grim`.
 bindsym Print exec env GRIM_DEFAULT_DIR=$HOME/screenshots grim -g "$(slurp)"
 
-# Start the dictation daemon, which stays resident for the whole session.
-# Restart rather than start, so it picks up this session's WAYLAND_DISPLAY.
-# exec_always rather than exec, so `swaymsg reload` picks up a new build
-# without logging out; plain exec only runs at session start.
-exec_always systemctl --user import-environment WAYLAND_DISPLAY SWAYSOCK && \
-    systemctl --user restart diktat.service
+# Start the dictation daemon, which holds the speech model for the session.
+# Via systemd rather than directly, so it gets restarts, a memory ceiling and
+# logs, and because `start` is idempotent where a bare exec_always would leave
+# a reload with two daemons. greetd starts sway from a tty, so the graphical
+# targets the unit hangs off are never reached without this.
+exec_always systemctl --user start diktat.service
+exec swaymsg -t subscribe '["shutdown"]' && \
+    systemctl --user stop diktat.service
 
 # Toggle dictation (Assistant key on some keyboards, Favorites/star on others).
-bindsym XF86Assistant exec diktat-toggle
-bindsym XF86Favorites exec diktat-toggle
+bindsym XF86Assistant exec diktat toggle
+bindsym XF86Favorites exec diktat toggle
 # Repeat dictation (share screen key or hangup phone key).
-bindcode 455 exec diktat-repeat
-bindsym XF86HangupPhone exec diktat-repeat
+bindcode 455 exec diktat repeat
+bindsym XF86HangupPhone exec diktat repeat
 
 # Start gnome-keyring secrets daemon (secrets only, not ssh — we use ssh-agent).
 exec eval $(gnome-keyring-daemon --components=secrets)

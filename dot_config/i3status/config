@@ -24,7 +24,7 @@ order += "battery all"
 order += "tztime local"
 
 read_file dictation {
-  path = "/tmp/diktat-status"
+  path = "~/.local/state/diktat/status"
   format = "%content"
   format_bad = ""
 }
