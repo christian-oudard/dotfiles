@@ -122,6 +122,14 @@
     max-free = 20 * 1024 * 1024 * 1024; # free up to 20G
   };
 
+  # A GitHub token, so `github:` flake inputs are not capped at the 60/hour
+  # per-IP limit for anonymous api.github.com requests. Kept out of the store:
+  # nix.settings would render the token into world-readable /etc/nix/nix.conf.
+  # `!include` is the optional form, so a host without the file still builds.
+  nix.extraOptions = ''
+    !include /etc/nix/access-tokens.conf
+  '';
+
   # Graphics.
   hardware.graphics.enable = true;
 
