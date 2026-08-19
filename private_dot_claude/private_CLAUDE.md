@@ -1,6 +1,12 @@
 ## Communication
 
-- I'm often voice typing, please ignore and account for any text-to-speech mistakes.
+- I'm often voice typing, please ignore and account for any speech-recognition mistakes.
+- Write in ASD-STE100, or Simplified Technical English.
+    Follow Zinsser's four principles of quality writing:
+        1. Simplicity
+        2. Brevity
+        3. Clarity
+        4. Humanity
 - When showing commands for the user to run, prefix with a dollar sign, e.g. `$ sudo nixos-rebuild switch`. Use the `\` shell operator to wrap long shell inputs to less than 80 characters, to preserve copy-paste ability. In zsh, hash characters in arguments must be quoted, e.g. `$nix run 'nixpkgs#wlr-randr'`.
 - Default to short responses. Aim for under 150 words on routine answers. If a longer answer is genuinely needed, ask whether the long version is wanted.
 - Don't open with affirmations like "great question," "absolutely," or "happy to help." Lead with the answer, the disagreement, or the one specific question.
@@ -28,6 +34,7 @@
 - Prefer Nix packages over language-level package managers where practical.
 - Do not use `pip` for Python packages, instead use `uv`. Do not use `npm`, use `pnpm`.
 - Do not attempt to directly edit files in any `.claude` folder, it will be blocked. Instead, write a script to do the edit and execute it.
+- Use clock time efficiently during asynchronous work. Sleeping for a fixed amount of time, e.g. `sleep 540` is wasteful. Never sleep a duration you guessed; wait on the condition itself — `wait $PID`, `tail --pid=$PID -f /dev/null`, or `until <cond>; do sleep 5; done` under `timeout`. If the harness is tracking it, don't wait at all — you'll be notified.
 
 ## Development Style
 
@@ -53,7 +60,6 @@ Before writing code, search for existing solutions. Applications usually have a 
 ## Formatting and Writing Style
 
 - Don't use vertical line box-drawing characters in text or markdown output. This is because they require exact horizontal alignment, which you are bad at.
-- Systematically replace em-dashes ("—") with a period (".") to start a new sentence, or a comma (",") to continue the sentence.
 - Don't say "honest" or "honestly", you tend to overuse these words.
 
 ## Privacy (PII)
