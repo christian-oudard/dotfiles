@@ -81,7 +81,7 @@ rec {
   # is environment-specific.
   settings = {
     model = "opus";
-    effortLevel = "high";
+    effortLevel = "xhigh";
     alwaysThinkingEnabled = true;
     promptSuggestionEnabled = false;
     tui = "fullscreen";
