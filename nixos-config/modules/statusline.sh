@@ -17,6 +17,9 @@ case "$id" in
     *haiku*)  model=Haiku ;;
     *)        model=$(printf '%s' "$input" | jq -r '.model.display_name // empty') ;;
 esac
+# Effort level (/effort), e.g. xhigh. Absent on models without effort levels.
+effort=$(printf '%s' "$input" | jq -r '.effort.level // empty')
+[ -n "$model" ] && [ -n "$effort" ] && model="$model $effort"
 [ -n "$model" ] && line="$line · $model"
 
 # Context window fill, pre-calculated by Claude Code (0-100).
