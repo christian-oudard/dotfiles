@@ -1,3 +1,10 @@
+# The headless part of the user environment: shells, editor, language
+# tooling, terminal utilities. Everything that is useful over SSH and nothing
+# that needs a screen; the graphical layer is home/desktop.nix.
+#
+# Exported from the flake as homeModules.core and imported by hosts outside
+# this repository, so nothing here may reference the private coding-cave
+# input.
 {
   username,
   homeDir,
@@ -18,21 +25,13 @@
       args = { inherit persist claude-plugins-official; };
     in
     [
-      ./modules/neovim.nix
-      (import ./modules/claude.nix args).module
+      ../modules/neovim.nix
+      (import ../modules/claude.nix args).module
     ];
   home.username = username;
   home.homeDirectory = homeDir;
-  home.stateVersion = "24.11";
-
-  home.pointerCursor = {
-    enable = true;
-    name = "Adwaita";
-    package = pkgs.adwaita-icon-theme;
-    size = 32;
-    gtk.enable = true;
-    x11.enable = true;
-  };
+  # No home.stateVersion here. It records when a profile was first activated,
+  # which each importer knows and this file does not.
 
   home.packages = with pkgs; [
     # Basic
@@ -74,30 +73,6 @@
     google-cloud-sdk
     sqlite
 
-    # Sway desktop (config via chezmoi)
-    sway
-    foot
-    bemenu
-    j4-dmenu-desktop
-    swaylock
-    swaybg
-    wl-clipboard
-    wtype
-    grim
-    slurp
-    brightnessctl
-    mako
-    libnotify
-    batsignal
-    i3status
-    pulsemixer
-    wev
-    brave
-    signal-desktop
-    karere
-    vesktop
-    obsidian
-
     # Terminal utilities
     dust
     fd
@@ -114,15 +89,8 @@
 
   programs.home-manager.enable = true;
 
-  # The unit comes from the diktat flake; only the ceiling is this machine's,
-  # since what the daemon holds is the model it was pointed at. Settles at
-  # about 680 MB in use with that one, peaking near 735 MB on a full-length
-  # utterance. This is a backstop against a runaway, not a working limit.
-  systemd.user.services.diktat.Service.MemoryMax = "1500M";
-
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
   };
-
 }

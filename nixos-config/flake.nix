@@ -56,44 +56,52 @@
       username = "christian";
       homeDir = "/home/${username}";
       specialArgs = { inherit username homeDir; };
-      overlay-claude-code = final: prev: {
+      overlay = final: prev: {
         claude-code = claude-code.packages.${system}.default;
-      };
-      overlay-codex-cli = final: prev: {
         codex-cli = codex-cli.packages.${system}.default;
       };
+      homeCore = import ./home/core.nix {
+        inherit
+          username
+          homeDir
+          persist
+          claude-plugins-official
+          ;
+      };
+      homeDesktop = import ./home/desktop.nix { inherit diktat; };
       commonModules = [
         home-manager.nixosModules.home-manager
         coding-cave.nixosModules.codingCave
-        {
-          nixpkgs.overlays = [
-            overlay-claude-code
-            overlay-codex-cli
-          ];
-        }
+        { nixpkgs.overlays = [ overlay ]; }
         {
           home-manager.useGlobalPkgs = true;
           home-manager.backupFileExtension = "hm-backup";
           home-manager.useUserPackages = true;
           home-manager.users.${username} = {
             imports = [
-              # The dictation daemon: its own flake ships the package and the
-              # systemd unit together.
-              diktat.homeManagerModules.default
-              (import ./home.nix {
-                inherit
-                  username
-                  homeDir
-                  persist
-                  claude-plugins-official
-                  ;
-              })
+              homeCore
+              homeDesktop
             ];
+            # When these profiles were first activated. core.nix leaves it
+            # unset on purpose; each importer states its own.
+            home.stateVersion = "24.11";
           };
         }
       ];
     in
     {
+      # The headless subset, for hosts outside this repository: the zeal cloud
+      # workstation imports all three. Nothing reachable from these may
+      # reference the private coding-cave input, or a consumer holding no
+      # GitHub credential cannot evaluate. coding-cave and the desktop belong
+      # in laptop.nix and the wiring above, which stay unexported.
+      nixosModules.common = ./common.nix;
+      homeModules = {
+        core = homeCore;
+        desktop = homeDesktop;
+      };
+      overlays.default = overlay;
+
       nixosConfigurations.dedekind = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
         modules = [

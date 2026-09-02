@@ -10,6 +10,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../common.nix
+    ../../laptop.nix
     ../../backup.nix
   ];
 
