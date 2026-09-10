@@ -8,11 +8,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1788285734,
-        "narHash": "sha256-/cwJ6Wa/hrurskanEPtwhW05ml1Lqzlh+Dd4fdApd5Y=",
+        "lastModified": 1788987690,
+        "narHash": "sha256-/TSj85TBwXmytliESwnhHrlFAIw2pwSOgAmI0MNCGQk=",
         "owner": "sadjow",
         "repo": "claude-code-nix",
-        "rev": "6b3711f18290d449fb40d98db56af2ff92a7f045",
+        "rev": "72091e21c74c14ccb6554a76e4416608039b289d",
         "type": "github"
       },
       "original": {
