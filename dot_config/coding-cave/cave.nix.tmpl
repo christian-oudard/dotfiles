@@ -72,7 +72,14 @@
       # defaults (model, statusline, marketplace, ...) compose cleanly.
       coding-cave.claude-code = {
         plugins = claude.pluginsFor pkgs;
-        extraSettings = claude.settings;
+        extraSettings = claude.settings // {
+          # Overrides cave-system's mkOptionDefault to pass the cave byline
+          # command; the shared script prints no byline without it.
+          statusLine = claude.statusLineFor [
+            "cav-host"
+            "agent-tag"
+          ];
+        };
         # The cave module owns programs.claude-code.skills, so contribute
         # ours through a bundle rather than setting that option directly.
         bundles = [ { src = claude.skillsSrc; } ];

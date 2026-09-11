@@ -77,6 +77,16 @@ rec {
   skillsSrc = ./claude;
   skills = skillsSrc + "/skills";
 
+  # Statusline: one shared assembly script, installed by each consumer at
+  # ~/.claude/statusline.sh, plus a byline command passed as arguments. The
+  # byline is environment-specific (the cave names its agent, the host has
+  # nothing to name), so it stays out of the shared settings below.
+  statuslineSrc = ./statusline.sh;
+  statusLineFor = bylineArgs: {
+    type = "command";
+    command = builtins.concatStringsSep " " ([ "~/.claude/statusline.sh" ] ++ bylineArgs);
+  };
+
   # Bell hooks are added per-consumer via bellHooks, since the bell command
   # is environment-specific.
   settings = {
@@ -317,10 +327,23 @@ rec {
         inherit lspServers skills;
       };
 
+      home.file.".claude/statusline.sh" = {
+        source = statuslineSrc;
+        executable = true;
+      };
+
       home.activation.claudeSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         ${pkgs.jq}/bin/jq . \
           ${
-            pkgs.writeText "claude-settings.json" (builtins.toJSON (settings // { hooks = bellHooks bellCmd; }))
+            pkgs.writeText "claude-settings.json" (
+              builtins.toJSON (
+                settings
+                // {
+                  hooks = bellHooks bellCmd;
+                  statusLine = statusLineFor [ ];
+                }
+              )
+            )
           } \
           > "$HOME/.claude/settings.json"
         chmod 644 "$HOME/.claude/settings.json"
