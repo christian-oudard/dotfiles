@@ -15,7 +15,7 @@
 
 {
   # Locale and timezone
-  time.timeZone = "US/Mountain";
+  time.timeZone = "US/Pacific";
   i18n.defaultLocale = "en_US.UTF-8";
 
   # The account. Hardware-dependent group memberships come from laptop.nix;

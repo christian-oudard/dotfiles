@@ -83,6 +83,7 @@
     ripgrep
     tree
     ttyd
+    viddy
     wget
     unzip
   ];
