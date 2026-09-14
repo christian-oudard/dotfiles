@@ -1,5 +1,5 @@
 history_file = false
 
-[paste_methods]
+[typing_methods]
 foot = "C-S-v"
 brave-browser = "C-v"
