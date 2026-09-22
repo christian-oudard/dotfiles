@@ -8,11 +8,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1788987690,
-        "narHash": "sha256-/TSj85TBwXmytliESwnhHrlFAIw2pwSOgAmI0MNCGQk=",
+        "lastModified": 1790096491,
+        "narHash": "sha256-zeY26igEw0G1GnVe1fA8pa/+q7mxanzCUV91GUTedzk=",
         "owner": "sadjow",
         "repo": "claude-code-nix",
-        "rev": "72091e21c74c14ccb6554a76e4416608039b289d",
+        "rev": "7e5f1c52ca206b2a3a535ec0e8f89bd1ae5f1afa",
         "type": "github"
       },
       "original": {
@@ -148,11 +148,11 @@
         "transcribe-cpp": "transcribe-cpp"
       },
       "locked": {
-        "lastModified": 1788736561,
-        "narHash": "sha256-fyu3Kk87DQ9UqXBzEPRto3+zfROd3old/OS14ac5HBw=",
+        "lastModified": 1789518094,
+        "narHash": "sha256-ImuoNtar6NgWTFZp76qFOpVbOWFdV5ZN2kdfj3OeEqA=",
         "owner": "christian-oudard",
         "repo": "diktat",
-        "rev": "aaeda4b1add63335b6f1cc8579773fed3a301bf9",
+        "rev": "84b776b47df0a46cffc852afa8686c41aeeadc1d",
         "type": "github"
       },
       "original": {
