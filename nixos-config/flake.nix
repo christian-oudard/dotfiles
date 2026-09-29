@@ -35,6 +35,10 @@
       url = "github:christian-oudard/diktat";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    journal-hours = {
+      url = "github:christian-oudard/journal_hours";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -49,6 +53,7 @@
       claude-plugins-official,
       persist,
       diktat,
+      journal-hours,
       ...
     }:
     let
@@ -59,6 +64,7 @@
       overlay = final: prev: {
         claude-code = claude-code.packages.${system}.default;
         codex-cli = codex-cli.packages.${system}.default;
+        jh = journal-hours.packages.${system}.default;
       };
       homeCore = import ./home/core.nix {
         inherit

@@ -72,6 +72,7 @@
     rustup
     google-cloud-sdk
     sqlite
+    jh
 
     # Terminal utilities
     dust

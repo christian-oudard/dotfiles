@@ -258,6 +258,26 @@
         "type": "github"
       }
     },
+    "journal-hours": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1781713795,
+        "narHash": "sha256-talPnG6lfAJ+8XJYyj3aX96t47Azo0n05LHCpWqyCAM=",
+        "owner": "christian-oudard",
+        "repo": "journal_hours",
+        "rev": "f17ac7ff91e34054181294fec26a631103c7e2f6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "christian-oudard",
+        "repo": "journal_hours",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1786599213,
@@ -303,6 +323,7 @@
         "diktat": "diktat",
         "disko": "disko",
         "home-manager": "home-manager_2",
+        "journal-hours": "journal-hours",
         "nixpkgs": "nixpkgs",
         "persist": "persist"
       }
