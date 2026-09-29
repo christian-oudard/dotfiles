@@ -91,9 +91,15 @@ rec {
   # is environment-specific.
   settings = {
     model = "opus";
-    effortLevel = "xhigh";
-    alwaysThinkingEnabled = true;
+    effortLevel = "high";
     promptSuggestionEnabled = false;
+    # Keep session transcripts; the default deletes them after 30 days.
+    cleanupPeriodDays = 36500;
+    attribution = {
+      commit = "";
+      pr = "";
+      sessionUrl = false;
+    };
     tui = "fullscreen";
     spinnerVerbs = {
       mode = "replace";

@@ -27,6 +27,8 @@ chezmoi edit <file>     # Edit a managed file
 chezmoi add <file>      # Add a file to be managed
 ```
 
+Only the user runs `chezmoi apply` and `sudo nixos-rebuild switch`. Never run either. Edit the source files here, and use `chezmoi diff` to preview.
+
 ## Structure
 
 - `bin/` - Executable scripts installed to `~/bin/`
@@ -104,7 +106,7 @@ New files must be `git add`ed before nix can see them.
 
 ### Activating Changes
 
-After making changes, run `sudo nixos-rebuild switch` (works from anywhere,
+The user runs `sudo nixos-rebuild switch` (works from anywhere,
 `/etc/nixos/flake.nix` is symlinked to this repo).
 
 ### Neovim Setup
