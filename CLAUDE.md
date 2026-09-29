@@ -33,17 +33,18 @@ Only the user runs `chezmoi apply` and `sudo nixos-rebuild switch`. Never run ei
 
 - `bin/` - Executable scripts installed to `~/bin/`
 - `dot_config/` - XDG config directory (`~/.config/`)
-- `private_dot_claude/` - User-level Claude Code settings (`~/.claude/`)
+- `private_dot_claude/` - User-level Claude Code instructions (`~/.claude/`)
 - `.claude/` - Repo-specific Claude Code settings for this dotfiles repo (not managed by chezmoi)
 
 ## Claude Code Settings
 
-Two separate Claude configurations exist here:
+Claude Code is configured from three places:
 
-- **User-level settings** (`private_dot_claude/`): Edit `private_settings.json` and `private_CLAUDE.md` here to change global Claude Code behavior across all projects. These are applied to `~/.claude/` via chezmoi.
+- **User-level instructions** (`private_dot_claude/private_CLAUDE.md`): global Claude Code instructions, applied to `~/.claude/CLAUDE.md` via chezmoi.
+- **User-level settings** (`nixos-config/modules/claude.nix`): model, permissions, hooks, and other `settings.json` values, installed by home-manager.
 - **Repo-specific settings** (`.claude/`): Settings that only apply when working in this dotfiles repository. Not managed by chezmoi.
 
-**Important**: When examining Claude Code settings in this repo, always read the chezmoi source files (`private_dot_claude/private_settings.json`), not the deployed files (`~/.claude/settings.json`).
+**Important**: When examining Claude Code settings, read these source files, not the deployed files in `~/.claude/`.
 
 ## Encryption
 
