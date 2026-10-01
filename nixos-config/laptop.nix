@@ -1,7 +1,6 @@
-# Everything the laptops share that presupposes hardware: a screen, a
-# battery, speakers, a disk this machine boots from. Imported by each host
-# beside common.nix, and never exported; the zeal workstation takes only
-# common.nix.
+# Everything that presupposes hardware: a screen, a battery, speakers, a disk
+# this machine boots from. Imported beside common.nix by the hosts that have
+# them.
 {
   config,
   lib,

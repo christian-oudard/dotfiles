@@ -83,7 +83,7 @@ Unfree packages are allowed globally via `dot_config/nixpkgs/config.nix`.
 
 - `flake.nix` - inputs and module composition
 - `flake.lock` - pinned versions (commit this for reproducibility)
-- `hosts/<host>/configuration.nix` - per-host system config (hosts: `cantor`, `dedekind`)
+- `hosts/<host>/configuration.nix` - per-host system config (hosts: `cantor`, `dedekind`, `zeal`)
 - `hosts/<host>/disk-config.nix` - disko config for LUKS/LVM partitioning
 - `common.nix` - system config shared by all hosts (greetd, XKB, minimal packages)
 - `backup.nix` - daily restic backups to GCS via systemd timer
@@ -119,9 +119,9 @@ from the LSP servers Claude Code itself uses (`lspServers` in `modules/claude.ni
 
 ## Tests
 
-`nixos-config/check_build.sh` runs `nix eval` on every host (syntax + eval check, no package downloads) and `system_tests/test_build.py`, which guards the SSL CA bundle foot-gun. Run it after any change to `nixos-config/`.
+Run `nix flake check` in `nixos-config/` after any change there. It evaluates every host (syntax + eval check, no package downloads) plus the `checks` output, which guards the SSL CA bundle foot-gun. Inside a cave, add `--override-input coding-cave path:/projects/coding-cave --no-write-lock-file`; there is no key to fetch that input with.
 
-Keep the test suite minimal. Do not add tests for routine config changes. Only add a test when there is a specific, non-obvious foot-gun that nix evaluation will not catch on its own.
+Keep the checks minimal. Do not add one for a routine config change. Only add one for a specific, non-obvious foot-gun that nix evaluation will not catch on its own.
 
 Known foot-gun: do not change `security.pki.useCompatibleBundle`, it drops CAs and silently breaks uv's standalone Python (which needs `/etc/ssl/cert.pem`).
 

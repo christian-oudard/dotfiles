@@ -58,6 +58,7 @@
     }:
     let
       system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
       username = "christian";
       homeDir = "/home/${username}";
       specialArgs = { inherit username homeDir; };
@@ -75,39 +76,40 @@
           ;
       };
       homeDesktop = import ./home/desktop.nix { inherit diktat; };
-      commonModules = [
-        home-manager.nixosModules.home-manager
+
+      # The home-manager wiring, which every host needs identically. What
+      # differs is the profiles and the state version, which core.nix leaves
+      # unset so each host states its own.
+      homeManager =
+        { profiles, stateVersion }:
+        [
+          home-manager.nixosModules.home-manager
+          { nixpkgs.overlays = [ overlay ]; }
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.backupFileExtension = "hm-backup";
+            home-manager.useUserPackages = true;
+            home-manager.users.${username} = {
+              imports = profiles;
+              home.stateVersion = stateVersion;
+            };
+          }
+        ];
+
+      # coding-cave is private and fetched over SSH, so only hosts listed with
+      # it here may reach it. Nothing in common.nix or homeCore can.
+      laptopModules = [
         coding-cave.nixosModules.codingCave
-        { nixpkgs.overlays = [ overlay ]; }
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.backupFileExtension = "hm-backup";
-          home-manager.useUserPackages = true;
-          home-manager.users.${username} = {
-            imports = [
-              homeCore
-              homeDesktop
-            ];
-            # When these profiles were first activated. core.nix leaves it
-            # unset on purpose; each importer states its own.
-            home.stateVersion = "24.11";
-          };
-        }
-      ];
+      ]
+      ++ homeManager {
+        profiles = [
+          homeCore
+          homeDesktop
+        ];
+        stateVersion = "24.11";
+      };
     in
     {
-      # The headless subset, for hosts outside this repository: the zeal cloud
-      # workstation imports all three. Nothing reachable from these may
-      # reference the private coding-cave input, or a consumer holding no
-      # GitHub credential cannot evaluate. coding-cave and the desktop belong
-      # in laptop.nix and the wiring above, which stay unexported.
-      nixosModules.common = ./common.nix;
-      homeModules = {
-        core = homeCore;
-        desktop = homeDesktop;
-      };
-      overlays.default = overlay;
-
       nixosConfigurations.dedekind = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
         modules = [
@@ -115,7 +117,7 @@
           disko.nixosModules.disko
           ./hosts/dedekind/configuration.nix
         ]
-        ++ commonModules;
+        ++ laptopModules;
       };
 
       nixosConfigurations.cantor = nixpkgs.lib.nixosSystem {
@@ -124,7 +126,43 @@
           { nixpkgs.hostPlatform = system; }
           ./hosts/cantor/configuration.nix
         ]
-        ++ commonModules;
+        ++ laptopModules;
       };
+
+      nixosConfigurations.zeal = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+        modules = [
+          { nixpkgs.hostPlatform = system; }
+          ./hosts/zeal/configuration.nix
+        ]
+        ++ homeManager {
+          profiles = [ homeCore ];
+          stateVersion = "25.05";
+        };
+      };
+
+      # `nix flake check` evaluates every host above, which is the syntax and
+      # eval check. These are what it would still pass over.
+      checks.${system} =
+        let
+          holds = message: sound: if sound then pkgs.emptyFile else throw message;
+          cert = self.nixosConfigurations.cantor.config.environment.etc."ssl/cert.pem";
+          grub = self.nixosConfigurations.zeal.config.boot.loader.grub;
+          mounts = self.nixosConfigurations.zeal.config.fileSystems;
+        in
+        {
+          # security.pki.useCompatibleBundle being dropped silently empties the
+          # CA bundle and breaks uv's standalone Python.
+          ssl-cert-bundle =
+            holds "ssl/cert.pem no longer points at the NixOS CA bundle: ${cert.source}"
+              (cert.enable && builtins.match ".*ca-(bundle|certificates).*" cert.source != null);
+
+          # Zeal's disk is partitioned for UEFI and the module declaring that is
+          # only in the image build, so the running configuration has to repeat
+          # it. Getting this wrong evaluates fine and fails at switch time.
+          zeal-bootloader =
+            holds "zeal would install GRUB to ${grub.device}, ESP mounted: ${toString (mounts ? "/boot")}"
+              (grub.device == "nodev" && grub.efiSupport && mounts ? "/boot");
+        };
     };
 }

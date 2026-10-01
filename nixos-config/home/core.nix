@@ -2,9 +2,8 @@
 # tooling, terminal utilities. Everything that is useful over SSH and nothing
 # that needs a screen; the graphical layer is home/desktop.nix.
 #
-# Exported from the flake as homeModules.core and imported by hosts outside
-# this repository, so nothing here may reference the private coding-cave
-# input.
+# Taken by every host. Nothing here may reference the private coding-cave
+# input, which not every host has a key to fetch.
 {
   username,
   homeDir,

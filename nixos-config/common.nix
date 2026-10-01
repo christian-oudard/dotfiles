@@ -2,9 +2,9 @@
 # nix machinery, and the glue language tooling needs. Anything that
 # presupposes a screen, a battery or a desk lives in laptop.nix instead.
 #
-# Exported from the flake as nixosModules.common and imported by hosts outside
-# this repository, so nothing here may reference the private coding-cave
-# input, and per-host judgment calls are mkDefault.
+# Taken by every host, so per-host judgment calls are mkDefault. Nothing here
+# may reference the private coding-cave input, which not every host has a key
+# to fetch.
 {
   config,
   lib,
@@ -40,7 +40,7 @@
   };
 
   # Daily nix garbage collection. The retention is mkDefault: fourteen days
-  # suits a laptop disk, and zeal's forty gigabytes wants three.
+  # suits a large disk, and a host with a small one shortens it.
   nix.gc = {
     automatic = true;
     dates = "daily";

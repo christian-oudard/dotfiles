@@ -339,6 +339,9 @@ rec {
       };
 
       home.activation.claudeSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        # Nothing orders this after the step that links .claude/statusline.sh,
+        # so on a home where the directory does not exist yet it must be made.
+        mkdir -p "$HOME/.claude"
         ${pkgs.jq}/bin/jq . \
           ${
             pkgs.writeText "claude-settings.json" (
