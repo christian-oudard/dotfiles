@@ -20,3 +20,8 @@
 	clean = git-lfs clean -- %f
 [advice]
 	skippedCherryPicks = false
+# Last, so it wins. For a machine that has no copy of the signing key above and
+# signs with its own. Git ignores a path that does not exist, so every other
+# machine needs no file here.
+[include]
+    path = config.local
