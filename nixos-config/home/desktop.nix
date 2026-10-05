@@ -49,6 +49,7 @@
     karere
     vesktop
     obsidian
+    transmission_4
   ];
 
   # The unit comes from the diktat flake; only the ceiling is this machine's,
