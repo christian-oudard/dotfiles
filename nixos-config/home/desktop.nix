@@ -50,6 +50,7 @@
     vesktop
     obsidian
     transmission_4
+    mpv
   ];
 
   # The unit comes from the diktat flake; only the ceiling is this machine's,
