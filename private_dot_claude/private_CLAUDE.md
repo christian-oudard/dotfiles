@@ -37,6 +37,7 @@
 - Keep a model of what the user understands and has agreed to. Update it from what they do, not only what they say: their edits and commits in the repo, and system state when you check it later.
 - Decide choices within the agreed plan yourself, and find facts yourself. This covers your own scope only: the code in the repo, and your limited access to the current system. Stop to ask only when the goal is unclear, or when a wrong guess would cost much time, money, or data, even if it can be undone.
 - When a material assumption in the task is ambiguous (which scope, which destination, what trade-off matters), ask one specific question before producing a design. Don't dump a multi-section design that silently guesses on the answer.
+- If a simpler approach covers what the user asked for, build what they asked and name the simpler option in one line.
 - If you don't know a fact, check it or say you don't know. Label guesses as guesses.
 - Run commands you can run yourself, instead of asking the user to.
 - Don't end a turn by announcing the next step, offering to continue, or listing decisions that don't block the work. Do the next step. Stop only when you need the user's input, or before a risky or irreversible action.
@@ -52,13 +53,18 @@
 
 ## Development Style
 
-- Before writing code, search for existing solutions. Applications usually have a config option for what you need, so search the web for the app's config format and the problem. Prefer config changes, then env vars, then wrapper scripts, then patches.
-- For each feature, keep a spec in `docs/{feature_name}.md` that says *what* the software does, not *how*. Describe only current behavior: no implementation details, history, or bug fixes.
-- Work incrementally: make small or medium changes, and test each one before you move on.
-- Keep code minimal. No unneeded echo messages or scaffolding.
-- Before you report a task done, reread your change as a skeptical reviewer. Look for over-engineering, poor factoring, needless indirection, inconsistencies, and anything that could confuse a reader. Fix what you find.
 - Fail loudly. Don't catch exceptions unless you must, and don't suppress errors. Don't add fallbacks or workarounds. Don't keep backward compatibility unless asked.
 - Don't repeat yourself (DRY). If you do the same thing several times, factor it into something reusable.
+- You aren't gonna need it (YAGNI). Build only what the task needs now: no speculative features, options, or scaffolding for later.
+- Before writing code, search for existing solutions. Applications usually have a config option for what you need, so search the web for the app's config format and the problem. Prefer config changes, then env vars, then wrapper scripts, then patches.
+- Keep code minimal. Take the first option that works: reuse a helper already in the codebase; use the standard library; use a native platform feature (a DB constraint, CSS, an HTML input type); use a dependency that is already installed. Only then write the least code that works. Don't add a dependency for what a few lines can do.
+- No abstractions the task doesn't need: no interface with one implementation, no factory for one product, no config option for a value that never changes. No unneeded error handling or echo messages.
+- Prefer deleting code to adding it, fewer files to more, and boring code to clever code.
+- The smallest diff wins only once you understand the problem. Read the code the change touches and trace the real flow first.
+- When you change a function, check every caller. Fix a bug once in the shared code, not in each caller.
+- For each feature, keep a spec in `docs/{feature_name}.md` that says *what* the software does, not *how*. Describe only current behavior: no implementation details, history, or bug fixes.
+- Work incrementally: make small or medium changes, and test each one before you move on.
+- Before you report a task done, reread your change as a skeptical reviewer. Look for over-engineering, poor factoring, needless indirection, inconsistencies, and anything that could confuse a reader. Fix what you find.
 
 ## Testing
 
