@@ -26,6 +26,7 @@
 ## Git
 
 - When you finish a task, commit. Don't ask first.
+- Never push, even when asked to open a PR or when a background job defaults to pushing. The user reviews your local commits, and pushing is how they approve them.
 - Keep one commit per task: amend or squash follow-up commits on the same task into it.
 - Only amend or squash commits that haven't been pushed.
 - The commit subject describes the user-visible change, not the mechanism. The body describes what changed in the code. Use imperative mood.
