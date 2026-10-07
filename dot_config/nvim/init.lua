@@ -76,11 +76,9 @@ vim.opt.signcolumn = 'yes'
 vim.opt.mouse = ''
 vim.opt.comments = '://,b:#,:%,n:>,fb:-,fb:•'
 
--- Auto-save on the host, but not in a coding cave.
-local in_cave = vim.env.CODING_CAVE_VERSION ~= nil
-vim.g.auto_save = in_cave and 0 or 1  -- vim-auto-save plugin
-vim.opt.autowrite = not in_cave
-vim.opt.autowriteall = not in_cave
+vim.g.auto_save = 1  -- vim-auto-save plugin
+vim.opt.autowrite = true
+vim.opt.autowriteall = true
 
 -- File handling
 vim.opt.backup = false

@@ -21,28 +21,6 @@
         "type": "github"
       }
     },
-    "claude-code_2": {
-      "inputs": {
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": [
-          "coding-cave",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1784758749,
-        "narHash": "sha256-rNwvRrqedbd6jspIckIb5brLrAWmdOMqhqxLORTVx8Q=",
-        "owner": "sadjow",
-        "repo": "claude-code-nix",
-        "rev": "1343337ba7dbc8b72bbe4d0f7084e95acc46570c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "sadjow",
-        "repo": "claude-code-nix",
-        "type": "github"
-      }
-    },
     "claude-plugins-official": {
       "flake": false,
       "locked": {
@@ -77,66 +55,6 @@
       "original": {
         "owner": "sadjow",
         "repo": "codex-cli-nix",
-        "type": "github"
-      }
-    },
-    "coding-cave": {
-      "inputs": {
-        "claude-code": "claude-code_2",
-        "crane": "crane",
-        "crinj": "crinj",
-        "home-manager": "home-manager",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1788304160,
-        "narHash": "sha256-kJbr2DV+GQAJyCeEZgi6iuURaA9hkUvsVKdg+bLKaCY=",
-        "ref": "refs/heads/main",
-        "rev": "26bd5bda9b4e993426f038e1c0de290ddfab9680",
-        "revCount": 213,
-        "type": "git",
-        "url": "ssh://git@github.com/christian-oudard/coding-cave"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/christian-oudard/coding-cave"
-      }
-    },
-    "crane": {
-      "locked": {
-        "lastModified": 1780099841,
-        "narHash": "sha256-EVZd2RsbpreRUDSi9rBwPY+ZxoyMaiEBbZxxhljbaS4=",
-        "owner": "ipetkov",
-        "repo": "crane",
-        "rev": "0532eb17955225173906d671fb36306bdeb1e2dc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ipetkov",
-        "repo": "crane",
-        "type": "github"
-      }
-    },
-    "crinj": {
-      "inputs": {
-        "nixpkgs": [
-          "coding-cave",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1787800812,
-        "narHash": "sha256-y+OMzom8sYuoqoy0WlU8uY5HhxkWzLc+RgPXUnuHFFo=",
-        "owner": "christian-oudard",
-        "repo": "crinj",
-        "rev": "a4c95cca7064dbfafd6ef0f5479d9bcce15ea805",
-        "type": "github"
-      },
-      "original": {
-        "owner": "christian-oudard",
-        "repo": "crinj",
         "type": "github"
       }
     },
@@ -199,46 +117,7 @@
         "type": "github"
       }
     },
-    "flake-utils_2": {
-      "inputs": {
-        "systems": "systems_3"
-      },
-      "locked": {
-        "lastModified": 1731533236,
-        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "home-manager": {
-      "inputs": {
-        "nixpkgs": [
-          "coding-cave",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1786887553,
-        "narHash": "sha256-0J8EwNSJ/2OeyuvXgfG+k5uBT1gkg0ww7VEo+14xl50=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "5bd505963717a894b02a57cdbcc00db28d9b029f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "home-manager_2": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -319,10 +198,9 @@
         "claude-code": "claude-code",
         "claude-plugins-official": "claude-plugins-official",
         "codex-cli": "codex-cli",
-        "coding-cave": "coding-cave",
         "diktat": "diktat",
         "disko": "disko",
-        "home-manager": "home-manager_2",
+        "home-manager": "home-manager",
         "journal-hours": "journal-hours",
         "nixpkgs": "nixpkgs",
         "persist": "persist"
@@ -344,21 +222,6 @@
       }
     },
     "systems_2": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
-    "systems_3": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",

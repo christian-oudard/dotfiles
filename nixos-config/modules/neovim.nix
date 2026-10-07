@@ -1,6 +1,4 @@
-# Shared neovim home-manager module. Imported by home.nix on the host
-# and by ~/.config/coding-cave/cave.nix in the cave (via the `dotfiles`
-# flake input) so the plugin list and editor wiring live in one place.
+# Neovim home-manager module.
 
 {
   config,
@@ -10,9 +8,8 @@
 }:
 
 {
-  # init.lua is provided externally (chezmoi on the host, dotfiles flake
-  # in the cave). home-manager only writes hm-generated.lua, which the
-  # external init.lua imports for plugin/runtime setup.
+  # init.lua is provided by chezmoi. home-manager only writes
+  # hm-generated.lua, which init.lua imports for plugin/runtime setup.
   xdg.configFile."nvim/init.lua".enable = lib.mkForce false;
   xdg.configFile."nvim/lua/hm-generated.lua".text = config.programs.neovim.initLua;
 

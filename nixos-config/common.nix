@@ -2,9 +2,7 @@
 # nix machinery, and the glue language tooling needs. Anything that
 # presupposes a screen, a battery or a desk lives in laptop.nix instead.
 #
-# Taken by every host, so per-host judgment calls are mkDefault. Nothing here
-# may reference the private coding-cave input, which not every host has a key
-# to fetch.
+# Taken by every host, so per-host judgment calls are mkDefault.
 {
   config,
   lib,

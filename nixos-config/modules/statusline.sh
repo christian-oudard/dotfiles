@@ -1,8 +1,5 @@
 #!/bin/bash
 # Statusline, composed from segments each owned by its own component:
-#   - byline:               the command given as arguments, e.g.
-#                           `cav-host agent-tag` (coding-cave). Omitted on
-#                           the host, which has no agent to name.
 #   - model class + context%: Claude Code statusLine JSON on stdin
 #   - persist session:      persist status --short    (persist plugin)
 # This script only assembles them; it parses no component's internal state.
@@ -10,8 +7,6 @@ input=$(cat)
 
 line=
 add() { [ -n "$1" ] && line+="${line:+ · }$1"; }
-
-[ $# -gt 0 ] && add "$("$@")"
 
 # Model class from the model id, e.g. claude-opus-4-8 -> Opus.
 id=$(printf '%s' "$input" | jq -r '.model.id // empty')

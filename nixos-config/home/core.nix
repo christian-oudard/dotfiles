@@ -2,8 +2,7 @@
 # tooling, terminal utilities. Everything that is useful over SSH and nothing
 # that needs a screen; the graphical layer is home/desktop.nix.
 #
-# Taken by every host. Nothing here may reference the private coding-cave
-# input, which not every host has a key to fetch.
+# Taken by every host.
 {
   username,
   homeDir,

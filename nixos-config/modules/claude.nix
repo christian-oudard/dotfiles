@@ -71,28 +71,17 @@ rec {
 
   # Custom skills, one <name>/SKILL.md per directory under claude/skills/,
   # surfacing as /<name>. Drop a new skill in there, no nix change needed.
-  # The host passes the directory straight to programs.claude-code.skills;
-  # the cave consumes skillsSrc as a bundle src (which expects a directory
-  # containing skills/).
-  skillsSrc = ./claude;
-  skills = skillsSrc + "/skills";
+  skills = ./claude/skills;
 
-  # Statusline: one shared assembly script, installed by each consumer at
-  # ~/.claude/statusline.sh, plus a byline command passed as arguments. The
-  # byline is environment-specific (the cave names its agent, the host has
-  # nothing to name), so it stays out of the shared settings below.
-  statuslineSrc = ./statusline.sh;
-  statusLineFor = bylineArgs: {
-    type = "command";
-    command = builtins.concatStringsSep " " ([ "~/.claude/statusline.sh" ] ++ bylineArgs);
-  };
-
-  # Bell hooks are added per-consumer via bellHooks, since the bell command
-  # is environment-specific.
   settings = {
     model = "opus";
     effortLevel = "high";
     promptSuggestionEnabled = false;
+    statusLine = {
+      type = "command";
+      command = "~/.claude/statusline.sh";
+    };
+    hooks = bellHooks;
     # Keep session transcripts; the default deletes them after 30 days.
     cleanupPeriodDays = 36500;
     attribution = {
@@ -259,11 +248,12 @@ rec {
   # Bell triggers for "agent needs you" moments: the turn ending (Stop), a
   # question (AskUserQuestion), or a permission prompt. The Notification
   # matcher is the notification_type, scoped to permission_prompt so the 60s
-  # idle_prompt does not ring. The bell command differs per environment
-  # (host uses /proc/$PPID, the cave uses cav-host), so it is passed in.
+  # idle_prompt does not ring.
   bellHooks =
-    bellCmd:
     let
+      # Ring the terminal that launched Claude. PID 1 is systemd, so the
+      # terminal is $PPID's stdout.
+      bellCmd = "printf '\\a' > /proc/$PPID/fd/1";
       # Stop also fires on iterations that a persist loop re-injects, so
       # stay silent while `persist active` reports a live session. persist
       # ends a session with a final summarize turn, so the loop's last stop
@@ -307,8 +297,7 @@ rec {
     };
 
   # Home-manager module that wires the data above through programs.claude-code
-  # and writes an editable settings.json on activation. Other consumers can
-  # ignore this and read pluginsFor / lspServers / settings directly.
+  # and writes an editable settings.json on activation.
   module =
     {
       config,
@@ -316,11 +305,6 @@ rec {
       lib,
       ...
     }:
-    let
-      # Ring the terminal that launched Claude. PID 1 is systemd, so the
-      # terminal is $PPID's stdout.
-      bellCmd = "printf '\\a' > /proc/$PPID/fd/1";
-    in
     {
       # Install plugins shipped as packages (persist); path-string plugins
       # have no package to install, so filter them out.
@@ -334,7 +318,7 @@ rec {
       };
 
       home.file.".claude/statusline.sh" = {
-        source = statuslineSrc;
+        source = ./statusline.sh;
         executable = true;
       };
 
@@ -343,17 +327,7 @@ rec {
         # so on a home where the directory does not exist yet it must be made.
         mkdir -p "$HOME/.claude"
         ${pkgs.jq}/bin/jq . \
-          ${
-            pkgs.writeText "claude-settings.json" (
-              builtins.toJSON (
-                settings
-                // {
-                  hooks = bellHooks bellCmd;
-                  statusLine = statusLineFor [ ];
-                }
-              )
-            )
-          } \
+          ${pkgs.writeText "claude-settings.json" (builtins.toJSON settings)} \
           > "$HOME/.claude/settings.json"
         chmod 644 "$HOME/.claude/settings.json"
       '';

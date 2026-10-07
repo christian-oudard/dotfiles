@@ -19,10 +19,6 @@
       url = "github:sadjow/codex-cli-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    coding-cave = {
-      url = "git+ssh://git@github.com/christian-oudard/coding-cave";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     claude-plugins-official = {
       url = "github:anthropics/claude-plugins-official";
       flake = false;
@@ -49,7 +45,6 @@
       disko,
       claude-code,
       codex-cli,
-      coding-cave,
       claude-plugins-official,
       persist,
       diktat,
@@ -96,12 +91,7 @@
           }
         ];
 
-      # coding-cave is private and fetched over SSH, so only hosts listed with
-      # it here may reach it. Nothing in common.nix or homeCore can.
-      laptopModules = [
-        coding-cave.nixosModules.codingCave
-      ]
-      ++ homeManager {
+      laptopModules = homeManager {
         profiles = [
           homeCore
           homeDesktop
@@ -153,9 +143,9 @@
         {
           # security.pki.useCompatibleBundle being dropped silently empties the
           # CA bundle and breaks uv's standalone Python.
-          ssl-cert-bundle =
-            holds "ssl/cert.pem no longer points at the NixOS CA bundle: ${cert.source}"
-              (cert.enable && builtins.match ".*ca-(bundle|certificates).*" cert.source != null);
+          ssl-cert-bundle = holds "ssl/cert.pem no longer points at the NixOS CA bundle: ${cert.source}" (
+            cert.enable && builtins.match ".*ca-(bundle|certificates).*" cert.source != null
+          );
 
           # Zeal's disk is partitioned for UEFI and the module declaring that is
           # only in the image build, so the running configuration has to repeat

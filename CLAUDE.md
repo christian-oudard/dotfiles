@@ -88,14 +88,9 @@ Unfree packages are allowed globally via `dot_config/nixpkgs/config.nix`.
 - `common.nix` - system config shared by all hosts (greetd, XKB, minimal packages)
 - `backup.nix` - daily restic backups to GCS via systemd timer
 - `home.nix` - home-manager config (packages only, dotfiles via chezmoi)
-- `modules/claude.nix` - Claude Code settings (model, permissions, hooks, plugins, LSP servers) shared between host and cave
+- `modules/claude.nix` - Claude Code settings (model, permissions, hooks, plugins, LSP servers)
 - `modules/claude/skills/<name>/SKILL.md` - custom skills, surfacing as `/<name>` (no nix change needed to add one)
-- `modules/neovim.nix` - neovim module, imported by `home.nix` on the host and by the cave
-- `modules/zsh.nix` - cave-only zsh module (on the host, chezmoi installs the zsh config directly)
-
-The cave sandbox config (`~/.config/coding-cave/cave.nix`) comes from the
-`coding-cave` flake input, which pulls these modules back in via its own
-`dotfiles` input.
+- `modules/neovim.nix` - neovim module, imported by `home/core.nix`
 
 ### Testing Changes (without sudo)
 
@@ -119,7 +114,7 @@ from the LSP servers Claude Code itself uses (`lspServers` in `modules/claude.ni
 
 ## Tests
 
-Run `nix flake check` in `nixos-config/` after any change there. It evaluates every host (syntax + eval check, no package downloads) plus the `checks` output, which guards the SSL CA bundle foot-gun. Inside a cave, add `--override-input coding-cave path:/projects/coding-cave --no-write-lock-file`; there is no key to fetch that input with.
+Run `nix flake check` in `nixos-config/` after any change there. It evaluates every host (syntax + eval check, no package downloads) plus the `checks` output, which guards the SSL CA bundle foot-gun.
 
 Keep the checks minimal. Do not add one for a routine config change. Only add one for a specific, non-obvious foot-gun that nix evaluation will not catch on its own.
 
