@@ -91,9 +91,12 @@
     pkg-config
   ];
 
-  # Temp directory for Claude Code sandbox (TMPDIR=/tmp/claude)
   systemd.tmpfiles.rules = [
+    # Temp directory for Claude Code sandbox (TMPDIR=/tmp/claude)
     "d /tmp/claude 0755 ${username} users -"
+    # Shared trash for the root filesystem, so gtrash can trash files in /tmp
+    # by moving them within the filesystem.
+    "d /.Trash 1777 root root -"
   ];
 
   # Allow unfree packages
