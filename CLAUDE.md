@@ -64,12 +64,13 @@ Custom shell functions defined in zshrc:
 - **`backup`** — zsh function. Backs up `~/files` to the USB repo (`/mnt/usb/restic-repo`) if mounted, then to Google Cloud (`gs:cwo-restic:/`).
 - **`restic`** — zsh wrapper that sets GCS credentials for ad-hoc restic commands.
 
-Automatic daily backups run via the `restic-backups-gcs` systemd timer (`nixos-config/backup.nix`, imported by both hosts).
+Automatic hourly backups run via the `restic-backups-gcs` systemd timer, skipped on metered connections, with a daily `restic-backups-gcs-prune` (`nixos-config/backup.nix`, imported by both hosts, spec in `docs/backup.md`).
 
 Key aliases:
 - `ls`, `i`, `ll`, `la` → eza
 - `du` → dust
 - `vim` → nvim
+- `tp` → `gtrash put --rm-mode` (trash). `rm` is disabled; `command rm` deletes. Trash is kept 30 days and not backed up (`docs/trash.md`).
 
 Private/sensitive shell config is in `encrypted_private_dot_zshrc_private.age`.
 
@@ -86,7 +87,7 @@ Unfree packages are allowed globally via `dot_config/nixpkgs/config.nix`.
 - `hosts/<host>/configuration.nix` - per-host system config (hosts: `cantor`, `dedekind`, `zeal`)
 - `hosts/<host>/disk-config.nix` - disko config for LUKS/LVM partitioning
 - `common.nix` - system config shared by all hosts (greetd, XKB, minimal packages)
-- `backup.nix` - daily restic backups to GCS via systemd timer
+- `backup.nix` - hourly restic backups to GCS via systemd timer
 - `home.nix` - home-manager config (packages only, dotfiles via chezmoi)
 - `modules/claude.nix` - Claude Code settings (model, permissions, hooks, plugins, LSP servers)
 - `modules/claude/skills/<name>/SKILL.md` - custom skills, surfacing as `/<name>` (no nix change needed to add one)

@@ -50,6 +50,7 @@
     restic
     rclone
     rsync
+    gtrash
 
     # Programming
     jujutsu
@@ -92,5 +93,21 @@
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
+  };
+
+  # Trash is the undo for tp; it is not backed up, so keep it for 30 days.
+  systemd.user.services.trash-prune = {
+    Unit.Description = "Delete trash older than 30 days";
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.gtrash}/bin/gtrash prune --force --day 30";
+    };
+  };
+  systemd.user.timers.trash-prune = {
+    Timer = {
+      OnCalendar = "daily";
+      Persistent = true;
+    };
+    Install.WantedBy = [ "timers.target" ];
   };
 }

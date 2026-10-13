@@ -123,8 +123,13 @@ alias grep='grep --color=auto'
 alias ip='ip -color=auto'
 alias less='less -w'
 alias tar='tar --keep-old-files'
+alias mv='mv -i --backup=numbered'
+alias cp='cp -i --backup=numbered'
 alias veracrypt='veracrypt --text'
 alias vim='nvim'
+alias tp='gtrash put --rm-mode'
+# Keep rm deleting for real, as on every other machine, but make it opt-in here.
+rm() { print -u2 "rm is off. Use tp to trash, or 'command rm' to delete."; return 1; }
 alias cal='cal --monday --year --week'
 if command -v nix-shell &>/dev/null; then
   alias nix-shell='nix-shell --command zsh'
