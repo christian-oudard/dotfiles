@@ -9,7 +9,10 @@ let
   # Exit 1 skips the run; exit 255 fails it, so a missing NetworkManager is loud.
   unmetered = pkgs.writeShellScript "unmetered" ''
     metered=$(${pkgs.systemd}/bin/busctl get-property org.freedesktop.NetworkManager \
-      /org/freedesktop/NetworkManager org.freedesktop.NetworkManager Metered) || exit 255
+      /org/freedesktop/NetworkManager org.freedesktop.NetworkManager Metered) || {
+      echo "Cannot ask NetworkManager whether the connection is metered." >&2
+      exit 255
+    }
     # NMMetered: 1 = yes, 3 = guess-yes.
     case $metered in "u 1" | "u 3") exit 1 ;; esac
   '';
@@ -50,20 +53,25 @@ in
   systemd.services.restic-backups-gcs.serviceConfig.ExecCondition = unmetered;
   systemd.services.restic-backups-gcs-prune.serviceConfig.ExecCondition = unmetered;
 
-  # Fire backup-failed.service if either unit ever transitions to failed.
-  systemd.services.restic-backups-gcs.unitConfig.OnFailure = [ "backup-failed.service" ];
-  systemd.services.restic-backups-gcs-prune.unitConfig.OnFailure = [ "backup-failed.service" ];
+  # Fire backup-failed@<unit> if either unit ever transitions to failed.
+  systemd.services.restic-backups-gcs.unitConfig.OnFailure = [ "backup-failed@%n.service" ];
+  systemd.services.restic-backups-gcs-prune.unitConfig.OnFailure = [ "backup-failed@%n.service" ];
 
-  # Route the failure into the desktop session's DBus so mako shows it.
+  # Route the failure into the desktop session's DBus so mako shows it, with
+  # the failed run's last log lines as the reason.
   # If the user isn't logged in graphically, /run/user/${uid}/bus is absent and
   # notify-send fails silently — the journal still records the original failure.
-  systemd.services.backup-failed = {
-    description = "Desktop notification for failed backup";
+  systemd.services."backup-failed@" = {
+    description = "Desktop notification for failed backup %i";
     serviceConfig = {
       Type = "oneshot";
       User = username;
       Environment = "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${uid}/bus";
-      ExecStart = "${pkgs.libnotify}/bin/notify-send -u critical 'Backup failed' 'A restic-backups-gcs unit did not complete. journalctl -u restic-backups-gcs*'";
+      ExecStart = "${pkgs.writeShellScript "backup-failed" ''
+        id=$(${pkgs.systemd}/bin/systemctl show -p InvocationID --value "$1")
+        ${pkgs.libnotify}/bin/notify-send -u critical "Backup failed: $1" \
+          "$(${pkgs.systemd}/bin/journalctl _SYSTEMD_INVOCATION_ID="$id" -n 3 -o cat)"
+      ''} %i";
     };
   };
 
