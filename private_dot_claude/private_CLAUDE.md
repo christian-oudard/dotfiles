@@ -50,6 +50,7 @@
 - Prefer Nix packages over language package managers where practical.
 - Use `uv`, not `pip`, and `pnpm`, not `npm`.
 - Edits to files in any `.claude` folder are blocked. Write and run a script to make the edit instead.
+- `rm` is denied. Delete files with `gtrash put --rm-mode`, which takes rm's flags and moves files to the trash.
 - Don't sleep for a guessed duration, such as `sleep 540`. Wait on the condition itself: `wait $PID`, `tail --pid=$PID -f /dev/null`, or `until <cond>; do sleep 5; done` under `timeout`.
 
 ## Development Style

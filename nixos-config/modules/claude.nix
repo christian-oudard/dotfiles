@@ -223,6 +223,8 @@ rec {
         "Bash(npm:*)"
         "Bash(npx:*)"
         "Bash(yarn:*)"
+        "Bash(rm:*)"
+        "Bash(command rm:*)"
         "Bash(shred:*)"
         "Bash(dd:*)"
         "Bash(mkfs:*)"
