@@ -8,11 +8,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1791399799,
-        "narHash": "sha256-OA4FQegGDTcdXsiBjQsrtgmTlY//pdTjmlCAw7lNPYg=",
+        "lastModified": 1791736119,
+        "narHash": "sha256-e6V9dNQEfoJu1MPHb6ALx3ZJIWUOp8dj2Sn/NYgMJ54=",
         "owner": "sadjow",
         "repo": "claude-code-nix",
-        "rev": "a7d0e55859b355f2010a89e99d85999b681562b5",
+        "rev": "7a91b64f9378dcff2180dc35b9ba033754d93b0a",
         "type": "github"
       },
       "original": {
@@ -66,11 +66,11 @@
         "transcribe-cpp": "transcribe-cpp"
       },
       "locked": {
-        "lastModified": 1791480100,
-        "narHash": "sha256-K1zav7E/hyxLZ0X30hMSeZSlNG7I+E/Ifun4LfVy3ZI=",
+        "lastModified": 1791916148,
+        "narHash": "sha256-0alBB+Qt+1GCaoDZwlWsTV6BqNWvAxFOn7lvvD6O/wI=",
         "owner": "christian-oudard",
         "repo": "diktat",
-        "rev": "ab31678904a483baff0334911db28b3ee0a98f4e",
+        "rev": "1c3c299cf4f4ce04062f01e781f4aceb7e979419",
         "type": "github"
       },
       "original": {
@@ -244,11 +244,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791394862,
-        "narHash": "sha256-BJADO4oXUmqtRtiF1G+2n+LMehuhLauGd2GXfeXP7+s=",
+        "lastModified": 1791915399,
+        "narHash": "sha256-m03SAF8zU2vrIkQfqVAlYI7DAoKo+lgTyBLge6l91CU=",
         "owner": "christian-oudard",
         "repo": "transcribe.cpp",
-        "rev": "df604a2ccaf4fbb7616f929c2e03b40fdf93d17c",
+        "rev": "8c3a34d4efe676b00d82e069486dec26ed8d9c45",
         "type": "github"
       },
       "original": {
