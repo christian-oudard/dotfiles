@@ -170,7 +170,7 @@ backup() {
         restic --repo="$usb_repo" backup "${args[@]}"
     fi
     echo "==> Backing up to Google Cloud (gs:cwo-restic:/)"
-    restic backup "${args[@]}"
+    restic backup "${args[@]}" && touch ~/.local/state/backup-last-success
 }
 
 # Execute private zshrc.
